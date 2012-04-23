@@ -1,0 +1,58 @@
+body {
+	margin:0 0 0 0;
+	background-image:url(../resources/img/back2.png);
+	background-repeat:repeat;
+}
+
+table {
+	margin: 0 auto; /* sempre alinha o div ou elemento no centro */
+	text-align: left
+}
+
+.conteudo {
+	width:682px;
+	height:379px;
+	position:relative;
+	margin:0 auto;
+	text-align:left;
+}
+
+.login {
+	width:400px;
+	height:310px;
+	margin:0 auto;
+	position:relative;
+	/* background-image: url(../../lib/img/ipad_back.png); */
+	background-repeat:no-repeat;
+	top:65px;
+	/* text-align: center; */
+}
+
+.inputs {
+	position:relative;
+	top:20px;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:16px;
+	padding-top:40px;
+}
+
+.inp {
+	width:190px;
+	height:30px;
+	background-image:url(../resources/img/fundoinput.png);
+	background-repeat:no-repeat;
+	border:none;
+	padding-left:5px;
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+.btnentrar {	
+	width:70px;
+	height:20px;
+	background-color:#9c9c9c;
+	border:none;
+	color:#000000;
+	position:relative;
+	top:5px;
+	margin: 0 auto; /* sempre alinha o div ou elemento no centro */
+}
