@@ -121,7 +121,6 @@ public class GenericRepository	<T, IDTipo extends Serializable> implements Entit
 			}
 		}			
 		return (T) query.getSingleResult();		
-
 	}
 
 	public void close() {

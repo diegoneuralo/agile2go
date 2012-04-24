@@ -8,7 +8,7 @@
 
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 	
-		<non-jta-data-source>java:jboss/postgresDS</non-jta-data-source>		
+		<jta-data-source>java:jboss/postgresDS</jta-data-source>		
 		
 		<class>br.com.scrum.domain.entity.Usuario</class>
 		<class>br.com.scrum.domain.entity.Projeto</class>

@@ -17,6 +17,7 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import br.com.scrum.domain.enums.Const;
 import br.com.scrum.domain.enums.UsuarioRole;
@@ -36,17 +37,17 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@NotBlank(message = "nome é campo obrigatório")
+	@NotEmpty(message = "nome é campo obrigatório")
 	@Size(min = 3, max = 25)
 //	@Pattern(regexp = "[A-Z]", message = "usuário deve conter somente letras")
 	@Column(name = "NOME", nullable = false, length = 100)
 	private String nome;
 	
-	@NotBlank(message = "login é campo obrigatório!")
+	@NotEmpty(message = "login é campo obrigatório!")
 	@Column(name = "LOGIN", nullable = false, unique = true, length = 20)
 	private String login;
 	
-	@NotBlank(message = "senha é campo obrigatório!")
+	@NotEmpty(message = "senha é campo obrigatório!")
 	@Column(name = "SENHA", nullable = false, length = 15)
 	private String senha;
 

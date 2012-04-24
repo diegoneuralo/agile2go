@@ -42,14 +42,14 @@ public class UsuarioDaoImpl implements UsuarioDao, Serializable {
 		return dao.find(id);
 	}
 
-	public Usuario comLogin (String login, String senha) throws Exception {
+	public Usuario comLogin (final String login, final String senha) throws Exception {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put(Usuario.LOGIN, login);
 		params.put(Usuario.SENHA, senha);		
 		try {
 			return dao.getByNamedQuery("Usuario.getByLogin", params);
-		} catch ( NoResultException nre ) {
-			throw nre;
+		} catch ( Exception e ) {
+			throw e;
 		}
 	}
 

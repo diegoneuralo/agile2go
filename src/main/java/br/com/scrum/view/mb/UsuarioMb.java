@@ -6,7 +6,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
 import br.com.scrum.domain.entity.Usuario;
-import br.com.scrum.infrastructure.dao.exception.BusinessException;
 import br.com.scrum.infrastructure.decorator.UsuarioDaoImpl;
 import br.com.scrum.infrastructure.repository.UsuarioDao;
 import br.com.scrum.view.util.JsfUtil;
@@ -25,17 +24,11 @@ public class UsuarioMb implements Serializable {
 
 	public String loginUsuario () {
 		try {			
-			usuario = dao.comLogin(login, senha);
-			if ( usuario != null )
-				return PAGINA_PRINCIPAL;
-			return "";
-		} catch ( BusinessException be ) {
-			JsfUtil.addErrorMessage("usuário não encontrado");
-			return "";
+			usuario = dao.comLogin(login, senha);			
+			return PAGINA_PRINCIPAL;			
 		} catch ( Exception e ) {
-			JsfUtil.addErrorMessage("ocorreu um erro inesperado");
-			e.printStackTrace();
-			return "";
+			JsfUtil.addErrorMessage("usuário não encontrado");
+			return "";		
 		}
 	}
 

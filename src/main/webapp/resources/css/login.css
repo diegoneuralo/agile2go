@@ -6,26 +6,35 @@ body {
 
 table {
 	margin: 0 auto; /* sempre alinha o div ou elemento no centro */
-	text-align: left
+}
+
+label {
+	margin-left: 70px;
+	font-weight: bold;
+	color: #000;
+	font-family: arial;
+	font-size: 16px;
+}
+
+button {
+	margin-left: 55px;
 }
 
 .conteudo {
-	width:682px;
+	width:400px;
 	height:379px;
 	position:relative;
-	margin:0 auto;
-	text-align:left;
+	margin:0 auto;	
 }
 
 .login {
 	width:400px;
 	height:310px;
-	margin:0 auto;
+	float: left;
 	position:relative;
 	/* background-image: url(../../lib/img/ipad_back.png); */
 	background-repeat:no-repeat;
-	top:65px;
-	/* text-align: center; */
+	top:80px;	
 }
 
 .inputs {
@@ -46,13 +55,9 @@ table {
 	font-family:Arial, Helvetica, sans-serif;
 }
 
-.btnentrar {	
-	width:70px;
-	height:20px;
-	background-color:#9c9c9c;
-	border:none;
-	color:#000000;
-	position:relative;
-	top:5px;
-	margin: 0 auto; /* sempre alinha o div ou elemento no centro */
+.btnall {	
+	/* float: right; */ 
+	width:auto;
+	height:auto;					
+	margin-left: 150px;
 }

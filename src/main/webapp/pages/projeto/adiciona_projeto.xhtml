@@ -4,29 +4,42 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-
+<h:head>
+	<h:outputStylesheet name="login.css" library="css" />
+</h:head>
 <ui:composition template="/templates/_template.xhtml">
 	<ui:define name="body">
 
-		<div class="login">
-			<h:form id="form">
-				<p:growl id="growl" life="5000" showDetail="true" />
-				<h:panelGrid columns="2" cellpadding="3" cellspacing="3" border="0">
-					<h:outputLabel value="Nome Projeto" style="width: 100px" />
-					<p:inputText value="#{projetoMb.projeto.nome}" />
-
-					<h:outputLabel value="Descrição" />
-					<p:inputTextarea value="#{projetoMb.projeto.descricao}" rows="3" cols="23" />
-
-					<h:outputLabel value="Data Entrega" />
-					<p:calendar pattern="dd/MM/yyyy" mode="popup" value="#{projetoMb.projeto.dataEntrega}" />
-
-					<h:outputLabel value="Localização" />
-					<p:inputText value="#{projetoMb.projeto.empresa}" />
-
-					<p:commandButton action="#{projetoMb.adicionaProjeto}" immediate="true" value="Criar" update="growl" />
-				</h:panelGrid>
-			</h:form>
+		<div class="conteudo" style=" width : 413px;">
+			<div class="login" style="height : 296px; width : 675px;">
+				<h:form id="form">
+					<p:growl id="growl" life="5000" showDetail="true" />
+					<h:panelGrid cellpadding="3" cellspacing="3" border="0">
+						<h:panelGrid columns="2">
+							<h:outputLabel value="Nome Projeto" style="width: 100px" />
+							<p:inputText value="#{projetoMb.projeto.nome}" />
+						</h:panelGrid>
+						<h:panelGrid columns="2">
+							<h:outputLabel value="Descrição" />
+							<p:inputTextarea value="#{projetoMb.projeto.descricao}" rows="3"
+								cols="23" />
+						</h:panelGrid>
+						<h:panelGrid columns="2">
+							<h:outputLabel value="Data Entrega" />
+							<p:calendar pattern="dd/MM/yyyy" mode="popup"
+								value="#{projetoMb.projeto.dataEntrega}" />
+						</h:panelGrid>
+						<h:panelGrid columns="2">
+							<h:outputLabel value="Localização" />
+							<p:inputText value="#{projetoMb.projeto.empresa}" />
+						</h:panelGrid>
+					</h:panelGrid>
+					<h:panelGrid columns="1">
+						<p:commandButton action="#{projetoMb.adicionaProjeto}"
+							value="Criar" update="growl" styleClass="btnall" />
+					</h:panelGrid>
+				</h:form>
+			</div>
 		</div>
 	</ui:define>
 </ui:composition>
