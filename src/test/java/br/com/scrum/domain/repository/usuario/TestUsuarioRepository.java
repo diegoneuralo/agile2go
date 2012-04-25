@@ -32,8 +32,12 @@ public class TestUsuarioRepository {
 
 	@BeforeClass					
 	public static void before() throws Exception {
-		em = new JPAUtil().getEntityManager();
-		usuarioDao = new UsuarioDaoImpl();
+		try {
+			em = new JPAUtil().getEntityManager();
+			usuarioDao = new UsuarioDaoImpl();			
+		} catch (Exception e) {
+			throw new Exception("ERRO: ", e.getCause());
+		}
 	}
 
 	@AfterClass
