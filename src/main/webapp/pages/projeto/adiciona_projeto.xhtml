@@ -10,50 +10,32 @@
 <ui:composition template="/templates/_template.xhtml">
 	<ui:define name="body">
 
-		<div class="login">
-			<h:form id="form">
+		<h:panelGroup >
+			<h:form id="form">			
 				<p:growl id="growl" life="5000" showDetail="true" />
-
-				<h:panelGrid columns="0" cellpadding="0" cellspacing="0"
-					columnClasses="valign-top" border="0">
-
-					<h:panelGrid columns="2">
-						<h:outputLabel value="Nome" />
-						<h:panelGrid cellpadding="2" cellspacing="2">
-							<p:inputText value="#{projetoMb.projeto.nome}" size="30" />
-						</h:panelGrid>
-					</h:panelGrid>
-					<h:panelGrid columns="2">
-						<h:outputLabel value="Descrição" />
-						<h:panelGrid cellpadding="2" cellspacing="2">
-							<p:inputTextarea value="#{projetoMb.projeto.descricao}" rows="2"
-								cols="30" />
-						</h:panelGrid>
-					</h:panelGrid>
-					<h:panelGrid columns="2">
-						<h:outputLabel value="Prazo" />
-						<h:panelGrid cellpadding="2" cellspacing="2" styleClass="valign-top">
-							<p:calendar pattern="dd/MM/yyyy" id="popupButtonCal"
-								showOn="button" value="#{projetoMb.projeto.dataEntrega}" />
-						</h:panelGrid>
-					</h:panelGrid>
-					<h:panelGrid columns="2">
-						<h:panelGrid cellpadding="2" cellspacing="2">
-							<h:outputLabel value="Localização" />
-							<p:inputText value="#{projetoMb.projeto.empresa}" />
-						</h:panelGrid>
-					</h:panelGrid>
+				<h:panelGrid columns="2" cellpadding="3" cellspacing="3" style="margin-left: 20px; margin-top: 30px;">
+					 
+					<h:outputLabel value="Nome" style="margin-left: 70px;"/>			
+					<p:inputText value="#{projectMb.project.nome}" size="25"/>
+					
+					<h:outputLabel value="Descrição" style="margin-left: 70px;" />
+					<p:inputTextarea value="#{projectMb.project.descricao}" style="width: 242px; height: 42px;" />
+					<h:outputLabel value="Prazo" style="margin-left: 70px;" />
+						<p:calendar pattern="dd/MM/yyyy"
+						            id="popupButtonCal"
+						            value="#{projectMb.project.dataEntrega}"
+						            showOn="button"
+						            size="25" />
+														
+					<h:outputLabel value="Localização" style="margin-left: 70px;" />
+					<p:inputText value="#{projectMb.project.empresa}" size="25" />																										
 				</h:panelGrid>
-				<h:panelGrid columns="1">
-					<h:panelGrid cellpadding="0" cellspacing="2">
-						<p:commandButton action="#{projetoMb.adicionaProjeto}"
-							value="Criar" update="growl" styleClass="btnall" />
-					</h:panelGrid>
-				</h:panelGrid>
-
+				
+					<p:commandButton value="Save" action="#{projectMb.addProject}" style="margin-left: 196px;"  />
+					<p:commandButton value="Cancel" action="#{projectMb.cancelaProjeto}" />					
 			</h:form>
-
-		</div>
+	</h:panelGroup>
+		
 	</ui:define>
 </ui:composition>
 </html>

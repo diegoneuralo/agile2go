@@ -31,7 +31,7 @@ public class Item implements Serializable {
 	@Column(name = "ITEM_ID")
 	private int id;
 
-	@NotEmpty(message = "descrição é campo obrigatório!")
+	@NotEmpty(message = "type a description")
 	@Column(name = "DESCRICAO", nullable = false)
 	private String descricao;
 

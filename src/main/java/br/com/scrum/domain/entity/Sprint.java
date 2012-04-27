@@ -35,7 +35,7 @@ public class Sprint implements Serializable {
 	@Column(name = "SPRINT_ID")
 	private int id;
 		
-	@NotBlank(message = "nome do sprint é obrigatório!")
+	@NotBlank(message = "type a name!")
 	@Column(name = "NOME", nullable = false, length = 60)
 	private String nome;
 		
@@ -48,7 +48,7 @@ public class Sprint implements Serializable {
 		
 	@ManyToOne	
 	@JoinColumn(name = "PROJETO_ID", referencedColumnName = "PROJETO_ID")	
-	private Projeto projeto;	
+	private Project project;	
 		
 	public Sprint() { }		
 
@@ -84,12 +84,12 @@ public class Sprint implements Serializable {
 		this.dataFim = dataFim;
 	}
 	
-	public final Projeto getProjeto() {
-		return projeto;
+	public final Project getProjeto() {
+		return project;
 	}
 
-	public final void setProjeto(Projeto projeto) {		
-		this.projeto = projeto;
+	public final void setProjeto(Project project) {		
+		this.project = project;
 	}
 		
 

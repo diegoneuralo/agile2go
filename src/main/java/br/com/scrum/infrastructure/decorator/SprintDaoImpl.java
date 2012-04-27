@@ -3,13 +3,13 @@ package br.com.scrum.infrastructure.decorator;
 import java.util.List;
 
 import br.com.scrum.domain.entity.Sprint;
-import br.com.scrum.infrastructure.dao.Entity;
-import br.com.scrum.infrastructure.dao.GenericRepository;
+import br.com.scrum.infrastructure.dao.Dao;
+import br.com.scrum.infrastructure.dao.GenericDao;
 import br.com.scrum.infrastructure.repository.SprintDao;
 
 public class SprintDaoImpl implements SprintDao {
 	
-	private Entity<Sprint, Integer> sprintDao = new GenericRepository<Sprint, Integer>(Sprint.class);
+	private Dao<Sprint, Integer> sprintDao = new GenericDao<Sprint, Integer>(Sprint.class);
 
 	@Override
 	public Sprint salva (Sprint sprint) {

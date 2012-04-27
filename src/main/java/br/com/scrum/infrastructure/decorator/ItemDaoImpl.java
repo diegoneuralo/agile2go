@@ -3,13 +3,13 @@ package br.com.scrum.infrastructure.decorator;
 import java.util.List;
 
 import br.com.scrum.domain.entity.Item;
-import br.com.scrum.infrastructure.dao.Entity;
-import br.com.scrum.infrastructure.dao.GenericRepository;
+import br.com.scrum.infrastructure.dao.Dao;
+import br.com.scrum.infrastructure.dao.GenericDao;
 import br.com.scrum.infrastructure.repository.ItemDao;
 
 public class ItemDaoImpl implements ItemDao {
 	
-	private Entity<Item, Integer> itemDao = new GenericRepository<Item, Integer>(Item.class);
+	private Dao<Item, Integer> itemDao = new GenericDao<Item, Integer>(Item.class);
 
 	@Override
 	public Item salva (Item item) {

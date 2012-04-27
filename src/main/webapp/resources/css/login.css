@@ -1,24 +1,21 @@
-body {
+ body {
 	margin:0 0 0 0;
 	background-image:url(../resources/img/back2.png);
 	background-repeat:repeat;
 }
 
-table {
-	margin: 0 auto; /* sempre alinha o div ou elemento no centro */
-}
 
 label {
-	margin-left: 70px;
-	font-weight: bold;
+	/* margin-left: 70px; */
+	font-weight: bold; 
 	color: #000;
 	font-family: arial;
 	font-size: 16px;
 }
 
-button {
+/* button {
 	margin-left: 55px;
-}
+} */
 
 .conteudo {
 	width:400px;
@@ -32,7 +29,7 @@ button {
 	height:310px;
 	float: left;
 	position:relative;
-	/* background-image: url(../../lib/img/ipad_back.png); */
+	background-image: url(../../lib/img/ipad_back.png);
 	background-repeat:no-repeat;
 	top:80px;	
 }
@@ -56,8 +53,8 @@ button {
 }
 
 .btnall {	
-	/* float: right; */ 
+	float: right; 
 	width:auto;
 	height:auto;					
 	margin-left: 150px;
-}
+} 

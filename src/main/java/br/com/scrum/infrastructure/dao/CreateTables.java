@@ -9,16 +9,14 @@ import javax.persistence.PersistenceUnit;
 import br.com.scrum.domain.enums.Const;
 
 public class CreateTables {
-		
-	private static final String UNIDADE_PERSISTENCIA = Const.SCHEMA;
-	@PersistenceUnit private static EntityManager em;
-	@PersistenceContext private static EntityManagerFactory emf;
-	
+	private static final String PERSISTENCE_UNIT = Const.SCHEMA;
+	@PersistenceContext private static EntityManager em;
+	private static EntityManagerFactory emf;
+
 	public static void main(String[] args) {
-		emf = Persistence.createEntityManagerFactory(UNIDADE_PERSISTENCIA);
+		emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
 		em = emf.createEntityManager();
 		em.close();
 		emf.close();
 	}
-
 }
