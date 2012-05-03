@@ -47,14 +47,14 @@ public class SprintTestRepository {
 	private void criaSprint() {		
 		Project p = projectDao.withId(2);	
 		Sprint s = new Sprint();		
-		s.setNome("Sprint_03");
-		s.setDataInicio(new Date());
-		s.setDataFim(new Date());
-		s.setProjeto(p);	
+		s.setName("Sprint_03");
+		s.setStartDate(new Date());
+		s.setEndDate(new Date());
+		s.setProject(p);	
 		
 		sprintDao.salva(s);
 		
-		projetoID = s.getProjeto().getId();
+		projetoID = s.getProject().getId();
 		sprintID = s.getId();
 
 		assertNotNull(projetoID);

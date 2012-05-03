@@ -5,38 +5,34 @@ import java.util.List;
 import java.util.Map;
 
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 import javax.persistence.PersistenceException;
-import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
 import br.com.scrum.domain.enums.Const;
 
-public class GenericDao	<T, IDTipo extends Serializable> implements Dao<T, IDTipo>, Serializable {
-
-	private static final long serialVersionUID = 662696138506799273L;
-
-	private static final String PERSISTENCE_UNIT = Const.SCHEMA;
-	private EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);	
+//@DAO
+public class GenericDao<T, IDTipo extends Serializable> implements Dao<T, IDTipo>, Serializable {
+	
+	private EntityManagerFactory emf;	
 	@PersistenceContext private EntityManager em;
 	private Class<T> classePersistente;
 
 	public GenericDao (Class<T> clazz) {
 		classePersistente = clazz;
+		emf = Persistence.createEntityManagerFactory(Const.SCHEMA);
 	}
 
 	@Produces
 	@RequestScoped
 	protected EntityManager getEntityManager() {		
 		if ( emf == null || !emf.isOpen() )
-			emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
+			emf = Persistence.createEntityManagerFactory(Const.SCHEMA);
 		if ( em != null && em.isOpen() )
 			return em;
 		return emf.createEntityManager();		
@@ -86,10 +82,9 @@ public class GenericDao	<T, IDTipo extends Serializable> implements Dao<T, IDTip
 		}
 	}
 
-	public T find(IDTipo id) {
+	public T find(final IDTipo id) {
 		em = getEntityManager();
 		return em.find(classePersistente, id);
-
 	}
 
 	@SuppressWarnings("unchecked")
@@ -127,5 +122,7 @@ public class GenericDao	<T, IDTipo extends Serializable> implements Dao<T, IDTip
 		if ( em != null && em.isOpen() ) 
 			em.close();
 	}
+	
+	private static final long serialVersionUID = 662696138506799273L;
 
 }

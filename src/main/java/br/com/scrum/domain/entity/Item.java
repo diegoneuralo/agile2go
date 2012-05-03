@@ -31,48 +31,48 @@ public class Item implements Serializable {
 	@Column(name = "ITEM_ID")
 	private int id;
 
-	@NotEmpty(message = "type a description")
-	@Column(name = "DESCRICAO", nullable = false)
-	private String descricao;
+	@NotEmpty(message = "description is a required field")
+	@Column(name = "DESCRIPTION", nullable = false)
+	private String description;
 
-	@Column(name = "PRIORIDADE", nullable = false, length = 1)
-	private int prioridade;
+	@Column(name = "PRIORITY", nullable = false, length = 1)
+	private int priority;
 
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
 	@JoinColumn(name = "SPRINT_ID", referencedColumnName = "SPRINT_ID")
 	private Sprint sprint;			
 
 	public Item() { }
-
-	public final int getId() {
+	
+	public int getId() {
 		return id;
 	}
 
-	public final void setId(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public final String getDescricao() {
-		return descricao;
+	public String getDescription() {
+		return description;
 	}
 
-	public final void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public final int getPrioridade() {
-		return prioridade;
+	public int getPriority() {
+		return priority;
 	}
 
-	public final void setPrioridade(int prioridade) {
-		this.prioridade = prioridade;
+	public void setPriority(int priority) {
+		this.priority = priority;
 	}
 
-	public final Sprint getSprint() {
+	public Sprint getSprint() {
 		return sprint;
 	}
 
-	public final void setSprint(Sprint sprint) {
+	public void setSprint(Sprint sprint) {
 		this.sprint = sprint;
 	}
 

@@ -16,40 +16,36 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import br.com.scrum.domain.enums.Const;
 import br.com.scrum.domain.enums.UserRole;
 
 @Entity
-@Table(name = "USUARIO", schema = Const.SCHEMA, uniqueConstraints = {@UniqueConstraint(columnNames = "NOME")})
+@Table(name = "USER", schema = Const.SCHEMA, uniqueConstraints = {@UniqueConstraint(columnNames = "NAME")})
 @NamedQueries({
-	@NamedQuery(name = "User.getByLogin", query = "SELECT u FROM User as u WHERE u.login = :login and u.senha = :senha")})
-public class User implements Serializable {
-
-	private static final long serialVersionUID = -2854296962122780992L;
+	@NamedQuery(name = "User.getByLogin", query = "SELECT u FROM User as u WHERE u.login = :login and u.password = :password")})
+public class User implements Serializable {	
 	
 	public static final String LOGIN = "login";
-	public static final String SENHA = "senha";
+	public static final String PASSWORD = "password";
 
 	@Id	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@NotEmpty(message = "nome é campo obrigatório")
-	@Size(min = 3, max = 25)
-//	@Pattern(regexp = "[A-Z]", message = "usuário deve conter somente letras")
-	@Column(name = "NOME", nullable = false, length = 100)
-	private String nome;
+	@NotEmpty(message = "name is required field")
+	@Size(min = 3, max = 25)	
+	@Column(name = "NAME", nullable = false, length = 100)
+	private String name;
 	
-	@NotEmpty(message = "login é campo obrigatório!")
+	@NotEmpty(message = "login do not match")
 	@Column(name = "LOGIN", nullable = false, unique = true, length = 20)
 	private String login;
 	
-	@NotEmpty(message = "senha é campo obrigatório!")
-	@Column(name = "SENHA", nullable = false, length = 15)
-	private String senha;
+	@NotEmpty(message = "password do not match")
+	@Column(name = "PASSWORD", nullable = false, length = 15)
+	private String password;
 
 	@Embedded
 	private Address address;
@@ -59,52 +55,52 @@ public class User implements Serializable {
 	private UserRole role;	
 
 	public User() { }
-
-	public final int getId() {
+	
+	public int getId() {
 		return id;
 	}
 
-	public final void setId(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public final String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
 
-	public final void setNome(String nome) {
-		this.nome = nome;
-	}	
+	public void setName(String name) {
+		this.name = name;
+	}
 
-	public final String getLogin() {
+	public String getLogin() {
 		return login;
 	}
 
-	public final void setLogin(String login) {
+	public void setLogin(String login) {
 		this.login = login;
 	}
 
-	public final String getSenha() {
-		return senha;
+	public String getPassword() {
+		return password;
 	}
 
-	public final void setSenha(String senha) {
-		this.senha = senha;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public final Address getEndereco() {
+	public Address getAddress() {
 		return address;
 	}
 
-	public final void setEndereco(Address address) {
+	public void setAddress(Address address) {
 		this.address = address;
 	}
 
-	public final UserRole getRole() {
+	public UserRole getRole() {
 		return role;
 	}
 
-	public final void setRole(UserRole role) {
+	public void setRole(UserRole role) {
 		this.role = role;
 	}
 
@@ -129,5 +125,7 @@ public class User implements Serializable {
 			return false;
 		return true;
 	}	
+	
+	private static final long serialVersionUID = -2854296962122780992L;
 
 }

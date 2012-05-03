@@ -24,9 +24,7 @@ import br.com.scrum.domain.enums.Const;
 @Table(name = "SPRINT", schema = Const.SCHEMA)
 @NamedQueries(
 		@NamedQuery(name="Sprint.getLastId", query="SELECT s FROM Sprint as s where s.id = (select MAX(s.id) FROM Sprint s)"))
-public class Sprint implements Serializable {
-
-	private static final long serialVersionUID = 4897729582058383675L;
+public class Sprint implements Serializable {	
 	
 	public static final String ID = "id";
 	
@@ -35,63 +33,62 @@ public class Sprint implements Serializable {
 	@Column(name = "SPRINT_ID")
 	private int id;
 		
-	@NotBlank(message = "type a name!")
-	@Column(name = "NOME", nullable = false, length = 60)
-	private String nome;
+	@NotBlank(message = "name is a required field")
+	@Column(name = "NAME", nullable = false, length = 60)
+	private String name;
 		
-	@Column(name = "DATA_INICIO", nullable = false)
-	private Date dataInicio;
+	@Column(name = "START_DATE", nullable = false)
+	private Date startDate;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "DATA_FIM", nullable = false)
-	private Date dataFim;
+	@Column(name = "END_DATE", nullable = false)
+	private Date endDate;
 		
 	@ManyToOne	
-	@JoinColumn(name = "PROJETO_ID", referencedColumnName = "PROJETO_ID")	
+	@JoinColumn(name = "PROJECT_ID", referencedColumnName = "PROJECT_ID")	
 	private Project project;	
 		
 	public Sprint() { }		
-
-	public final int getId() {
+	
+	public int getId() {
 		return id;
 	}
 
-	public final void setId(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public final String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
 
-	public final void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public final Date getDataInicio() {
-		return dataInicio;
+	public Date getStartDate() {
+		return startDate;
 	}
 
-	public final void setDataInicio(Date dataInicio) {
-		this.dataInicio = dataInicio;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 
-	public final Date getDataFim() {
-		return dataFim;
+	public Date getEndDate() {
+		return endDate;
 	}
 
-	public final void setDataFim(Date dataFim) {
-		this.dataFim = dataFim;
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
-	
-	public final Project getProjeto() {
+
+	public Project getProject() {
 		return project;
 	}
 
-	public final void setProjeto(Project project) {		
+	public void setProject(Project project) {
 		this.project = project;
 	}
-		
 
 	@Override
 	public int hashCode() {
@@ -114,7 +111,8 @@ public class Sprint implements Serializable {
 			return false;
 		return true;
 	}
-
+	
+	private static final long serialVersionUID = 4897729582058383675L;
 
 }
 

@@ -22,7 +22,7 @@ import br.com.scrum.domain.enums.Const;
 import br.com.scrum.domain.enums.Status;
 
 @Entity
-@Table(name = "TAREFA", schema = Const.SCHEMA)
+@Table(name = "TASK", schema = Const.SCHEMA)
 @NamedQueries(
 		@NamedQuery(name="Task.getLastId", query = "SELECT t FROM Task t WHERE t.id = (select MAX(t.id) FROM Task t)"))
 public class Task implements Serializable {
@@ -31,21 +31,20 @@ public class Task implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "TAREFA_ID")
+	@Column(name = "TASK_ID")
 	private int id;
 
-	@NotEmpty(message = "type a name") 
-	@Column(name = "NOME", nullable = false, length = 60)
-	private String nome;
+	@NotEmpty(message = "name is a required field") 
+	@Column(name = "NAME", nullable = false, length = 60)
+	private String name;
 	
-	@Column(name = "RECURSO", nullable = false, length = 60)
-	private int recurso;
+	@Column(name = "RESOURCE", nullable = false, length = 60)
+	private int resource;
 
 	@Enumerated(value = EnumType.STRING)
 	@Column(name = "STATUS", length = 15)
 	private Status status;
-
-	@NotEmpty(message = "type a local")
+	
 	@Column(name = "LOCAL", nullable = false, length = 60)
 	private String local;
 
@@ -54,52 +53,52 @@ public class Task implements Serializable {
 	private Item item;		
 
 	public Task() { }
-
-	public final int getId() {
+	
+	public int getId() {
 		return id;
 	}
 
-	public final void setId(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public final String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
 
-	public final void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public final int getRecurso() {
-		return recurso;
+	public int getResource() {
+		return resource;
 	}
 
-	public final void setRecurso(int recurso) {
-		this.recurso = recurso;
+	public void setResource(int resource) {
+		this.resource = resource;
 	}
 
-	public final Status getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 
-	public final void setStatus(Status status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 
-	public final String getLocal() {
+	public String getLocal() {
 		return local;
 	}
 
-	public final void setLocal(String local) {
+	public void setLocal(String local) {
 		this.local = local;
 	}
 
-	public final Item getItem() {
+	public Item getItem() {
 		return item;
 	}
 
-	public final void setItem(Item item) {
+	public void setItem(Item item) {
 		this.item = item;
 	}
 

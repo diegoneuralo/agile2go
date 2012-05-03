@@ -8,34 +8,30 @@ import javax.inject.Named;
 import javax.persistence.NoResultException;
 
 import br.com.scrum.domain.entity.User;
-import br.com.scrum.infrastructure.decorator.UserDaoImpl;
+import br.com.scrum.domain.enums.Const;
 import br.com.scrum.infrastructure.repository.UserDao;
-import br.com.scrum.view.util.JsfUtil;
-import br.com.scrum.view.util.Validate;
 
 @Named
 @RequestScoped
-public class UserMb implements Serializable {
-
-	private static final long serialVersionUID = -3651540800634544658L;	
-	private final String PRINCIPAL_PAGE = "/principal/principal.jsf?faces-redirect=true";		
-	private User user = new User();	
-	private UserDao userDao = new UserDaoImpl();
+public class UserMb extends BaseBean implements Serializable {
+			
+	private User user;	
+    @Inject private UserDao userDao;
+	
 	private String login;
 	private String password;
 
 	public String userLogin () {
 		try {			
-			user = userDao.withLogin(login, password);	
-			Validate.notNull(user);
-			return PRINCIPAL_PAGE;
+			user = userDao.withLogin(login, password);				
+			return Const.PRINCIPAL;
 		} catch ( NoResultException nre ) {
 			nre.printStackTrace();
-			JsfUtil.addErrorMessage("user not found");
+			addErrorMessage("user not found");
 			return "";
 		} catch ( Exception e ) {
-			e.printStackTrace();
-			JsfUtil.addErrorMessage("unexcepted error has ocurred");
+			e.getCause().getLocalizedMessage();
+			addErrorMessage("unexcepted error has ocurred");
 			return "";		
 		}
 	}
@@ -63,5 +59,7 @@ public class UserMb implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	private static final long serialVersionUID = -3651540800634544658L;
 	
 }

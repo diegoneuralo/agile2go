@@ -8,11 +8,13 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import br.com.scrum.domain.enums.Const;
+import javax.inject.Named;
 
 public class JPAUtil {
 
 	private static EntityManagerFactory factory = Persistence.createEntityManagerFactory(Const.SCHEMA);
 
+	@Named
 	@Produces 
 	@RequestScoped
 	public EntityManager getEntityManager() {

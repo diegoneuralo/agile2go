@@ -10,32 +10,37 @@ public class Address implements Serializable {
 
 	private static final long serialVersionUID = 7194348807404290417L;
 	
-	@Column(name = "CIDADE", length = 60)
-	private String cidade;
+	@Column(name = "CITY", length = 60)
+	private String city;
 	
-	@Column(name = "RUA", length = 60)
-	private String rua;
+	@Column(name = "STREET", length = 60)
+	private String street;
 	
 	@Column(name = "UF", length = 2)
 	private String uf;
-	
-	public final String getCidade() {
-		return cidade;
+
+	public String getCity() {
+		return city;
 	}
-	public final void setCidade(String cidade) {
-		this.cidade = cidade;
+
+	public void setCity(String city) {
+		this.city = city;
 	}
-	public final String getRua() {
-		return rua;
+
+	public String getStreet() {
+		return street;
 	}
-	public final void setRua(String rua) {
-		this.rua = rua;
+
+	public void setStreet(String street) {
+		this.street = street;
 	}
-	public final String getUf() {
+
+	public String getUf() {
 		return uf;
 	}
-	public final void setUf(String uf) {
+
+	public void setUf(String uf) {
 		this.uf = uf;
-	}
+	}		
 	
 }

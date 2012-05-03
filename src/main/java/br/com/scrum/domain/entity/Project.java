@@ -16,86 +16,71 @@ import org.hibernate.validator.constraints.NotBlank;
 import br.com.scrum.domain.enums.Const;
 
 @Entity
-@Table(name = "project", schema = Const.SCHEMA, uniqueConstraints = {@UniqueConstraint(columnNames = "nome")})
+@Table(name = "PROJECT", schema = Const.SCHEMA, uniqueConstraints = {@UniqueConstraint(columnNames = "name")})
 public class Project implements Serializable {
 
 	private static final long serialVersionUID = -2102744528226591109L;		
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "PROJETO_ID")
+	@Column(name = "PROJECT_ID")
 	private int id;
 
-	@NotBlank(message = "type a name")
-	@Column(name = "NOME", nullable = false, unique = true, length = 60)
-	private String nome;
+	@NotBlank(message = "name is a required field")
+	@Column(name = "NAME", nullable = false, unique = true, length = 60)
+	private String name;
 
-	@NotBlank(message = "type a description")
-	@Column(name = "DESCRICAO", nullable = false)
-	private String descricao;
+	@NotBlank(message = "description is a required field")
+	@Column(name = "DESCRIPTION", nullable = false)
+	private String description;
 
-	@Column(name = "DATA_ENTREGA", nullable = false)
-	private Date dataEntrega;
+	@Column(name = "LAST_DATE", nullable = false)
+	private Date lastDate;
 
-	@Column(name = "EMPRESA", nullable = false, length = 60)
-	private String empresa;
-	
-//	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//	private List<Sprint> sprints;
+	@Column(name = "COMPANY", nullable = false, length = 60)
+	private String company;
 
 	public Project() { }
 
-	public final int getId() {
+	public int getId() {
 		return id;
 	}
 
-	public final void setId(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
-	public final String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
 
-	public final void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public final String getDescricao() {
-		return descricao;
+	public String getDescription() {
+		return description;
 	}
 
-	public final void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public final Date getDataEntrega() {
-		return dataEntrega;
+	public Date getLastDate() {
+		return lastDate;
 	}
 
-	public final void setDataEntrega(Date dataEntrega) {
-		this.dataEntrega = dataEntrega;
-	}		
-
-	public final String getEmpresa() {
-		return empresa;
+	public void setLastDate(Date lastDate) {
+		this.lastDate = lastDate;
 	}
 
-	public final void setEmpresa(String empresa) {
-		this.empresa = empresa;
-	}		
-	
-	public void addSprint(Sprint sprint) {
-		this.addSprint(sprint);
+	public String getCompany() {
+		return company;
 	}
-	
-//	public final List<Sprint> getSprints() {
-//		return sprints;
-//	}
-//
-//	public final void setSprints(List<Sprint> sprints) {
-//		this.sprints = sprints;
-//	}
+
+	public void setCompany(String company) {
+		this.company = company;
+	}
 
 	@Override
 	public int hashCode() {

@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/templates/_template.xhtml">
+	<ui:define name="body">
+		<f:view>
+			<h:form prependId="false">
+
+				<p:dataTable id="dataTable" var="project"
+					value="#{projectMb.projects}" paginator="true" rows="10"
+					paginatorTemplate="{CurrentPageReport}{FirstPageLink}{PreviousPageLink}{PageLinks}{NextPageLink}{LastPageLink}{RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15">
+					<f:facet name="header">Projects</f:facet>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Name" />
+						</f:facet>
+						<h:outputText value="#{projectMb.project.name}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Description" />
+						</f:facet>
+						<h:outputText value="#{projectMb.project.description}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Deadline" />
+						</f:facet>
+						<h:outputText value="#{projectMb.project.lastDate}" />
+					</p:column>
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Company" />
+						</f:facet>
+						<h:outputText value="#{projectMb.project.company}" />
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</f:view>
+
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,23 +1,17 @@
 package br.com.scrum.infrastructure.decorator;
 
+import java.io.Serializable;
 import java.util.List;
-
-import javax.annotation.PostConstruct;
 
 import br.com.scrum.domain.entity.Project;
 import br.com.scrum.infrastructure.dao.Dao;
 import br.com.scrum.infrastructure.dao.GenericDao;
 import br.com.scrum.infrastructure.repository.ProjectDao;
 
-public class ProjectDaoImpl implements ProjectDao {
+public class ProjectDaoImpl implements ProjectDao, Serializable {			
 	
-	private Dao<Project, Integer> projectDao = new GenericDao<Project, Integer>(Project.class);		
-	
-	@PostConstruct
-	public void init () {
-		projectDao = new GenericDao<Project, Integer>(Project.class);		
-	}
-	
+	private Dao<Project, Integer> projectDao = new GenericDao<Project, Integer>(Project.class);;
+		
 	@Override
 	public Project save (Project project) throws Exception {
 		try {
@@ -28,7 +22,7 @@ public class ProjectDaoImpl implements ProjectDao {
 	}
 
 	@Override
-	public void remove (Project project) {
+	public void remove (Project project) {		
 		projectDao.remove(project);
 	}
 
@@ -46,5 +40,7 @@ public class ProjectDaoImpl implements ProjectDao {
 	public void close () {
 		projectDao.close();
 	}
+	
+	private static final long serialVersionUID = 973523347646521301L;
 
 }

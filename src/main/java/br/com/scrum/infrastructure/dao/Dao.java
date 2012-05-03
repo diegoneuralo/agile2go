@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public interface Dao <T, IDTipo extends Serializable> {
+public interface Dao <T, IDTipo extends Serializable> extends Serializable {
 	
 	T merge (T obj);
 	
