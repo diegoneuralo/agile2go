@@ -5,42 +5,36 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-	<h:outputStylesheet name="login.css" library="css" />
+	<h:outputStylesheet name="content.css" library="css" />
 </h:head>
 <ui:composition template="/templates/_template.xhtml">
 	<ui:define name="body">
-
-		<h:panelGroup>
-			<h:form id="form">
-				<p:growl id="growl" life="5000" showDetail="true" />
-				
-				<h:panelGrid columns="1" cellpadding="3" cellspacing="3" style="margin-left: 20px; margin-top: 30px;">
-					
-					<h:panelGrid cellpadding="0" cellspacing="0" style="margin-left: 13px;">
+		
+			<h:form id="form">								
+				<h:panelGrid columns="1" cellpadding="3" cellspacing="3" style="margin-left:20px; margin-top:30px;">					
+					<h:panelGrid cellpadding="0" cellspacing="0" style="margin-left:13px;">
 						<h:outputLabel value="Name" />
 						<p:inputText value="#{projectMb.project.name}" size="25" />
 					</h:panelGrid>					
-					<h:panelGrid cellpadding="0" cellspacing="0" style="margin-left: 13px;">
+					<h:panelGrid cellpadding="0" cellspacing="0" style="margin-left:13px;">
 						<h:outputLabel value="Description" />
-						<p:inputTextarea value="#{projectMb.project.description}" style="width: 242px; height: 42px;" />
+						<p:inputTextarea value="#{projectMb.project.description}" style="width:244px; height:42px;" />
 					</h:panelGrid>					
 					<h:panelGrid cellpadding="0" cellspacing="0" style="margin-left: 13px;">
 						<h:outputLabel value="Deadline" />
 						<p:calendar pattern="dd/MM/yyyy" id="popupButtonCal"
 									value="#{projectMb.project.lastDate}"
-									showOn="button" size="20" />
-					</h:panelGrid>					
+									showOn="button" size="20"  />
+					</h:panelGrid>									
 					<h:panelGrid cellpadding="0" cellspacing="0" style="margin-left: 13px;">
 						<h:outputLabel value="Company" />
 						<p:inputText value="#{projectMb.project.company}" size="25" />
 					</h:panelGrid>									
 				</h:panelGrid>
 
-				<p:commandButton value="Save" action="#{projectMb.addProject}" ajax="false" style="margin-left: 80px;" />
-				<p:commandButton value="Cancel" action="#{projectMb.cancelProject}" style="margin-right: 50px;" />
-				
-				</h:form>
-			</h:panelGroup>
+				<p:commandButton value="Save" action="#{projectMb.saveOrUpdate}" update=":growl" ajax="false" style="margin-left:80px;"  />
+				<p:commandButton value="Cancel" action="#{projectMb.cancelProject}" style="margin-right: 50px;" />				
+				</h:form>			
 
 	</ui:define>
 </ui:composition>

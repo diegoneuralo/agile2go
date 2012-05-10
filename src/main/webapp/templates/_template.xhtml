@@ -4,71 +4,33 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-
 <h:head>
-	<title><ui:insert name="titulo">Agile2Go</ui:insert></title>
-	<h:outputStylesheet name="menu.css" library="css" />
-	<h:outputStylesheet name="login.css" library="css" />
-	<h:outputScript library="js" name="menu.js" />
+	<title><ui:insert name="titulo">Agile2Go</ui:insert></title>	
+	<h:outputStylesheet name="content.css" library="css" />	
 	<h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />	
 </h:head>
-
 <h:body>
-	<h:form>
-	<div id="menu">
-			<ul class="menu">
-				<li><a href="#" class="parent"><span>Projects</span></a>
-					<div>
-						<ul>
-							<li><a
-								href="#{facesContext.externalContext.request.contextPath}/pages/project/add_project.jsf"
-								class="parent"><span>Create</span></a></li>
-							<li><a
-								href="#{facesContext.externalContext.request.contextPath}/pages/project/list_project.jsf"
-								class="parent"><span>List Projects</span></a></li>
-						</ul>
-					</div></li>
-				<li><a href="#" class="parent"><span>Sprints</span></a>
-					<div>
-						<ul>
-							<li><a
-								href="#{facesContext.externalContext.request.contextPath}/pages/sprint/add_sprint.jsf"
-								class="parent"><span>Create</span></a></li>
-							<li><a 
-								href="#{facesContext.externalContext.request.contextPath}/pages/sprint/list_sprint.jsf"
-								class="parent"><span>List Sprints</span></a></li>
-						</ul>
-					</div></li>
-				<li><a href="#" class="parent"><span>Itens</span></a>
-					<div>
-						<ul>
-							<li><a
-								href="#{facesContext.externalContext.request.contextPath}/pages/item/add_item.jsf"
-								class="parent"><span>Create</span></a></li>
-							<li><a 
-								href="#{facesContext.externalContext.request.contextPath}/pages/item/list_item.jsf"
-								class="parent"><span>List Items</span></a></li>
-						</ul>
-					</div></li>
-				<li><a href="#" class="parent"><span>Tasks</span></a>
-					<div>
-						<ul>
-							<li><a
-								href="#{facesContext.externalContext.request.contextPath}/pages/task/add_task.jsf"
-								class="parent"><span>Create</span></a></li>
-							<li><a 
-								href="#{facesContext.externalContext.request.contextPath}/pages/task/list_task.jsf"
-								class="parent"><span>List Taks</span></a></li>
-						</ul>
-					</div></li>
-				<li><a href="#"><span>Log out</span></a></li>
-			</ul>
+	<h:form><!-- background:#DEEDF7" -->
+		<p:menubar style="border:0px; margin-top:0px;" styleClass="ui-widget ui-widget-header" >
+			<p:submenu label="Projects" style="margin-left: 50px;">
+				<p:menuitem value="create" url="/pages/project/add_project.jsf" icon="ui-icon-contact"/>
+				<p:menuitem value="search" url="/pages/project/list_project.jsf" icon="ui-icon-search"/>
+			</p:submenu>
+			<p:submenu label="Sprints" style="margin-left: 50px;">
+				<p:menuitem value="create" url="/pages/sprint/add_sprint.jsf" icon="ui-icon-contact"/>
+				<p:menuitem value="search" url="/pages/sprint/list_sprint.jsf" icon="ui-icon-search"/>
+			</p:submenu>			
+			<p:submenu label="Tasks" style="margin-left: 50px;">
+				<p:menuitem value="create" url="/pages/task/add_task.jsf" icon="ui-icon-contact"/>
+				<p:menuitem value="search" url="/pages/task/list_task.jsf" icon="ui-icon-search"/>
+			</p:submenu>
+			 <p:menuitem value="Logout" url="http://localhost:8080/jboss-as-scrum/login.jsf" style="margin-left: 50px;" icon="ui-icon-close" /> 
+		</p:menubar>
+		<div id="body">
+			<p:growl id="growl" showDetail="true" showSummary="false" />
+			<ui:insert name="body"></ui:insert>
 		</div>
+	</h:form>
 	
-	<div id="body">
-		<p:growl id="messages" showDetail="true" showSummary="false" />
-		<ui:insert name="body"></ui:insert>
-	</div>
-</h:form>
 </h:body>
 </html>

@@ -9,19 +9,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-import br.com.scrum.domain.enums.Const;
+import br.com.scrum.domain.entity.enums.Const;
 
 @Entity
-@Table(name = "PROJECT", schema = Const.SCHEMA, uniqueConstraints = {@UniqueConstraint(columnNames = "name")})
-public class Project implements Serializable {
+@Table(name = "PROJECT", schema = Const.SCHEMA, uniqueConstraints = {
+		@UniqueConstraint(columnNames = {"NAME"})})
+public class Project implements Serializable {	
 
-	private static final long serialVersionUID = -2102744528226591109L;		
-
-	@Id
+	@Id	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "PROJECT_ID")
 	private int id;
@@ -33,13 +34,14 @@ public class Project implements Serializable {
 	@NotBlank(message = "description is a required field")
 	@Column(name = "DESCRIPTION", nullable = false)
 	private String description;
-
+	
+	@Temporal(TemporalType.DATE)
 	@Column(name = "LAST_DATE", nullable = false)
 	private Date lastDate;
 
 	@Column(name = "COMPANY", nullable = false, length = 60)
 	private String company;
-
+		
 	public Project() { }
 
 	public int getId() {
@@ -80,7 +82,7 @@ public class Project implements Serializable {
 
 	public void setCompany(String company) {
 		this.company = company;
-	}
+	}			
 
 	@Override
 	public int hashCode() {
@@ -103,5 +105,7 @@ public class Project implements Serializable {
 			return false;
 		return true;
 	}
+	
+	private static final long serialVersionUID = -2102744528226591109L;	
 
 }

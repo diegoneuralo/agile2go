@@ -4,44 +4,66 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-
+<h:head>
+	<h:outputStylesheet name="content.css" library="css" />		
+</h:head>
 <ui:composition template="/templates/_template.xhtml">
 	<ui:define name="body">
-		<f:view>
-			<h:form prependId="false">
-
-				<p:dataTable id="dataTable" var="project"
-					value="#{projectMb.projects}" paginator="true" rows="10"
-					paginatorTemplate="{CurrentPageReport}{FirstPageLink}{PreviousPageLink}{PageLinks}{NextPageLink}{LastPageLink}{RowsPerPageDropdown}"
-					rowsPerPageTemplate="5,10,15">
-					<f:facet name="header">Projects</f:facet>
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Name" />
+		<h:form>		
+			<p:dataTable id="dataTable" var="project" editable="true"
+				value="#{projectMb.projects}" paginator="true" rows="5"
+				rowsPerPageTemplate="5,10,15"  cellpadding="3" cellspacing="3"
+				styleClass="dataTable" >
+				
+				<f:facet name="header">Projects</f:facet>
+				<p:column headerText="Name" style="width:125px">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{project.name}" />
 						</f:facet>
-						<h:outputText value="#{projectMb.project.name}" />
-					</p:column>
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Description" />
+						<f:facet name="input">
+							<h:inputText value="#{project.name}" style="width: 100%" />
 						</f:facet>
-						<h:outputText value="#{projectMb.project.description}" />
-					</p:column>
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Deadline" />
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Description" style="width:125px">
+					<p:cellEditor>
+						<f:facet name="output"> 
+							<h:outputText value="#{project.description}" />
 						</f:facet>
-						<h:outputText value="#{projectMb.project.lastDate}" />
-					</p:column>
-					<p:column>
-						<f:facet name="header">
-							<h:outputText value="Company" />
+						<f:facet name="input">
+							<h:inputText value="#{project.description}" style="width: 100%" />
 						</f:facet>
-						<h:outputText value="#{projectMb.project.company}" />
-					</p:column>
-				</p:dataTable>
-			</h:form>
-		</f:view>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Deadline" style="width:125px">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{project.lastDate}" />
+						</f:facet>
+						<f:facet name="input">
+							<h:inputText value="#{project.lastDate}" rendered="true" requiredMessage="deadline is a required field " style="width: 100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Company" style="width:125px">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{project.company}" />
+						</f:facet>
+						<f:facet name="input">
+							<h:inputText value="#{project.company}" style="width: 100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Options" style="width: 50px;">
+					<p:rowEditor />
+				</p:column>
+			</p:dataTable>
+				<p:blockUI block="dataTable" trigger="dataTable">LOADING<br />
+					<p:graphicImage value="/resources/img/loading.gif" />
+				</p:blockUI>				
+		</h:form>
 
 	</ui:define>
 </ui:composition>

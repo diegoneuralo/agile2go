@@ -4,39 +4,36 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import br.com.scrum.domain.entity.User;
-import br.com.scrum.domain.enums.Const;
-import br.com.scrum.domain.enums.UserRole;
-import br.com.scrum.infrastructure.decorator.UserDaoImpl;
-import br.com.scrum.infrastructure.repository.UserDao;
+import br.com.scrum.domain.entity.enums.UserRole;
+import br.com.scrum.domain.repository.UserRepository;
+import br.com.scrum.infrastructure.factory.JPAUtil;
 
 public class UserTestRepository {
 
 	private static EntityManager em;	
-	private static UserDao userDao;
+	private static UserRepository userRepository;
 
 	@BeforeClass					
 	public static void before() throws Exception {
-		userDao = new UserDaoImpl();
-		after();
+		em = new JPAUtil().getEntityManager();
+//		userRepository = new UserService().setEm(em);		
 	}
 
 	@AfterClass
 	public static void after() throws Exception {				
-		em = Persistence.createEntityManagerFactory(Const.SCHEMA).createEntityManager();             
 		em.close();
 	}
 
 	@Test
 	public void success() throws Exception {		
-//		save();
-		update();
+		save();
+//		update();
 		//			novoUsuario();
 		//			usuarioComLogin();
 		//			listaTodos();					
@@ -48,15 +45,15 @@ public class UserTestRepository {
 		u.setLogin("adm");
 		u.setPassword("123");
 		u.setRole(UserRole.TEAM);
-		userDao.save(u);
+		userRepository.save(u);
 		assertNotNull(u.getId());		
 		return u;
 	}
 	
 	private void update() throws Exception {
-		User u = userDao.withId(1);
+		User u = userRepository.withId(1);
 		u.setName("Rafael Jesus");
-		userDao.save(u);
+		userRepository.save(u);
 		assertNotSame(u.getName(), "test");
 	}
 
@@ -132,13 +129,13 @@ public class UserTestRepository {
 	//		u.setLogin("team");
 	//		u.setPassword("123");
 	//		u.setRole(UserRole.MASTER);
-	//		userDao.save(u);
+	//		userRepository.save(u);
 	//		assertNotNull(u);			
 	//	}
 	//
 	//	private void usuarioComLogin() throws Exception {
 	//		try {
-	//			final User u = userDao.withLogin("adm", "123");
+	//			final User u = userRepository.withLogin("adm", "123");
 	//			assertEquals("adm", u.getLogin());
 	//			assertEquals("123", u.getPassword());
 	//		} catch (Exception e) {
@@ -150,14 +147,14 @@ public class UserTestRepository {
 	//	}
 	//
 	//	private void listaTodos() throws Exception {
-	//		List<User> users = userDao.findAll();
+	//		List<User> users = userRepository.findAll();
 	//		assertNotNull(users);
 	//		assertEquals(2, users.size());				
 	//	}
 	//
 	//	private void remove() throws Exception {
-	//		User u = userDao.withId(2);		
-	//		userDao.remove(u);
+	//		User u = userRepository.withId(2);		
+	//		userRepository.remove(u);
 	//		assertNull(u);
 	//	}
 

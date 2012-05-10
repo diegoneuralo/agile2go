@@ -18,11 +18,12 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import br.com.scrum.domain.enums.Const;
-import br.com.scrum.domain.enums.UserRole;
+import br.com.scrum.domain.entity.enums.Const;
+import br.com.scrum.domain.entity.enums.UserRole;
 
 @Entity
-@Table(name = "USER", schema = Const.SCHEMA, uniqueConstraints = {@UniqueConstraint(columnNames = "NAME")})
+@Table(name = "USER", schema = Const.SCHEMA, uniqueConstraints = {
+		@UniqueConstraint(columnNames = "NAME")})
 @NamedQueries({
 	@NamedQuery(name = "User.getByLogin", query = "SELECT u FROM User as u WHERE u.login = :login and u.password = :password")})
 public class User implements Serializable {	
@@ -32,6 +33,7 @@ public class User implements Serializable {
 
 	@Id	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "USER_ID")
 	private int id;
 	
 	@NotEmpty(message = "name is required field")

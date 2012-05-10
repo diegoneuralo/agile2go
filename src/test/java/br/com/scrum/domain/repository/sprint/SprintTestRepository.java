@@ -1,35 +1,37 @@
 package br.com.scrum.domain.repository.sprint;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.util.Date;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 import br.com.scrum.domain.entity.Project;
 import br.com.scrum.domain.entity.Sprint;
-import br.com.scrum.domain.enums.Const;
-import br.com.scrum.infrastructure.decorator.ProjectDaoImpl;
-import br.com.scrum.infrastructure.decorator.SprintDaoImpl;
-import br.com.scrum.infrastructure.repository.ProjectDao;
-import br.com.scrum.infrastructure.repository.SprintDao;
+import br.com.scrum.domain.entity.enums.Const;
+import br.com.scrum.domain.repository.ProjectRepository;
+import br.com.scrum.domain.repository.SprintRepository;
+import br.com.scrum.domain.service.ProjectService;
+import br.com.scrum.domain.service.SprintService;
 
 public class SprintTestRepository {
 
-	private static SprintDao sprintDao;
-	private static ProjectDao projectDao;
+	private static SprintRepository sprintRepository;
+	private static ProjectRepository projectRepository;
 	private static Integer projetoID;
 	private static Integer sprintID;
 
 	@BeforeClass
 	public static void before() throws Exception {
 		after();
-		sprintDao = new SprintDaoImpl();
-		projectDao = new ProjectDaoImpl();
+		sprintRepository = new SprintService();
+		projectRepository = new ProjectService();
 	}
 
 	@AfterClass
@@ -44,15 +46,15 @@ public class SprintTestRepository {
 //		remove();
 	}
 
-	private void criaSprint() {		
-		Project p = projectDao.withId(2);	
+	private void criaSprint() throws ConstraintViolationException, Exception {		
+		Project p = projectRepository.withId(2);	
 		Sprint s = new Sprint();		
 		s.setName("Sprint_03");
 		s.setStartDate(new Date());
 		s.setEndDate(new Date());
 		s.setProject(p);	
 		
-		sprintDao.salva(s);
+		sprintRepository.save(s);
 		
 		projetoID = s.getProject().getId();
 		sprintID = s.getId();
@@ -62,11 +64,11 @@ public class SprintTestRepository {
 	}
 
 //	private void remove() {		
-//		Sprint s = sprintDao.comId(sprintID);
-//		sprintDao.remove(s);
+//		Sprint s = sprintRepository.comId(sprintID);
+//		sprintRepository.remove(s);
 //		
-//		Project p = projectDao.comId(projetoID);
-//		projectDao.remove(p);
+//		Project p = projectRepository.comId(projetoID);
+//		projectRepository.remove(p);
 //
 //	}
 

@@ -4,129 +4,109 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 import javax.persistence.PersistenceException;
-import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
-import br.com.scrum.domain.enums.Const;
+import org.hibernate.exception.ConstraintViolationException;
+import org.hibernate.validator.util.Contracts;
 
-public class GenericRepository	<T, IDTipo extends Serializable> implements Entity<T, IDTipo>, Serializable {
-
-	private static final long serialVersionUID = 662696138506799273L;
-
-	private static final String UNIDADE_PERSISTENCIA = Const.SCHEMA;
-	@PersistenceUnit private  EntityManagerFactory emf;	
-	@PersistenceContext private EntityManager em;
-	private Class<T> classePersistente;
-
-	public GenericRepository (Class<T> clazz) {
-		classePersistente = clazz;
+public class GenericRepository<T, IDType extends Serializable> {
+				
+	private Class<T> clazz;
+	private EntityManager em;
+	
+	public GenericRepository (Class<T> clazz, EntityManager em) {		
+		this.clazz = clazz;
+		this.em = em;
 	}
-
-	@Produces
-	protected EntityManager getEntityManager() {		
-		if ( emf == null || !emf.isOpen() )
-			emf = Persistence.createEntityManagerFactory(UNIDADE_PERSISTENCIA);
-		if ( em != null && em.isOpen() )
-			return em;
-		return emf.createEntityManager();		
-
-	}
-
-	public T merge(T obj) {
-		em = getEntityManager();
-		EntityTransaction tx = em.getTransaction();
+	
+	public T merge (T obj) throws PersistenceException, ConstraintViolationException {		
 		try {
-			tx.begin();
+			begin();
 			obj = em.merge(obj);
-			tx.commit();
+			commit();
 		} catch ( PersistenceException pe ) {
-			tx.rollback();
-			pe.printStackTrace();
+			rollback();
+			throw pe;			
+		} catch ( ConstraintViolationException cve ) {
+			rollback();
+			throw cve;
 		}
 		return obj;
-
 	}
 
-	public T persist(T obj) {
-		em = getEntityManager();
-		EntityTransaction tx = em.getTransaction();
+	public T persist (T obj) throws PersistenceException, ConstraintViolationException {		
 		try {
-			tx.begin();
+			begin();
 			em.persist(obj);
-			tx.commit();
+			commit();
 			em.refresh(obj);
-		} catch ( PersistenceException pe ) {
-			tx.rollback();
-			pe.printStackTrace();
+		} catch (PersistenceException pe) {
+			rollback();
+			throw pe;
+		} catch ( ConstraintViolationException pe ) {
+			rollback();
+			throw pe;			
 		}
 		return obj;
 	}
 
-	public void remove(T obj) {
-		em = getEntityManager();
-		EntityTransaction tx = em.getTransaction();
+	public void remove (T obj) {		
 		try {
-			tx.begin();
+			begin();
 			obj = em.merge(obj);
 			em.remove(obj);
-			tx.commit();
+			commit();
 		} catch ( RuntimeException re ) {
-			tx.rollback();
+			rollback();
 			re.printStackTrace();
 		}
 	}
 
-	public T find(IDTipo id) {
-		em = getEntityManager();
-		return em.find(classePersistente, id);
-
+	public T find (IDType id) {		
+		return em.find(clazz, id);
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<T> list () {
-		em = getEntityManager();
-		Query query = em.createQuery("SELECT obj FROM " + classePersistente.getSimpleName() + " obj");
+	public List<T> list () {		
+		Query query = em.createQuery("SELECT obj FROM " + clazz.getSimpleName() + " obj");
 		List<T> list = query.getResultList();
 		return list;
 	}
 
-	public List<T> listByNamedQuery (String queryName, Map<String, Object> params) {
-		em = getEntityManager();
+	public List<T> listByNamedQuery (String queryName, Map<String, Object> params) {		
 		Query query = em.createNamedQuery(queryName);
-		if ( params != null && !params.isEmpty() ) {
-			for ( String key : params.keySet() ) {
-				query.setParameter(key, params.get(key));
-			}
-		}
+		if ( params != null && !params.isEmpty() ) 
+			for ( String key : params.keySet() ) 
+				query.setParameter(key, params.get(key));					
 		@SuppressWarnings("unchecked")
 		List<T> list = query.getResultList();
 		return list;
 	}
 
 	@SuppressWarnings("unchecked")
-	public T getByNamedQuery (String queryName, Map<String, Object> params) {
-		em = getEntityManager();		
+	public T getByNamedQuery (String queryName, Map<String, Object> params) {		
 		Query query = em.createNamedQuery(queryName);				
-		if ( params != null && !params.isEmpty() || params.size() != 0 ) {
-			for ( String key : params.keySet() ) {
-				query.setParameter(key, params.get(key));
-			}
-		}			
+		if ( params != null && !params.isEmpty() || params.size() != 0 ) 
+			for ( String key : params.keySet() ) 
+				query.setParameter(key, params.get(key));					
 		return (T) query.getSingleResult();		
-	}
-
-	public void close() {
-		if ( em != null && em.isOpen() ) {
-			em.close();
-		}
-	}
+	}		
+	
+	private void begin () {
+        if ( !em.getTransaction().isActive() )
+        	em.getTransaction().begin();        
+    }
+    
+    private void commit () {
+        if ( em.getTransaction().isActive() ) 
+        	em.getTransaction().commit();        
+    }
+    
+    private void rollback () {
+        if ( em.getTransaction().isActive() )
+        	em.getTransaction().rollback();        
+    }		
 
 }

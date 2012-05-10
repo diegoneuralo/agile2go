@@ -1,6 +1,7 @@
 package br.com.scrum.domain.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,19 +16,21 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import br.com.scrum.domain.enums.Const;
-import br.com.scrum.domain.enums.Status;
+import br.com.scrum.domain.entity.enums.Const;
+import br.com.scrum.domain.entity.enums.Status;
 
 @Entity
-@Table(name = "TASK", schema = Const.SCHEMA)
+@Table(name = "TASK", schema = Const.SCHEMA, uniqueConstraints =
+					  @UniqueConstraint(columnNames = {"NAME"}))
 @NamedQueries(
 		@NamedQuery(name="Task.getLastId", query = "SELECT t FROM Task t WHERE t.id = (select MAX(t.id) FROM Task t)"))
-public class Task implements Serializable {
-
-	private static final long serialVersionUID = 3651157203865611931L;
+public class Task implements Serializable {	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,19 +41,25 @@ public class Task implements Serializable {
 	@Column(name = "NAME", nullable = false, length = 60)
 	private String name;
 	
-	@Column(name = "RESOURCE", nullable = false, length = 60)
-	private int resource;
+	@NotEmpty(message = "prioriry is a required field")
+	@Column(name = "PRIORITY", nullable = false, length = 60)
+	private int priority;
+	
+	@Temporal(TemporalType.DATE)
+    @Column(name = "START_DATE")
+    private Date startDate;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "END_DATE")
+    private Date endDate;
 
 	@Enumerated(value = EnumType.STRING)
 	@Column(name = "STATUS", length = 15)
 	private Status status;
-	
-	@Column(name = "LOCAL", nullable = false, length = 60)
-	private String local;
-
-	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-	@JoinColumn(name = "ITEM_ID", referencedColumnName = "ITEM_ID")
-	private Item item;		
+		
+	@ManyToOne
+	@JoinColumn(name = "SPRINT_ID", referencedColumnName = "SPRINT_ID")
+	private Sprint sprint;		
 
 	public Task() { }
 	
@@ -69,13 +78,29 @@ public class Task implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public int getResource() {
-		return resource;
+	
+	public int getPriority() {
+		return priority;
 	}
 
-	public void setResource(int resource) {
-		this.resource = resource;
+	public void setPriority(int priority) {
+		this.priority = priority;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
 	public Status getStatus() {
@@ -84,22 +109,14 @@ public class Task implements Serializable {
 
 	public void setStatus(Status status) {
 		this.status = status;
+	}		
+	
+	public Sprint getSprint() {
+		return sprint;
 	}
 
-	public String getLocal() {
-		return local;
-	}
-
-	public void setLocal(String local) {
-		this.local = local;
-	}
-
-	public Item getItem() {
-		return item;
-	}
-
-	public void setItem(Item item) {
-		this.item = item;
+	public void setSprint(Sprint sprint) {
+		this.sprint = sprint;
 	}
 
 	@Override
@@ -123,5 +140,7 @@ public class Task implements Serializable {
 			return false;
 		return true;
 	}	
+	
+	private static final long serialVersionUID = 3651157203865611931L;
 
 }

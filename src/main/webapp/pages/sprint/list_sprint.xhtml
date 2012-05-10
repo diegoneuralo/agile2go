@@ -2,10 +2,80 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets"> 
+<h:head>
+	<h:outputStylesheet name="content.css" library="css" />		
+</h:head>
+<ui:composition template="/templates/_template.xhtml">
+	<ui:define name="body">
 
-<h:head></h:head> 
-<body> 
+		<h:form>		
+			<p:dataTable id="dataTable" var="sprint" editable="true"
+				value="#{sprintMB.sprints}" paginator="true" rows="5"
+				rowsPerPageTemplate="5,10,15" cellpadding="3" cellspacing="3"
+				styleClass="dataTable">
+				
+				<f:facet name="header">Sprints</f:facet>
+				<p:column headerText="Name" style="width:125px">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{sprint.name}" />
+						</f:facet>
+						<f:facet name="input">
+							<h:inputText value="#{sprint.name}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Start Date" style="width:125px">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{sprint.startDate}" />
+						</f:facet>
+						<f:facet name="input">
+							<h:inputText value="#{sprint.startDate}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="End Date" style="width:125px">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{sprint.endDate}" />
+						</f:facet>
+						<f:facet name="input">
+							<h:inputText value="#{sprint.endDate}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Daily Meeting Time" style="width:125px">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{sprint.dailyScrum}" />
+						</f:facet>
+						<f:facet name="input">
+							<h:inputText value="#{sprint.dailyScrum}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Project" style="width:125px">
+					<f:facet name="output">
+						<h:outputText value="#{sprint.project.name}" />
+					</f:facet>
+					<f:facet name="input">
+						<h:inputText value="#{sprint.project.name}" style="width:100%" />
+					</f:facet>
+				</p:column>
+				<p:column headerText="Options" style="width:50px;">
+					<p:rowEditor />
+				</p:column>
+			</p:dataTable>
+			<p:blockUI block="dataTable" trigger="dataTable">  
+        LOADING<br />  
+        <p:graphicImage value="/resources/img/loading.gif"/>  
+    </p:blockUI> 
+			
+		</h:form>
 
-</body> 
+	</ui:define>
+</ui:composition>
 </html>
