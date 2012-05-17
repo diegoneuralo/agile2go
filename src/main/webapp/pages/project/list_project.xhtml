@@ -9,9 +9,10 @@
 </h:head>
 <ui:composition template="/templates/_template.xhtml">
 	<ui:define name="body">
-		<h:form>		
-			<p:dataTable id="dataTable" var="project" editable="true"
-				value="#{projectMb.projects}" paginator="true" rows="5"
+		
+		<h:form id="form">
+			<p:dataTable id="dataTable" var="project" editable="true" paginatorPosition="bottom" 
+				value="#{projectMb.projects}" paginator="true" rows="5" rendered="#{not empty projectMb.projects}"
 				rowsPerPageTemplate="5,10,15"  cellpadding="3" cellspacing="3"
 				styleClass="dataTable" >
 				

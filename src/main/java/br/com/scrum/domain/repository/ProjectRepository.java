@@ -17,6 +17,6 @@ public interface ProjectRepository extends Serializable {
     
 	Project withId (int id);
 	
-	List<Project> findAll ();		
+	List<Project> findAll ();	
 	
 }

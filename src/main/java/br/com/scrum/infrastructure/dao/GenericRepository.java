@@ -9,7 +9,6 @@ import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 import org.hibernate.exception.ConstraintViolationException;
-import org.hibernate.validator.util.Contracts;
 
 public class GenericRepository<T, IDType extends Serializable> {
 				
@@ -71,18 +70,16 @@ public class GenericRepository<T, IDType extends Serializable> {
 	@SuppressWarnings("unchecked")
 	public List<T> list () {		
 		Query query = em.createQuery("SELECT obj FROM " + clazz.getSimpleName() + " obj");
-		List<T> list = query.getResultList();
-		return list;
+		return (List<T>) query.getResultList();		
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<T> listByNamedQuery (String queryName, Map<String, Object> params) {		
 		Query query = em.createNamedQuery(queryName);
 		if ( params != null && !params.isEmpty() ) 
 			for ( String key : params.keySet() ) 
-				query.setParameter(key, params.get(key));					
-		@SuppressWarnings("unchecked")
-		List<T> list = query.getResultList();
-		return list;
+				query.setParameter(key, params.get(key));							
+		return (List<T>) query.getResultList();		 
 	}
 
 	@SuppressWarnings("unchecked")

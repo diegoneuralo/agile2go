@@ -39,7 +39,7 @@ public class ProjectMb extends BaseBean implements Serializable {
 			e.getCause().getLocalizedMessage();
 		}
 	}
-
+	
 	public void cancelProject () {		
 		project = new Project();		
 	}
@@ -53,7 +53,7 @@ public class ProjectMb extends BaseBean implements Serializable {
 	}
 
 	public List<Project> getProjects() {
-		return ( projects == null ? projectRepository.findAll() : projects );
+		return projects == null ? projectRepository.findAll() : projects;
 	}
 
 	public void setProjects(List<Project> projects) {

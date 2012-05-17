@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,8 +22,13 @@ import br.com.scrum.domain.entity.enums.Const;
 @Entity
 @Table(name = "PROJECT", schema = Const.SCHEMA, uniqueConstraints = {
 		@UniqueConstraint(columnNames = {"NAME"})})
+@NamedQueries({
+	@NamedQuery(name = "Project.withName",
+			query = "SELECT p FROM Project as p WHERE upper(p.name) like :name")})
 public class Project implements Serializable {	
 
+	public static final String NAME = "name";
+	
 	@Id	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "PROJECT_ID")
@@ -106,6 +113,7 @@ public class Project implements Serializable {
 		return true;
 	}
 	
-	private static final long serialVersionUID = -2102744528226591109L;	
+	private static final long serialVersionUID = -2102744528226591109L;
+
 
 }
