@@ -10,21 +10,22 @@
 	<h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />	
 </h:head>
 <h:body>
-	<h:form><!-- background:#DEEDF7" -->
+	<h:form id="form"><!-- background:#DEEDF7" styleClass="ui-widget ui-widget-header" -->
 		<p:menubar style="border:0px; margin-top:0px;" styleClass="ui-widget ui-widget-header" >
-			<p:submenu label="Projects" style="margin-left: 50px;">
+			<p:menuitem value="Home" url="/principal/principal.jsf" style="margin-left: 50px; font-family: Ubuntu;" />
+			<p:submenu label="Projects" style="margin-left: 50px;font-family: Ubuntu;">
 				<p:menuitem value="create" url="/pages/project/add_project.jsf" icon="ui-icon-contact"/>
 				<p:menuitem value="search" url="/pages/project/list_project.jsf" icon="ui-icon-search"/>
 			</p:submenu>
-			<p:submenu label="Sprints" style="margin-left: 50px;">
+			<p:submenu label="Sprints" style="margin-left: 50px;font-family: Ubuntu;">
 				<p:menuitem value="create" url="/pages/sprint/add_sprint.jsf" icon="ui-icon-contact"/>
 				<p:menuitem value="search" url="/pages/sprint/list_sprint.jsf" icon="ui-icon-search"/>
 			</p:submenu>			
-			<p:submenu label="Tasks" style="margin-left: 50px;">
+			<p:submenu label="Tasks" style="margin-left: 50px; font-family: Ubuntu;">
 				<p:menuitem value="create" url="/pages/task/add_task.jsf" icon="ui-icon-contact"/>
 				<p:menuitem value="search" url="/pages/task/list_task.jsf" icon="ui-icon-search"/>
 			</p:submenu>
-			 <p:menuitem value="Logout" url="http://localhost:8080/jboss-as-scrum/login.jsf" style="margin-left: 50px;" icon="ui-icon-close" /> 
+			 <p:menuitem value="Logout" url="http://localhost:8080/jboss-as-scrum/login.jsf" style="margin-left: 50px; font-family: Ubuntu;" icon="ui-icon-close" /> 
 		</p:menubar>
 		<div id="body">
 			<p:growl id="growl" showDetail="true" showSummary="false" />
