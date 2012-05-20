@@ -121,10 +121,10 @@ public class ProjectTestRepository {
 		sprintRepository.save(s);		
 
 		Task t = new Task();		
-		t.setName("Task ");		
+		t.setStory("Task ");		
 		t.setStatus(Status.TODO);
 //		t.setItem(i);		
-		taskRepository.salva(t);
+		taskRepository.save(t);
 
 		assertNotNull(p);
 		assertNotNull(s);		
@@ -136,7 +136,7 @@ public class ProjectTestRepository {
 		Sprint s2 = sprintRepository.withId(s.getId());
 		assertEquals(1, s2.getId());
 
-		Task t2 = taskRepository.comId(t.getId());
+		Task t2 = taskRepository.withId(t.getId());
 		assertEquals(1, t2.getId());
 	}
 

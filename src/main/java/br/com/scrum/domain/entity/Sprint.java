@@ -48,11 +48,11 @@ public class Sprint implements Serializable {
 	private Date endDate;
 	
 	@NotBlank(message = "daily scrum is a required field")
-	@Column(name = "DAILY_SCRUM", nullable = false)
+	@Column(name = "DAILY_SCRUM", nullable = false, length = 5)
 	private String dailyScrum;
 	
 	@NotBlank(message = "goal is a required field")
-	@Column(name = "GOAL", nullable = false)
+	@Column(name = "GOAL", nullable = false, length = 60)
 	private String goal;
 
 	@ManyToOne

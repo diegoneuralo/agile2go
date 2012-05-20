@@ -5,13 +5,13 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
-	<title><ui:insert name="titulo">Agile2Go</ui:insert></title>	
+	<title><ui:insert name="titulo">agile2go</ui:insert></title>	
 	<h:outputStylesheet name="content.css" library="css" />	
 	<h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />	
 </h:head>
 <h:body>
 	<h:form id="form"><!-- background:#DEEDF7" styleClass="ui-widget ui-widget-header" -->
-		<p:menubar style="border:0px; margin-top:0px;" styleClass="ui-widget ui-widget-header" >
+		<p:menubar style="border:0px; margin-top:-9px;" styleClass="ui-widget ui-widget-header" >
 			<p:menuitem value="Home" url="/principal/principal.jsf" style="margin-left: 50px; font-family: Ubuntu;" />
 			<p:submenu label="Projects" style="margin-left: 50px;font-family: Ubuntu;">
 				<p:menuitem value="create" url="/pages/project/add_project.jsf" icon="ui-icon-contact"/>

@@ -35,7 +35,7 @@ public class Project implements Serializable {
 	private int id;
 
 	@NotBlank(message = "name is a required field")
-	@Column(name = "NAME", nullable = false, unique = true, length = 60)
+	@Column(name = "NAME", nullable = false, length = 60)
 	private String name;
 
 	@NotBlank(message = "description is a required field")

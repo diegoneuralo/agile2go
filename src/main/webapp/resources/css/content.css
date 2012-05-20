@@ -1,9 +1,13 @@
  body {
-	margin:0 0 0 0;
+	/* margin:0 0 0 0; */
 	background-image:url(../resources/img/back2.png);
-	background-repeat:repeat;
+	/* background-repeat:repeat-x; */
+	/* background: -webkit-gradient(linear, left top, left bottom, from(#CCC), to(white)) repeat-X; */
 }
 
+
+/* JSF 
+box-shadow: 0px 1px 15px #000; */
 
 label {
 	/* margin-left: 70px; */
@@ -12,6 +16,27 @@ label {
 	font-family: Ubuntu;
 	font-size: 16px;
 }
+
+#content {
+	position: absolute;
+	z-index: 10;
+	top: 55px;
+	left: 42%;
+}
+
+.head h1 {
+	font-family: Ubuntu;
+	font-size: 25px;
+}
+
+.image {
+	position: absolute;
+	z-index: 1;
+}
+
+.head {}
+
+.middle {}
 
 .conteudo {
 	width:400px;

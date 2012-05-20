@@ -1,65 +1,56 @@
 
-    create table jboss_as_scrum.ITEM (
-        ITEM_ID  serial not null,
-        DESCRICAO varchar(255) not null,
-        PRIORIDADE int4 not null,
-        SPRINT_ID int4,
-        primary key (ITEM_ID)
+    create table scrum.PROJECT (
+        PROJECT_ID  serial not null,
+        COMPANY varchar(60) not null,
+        DESCRIPTION varchar(255) not null,
+        LAST_DATE date not null,
+        NAME varchar(60) not null,
+        primary key (PROJECT_ID),
+        unique (NAME)
     );
 
-    create table jboss_as_scrum.SPRINT (
+    create table scrum.SPRINT (
         SPRINT_ID  serial not null,
-        DATA_FIM date not null,
-        DATA_INICIO timestamp not null,
-        NOME varchar(60) not null,
-        PROJETO_ID int4,
-        primary key (SPRINT_ID)
+        DAILY_SCRUM varchar(5) not null,
+        END_DATE date not null,
+        GOAL varchar(60) not null,
+        NAME varchar(60) not null,
+        START_DATE date not null,
+        PROJECT_ID int4,
+        primary key (SPRINT_ID),
+        unique (NAME, PROJECT_ID)
     );
 
-    create table jboss_as_scrum.TASK (
-        TAREFA_ID  serial not null,
-        LOCAL varchar(60) not null,
-        NOME varchar(60) not null,
-        RESOURCE int4 not null,
+    create table scrum.TASK (
+        TASK_ID  serial not null,
+        HOURS varchar(5) not null,
+        PRIORITY int4 not null,
         STATUS varchar(15),
-        ITEM_ID int4,
-        primary key (TAREFA_ID)
+        STORY varchar(60) not null,
+        SPRINT_ID int4,
+        primary key (TASK_ID),
+        unique (SPRINT_ID)
     );
 
-    create table jboss_as_scrum.USUARIO (
-        id  serial not null,
-        CIDADE varchar(60),
-        RUA varchar(60),
+    create table scrum.USER (
+        USER_ID  serial not null,
+        CITY varchar(60),
+        STREET varchar(60),
         UF varchar(2),
         LOGIN varchar(20) not null unique,
-        NOME varchar(100) not null,
+        NAME varchar(100) not null,
+        PASSWORD varchar(15) not null,
         role varchar(10),
-        SENHA varchar(15) not null,
-        primary key (id),
-        unique (NOME)
+        primary key (USER_ID),
+        unique (NAME)
     );
 
-    create table jboss_as_scrum.project (
-        PROJETO_ID  serial not null,
-        DATA_ENTREGA timestamp not null,
-        DESCRICAO varchar(255) not null,
-        EMPRESA varchar(60) not null,
-        NOME varchar(60) not null unique,
-        primary key (PROJETO_ID),
-        unique (NOME)
-    );
+    alter table scrum.SPRINT 
+        add constraint FK922FF61A6C43551A 
+        foreign key (PROJECT_ID) 
+        references scrum.PROJECT;
 
-    alter table jboss_as_scrum.ITEM 
-        add constraint FK2273139B52DD7A 
+    alter table scrum.TASK 
+        add constraint FK272D859B52DD7A 
         foreign key (SPRINT_ID) 
-        references jboss_as_scrum.SPRINT;
-
-    alter table jboss_as_scrum.SPRINT 
-        add constraint FK922FF61A6D309ED0 
-        foreign key (PROJETO_ID) 
-        references jboss_as_scrum.project;
-
-    alter table jboss_as_scrum.TASK 
-        add constraint FK272D85873F8EDA 
-        foreign key (ITEM_ID) 
-        references jboss_as_scrum.ITEM;
+        references scrum.SPRINT;

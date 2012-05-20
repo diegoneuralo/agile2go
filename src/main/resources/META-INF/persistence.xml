@@ -21,12 +21,13 @@
 			<property name="hibernate.connection.username" value="postgres" />
 			<property name="hibernate.connection.password" value="rafa1986" />
 			<property name="hibernate.connection.url" value="jdbc:postgresql:postgres:5432/postgres" />
-			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.hbm2ddl.auto" value="create" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.transaction.flush_before_completion" value="true" />
 			<property name="hibernate.cache.provider_class" value="org.hibernate.cache.HashtableCacheProvider" />
 			<property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform" />
 			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.default_schema" value="scrum"/>
 		</properties>
 
 	</persistence-unit>

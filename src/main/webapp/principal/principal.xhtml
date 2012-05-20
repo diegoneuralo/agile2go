@@ -4,12 +4,34 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<h:outputStylesheet name="content.css" library="css" />
+</h:head>
 
 <ui:composition template="/templates/_template.xhtml">
 	<ui:define name="body">
-		
-		<h:graphicImage value="/resources/img/scrum.png" style="margin-left:150px" />
-		
+	<h:graphicImage value="/resources/img/scrum.png" style="margin-left:120px; margin-top:50px;" />
+<!--  	<div class="producth">
+            <h1>Scrum</h1>
+        </div>
+        <div>
+            <ul class="features-group scrum">
+                <li class="feature-a">
+                 <a href="#release-plan"><h4>Release Plan</h4>
+                    <p>Create high-level plans for several projects on one screen.</p></a>
+                </li>
+                <li class="feature-b">
+                  <a href="#backlog">  <h4>Backlog</h4>
+                    <p>Handle features, User Stories and Bugs in a single backlog. Prioritize cross-project.</p></a>
+                </li>
+                <li class="feature-c">
+                  <a href="#sprint-plan">  <h4>Sprint Plan</h4>
+                    <p>Quickly plan sprints with batch drag &amp; drop, control velocity, prioritize User Stories and Bugs.</p></a>
+                </li>
+               
+            </ul>
+        </div>
+		-->	
 	</ui:define>
 </ui:composition>
 </html>
