@@ -2,28 +2,28 @@ package br.com.scrum.presentation.mb;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.NoResultException;
 
 import br.com.scrum.domain.entity.User;
 import br.com.scrum.domain.entity.enums.Const;
-import br.com.scrum.domain.repository.UserRepository;
+import br.com.scrum.domain.service.UserService;
 
 @Named
-@RequestScoped
+@SessionScoped
 public class UserMb extends BaseBean implements Serializable {
 			
+	@Inject private UserService userService;
 	private User user;	
-    @Inject private UserRepository userRepository;
 	
 	private String login;
 	private String password;
 
 	public String userLogin () {
 		try {			
-			user = userRepository.withLogin(login, password);				
+			user = userService.withLogin(login, password);				
 			return Const.PRINCIPAL;
 		} catch ( NoResultException nre ) {
 			nre.printStackTrace();

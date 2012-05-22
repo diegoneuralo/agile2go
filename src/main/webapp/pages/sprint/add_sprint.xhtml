@@ -12,11 +12,23 @@
 	<ui:define name="body">
 
 			<h:form id="form">
-				<h:panelGrid id="panelGrid" columns="1" cellpadding="3"
-					cellspacing="3" styleClass="formulario">
+				<h:panelGrid id="panelGrid" columns="1" cellpadding="3" cellspacing="3" styleClass="formulario">
 					<h:panelGrid cellpadding="0" cellspacing="0">
 						<h:outputLabel value="&nbsp;Name" />
 						<p:inputText id="name" value="#{sprintMB.sprint.name}" size="25" style="width:305px;" />						
+					</h:panelGrid>
+					<h:panelGrid cellpadding="0" cellspacing="0">
+						<h:outputLabel value="&nbsp;Project" />
+						<p:autoComplete id="project" value="#{sprintMB.sprint.project}" converter="#{projectConverter}" forceSelection="true"
+							completeMethod="#{sprintMB.completeProject}" var="p" itemValue="#{p}" itemLabel="#{p.name}" minQueryLength="3"
+							maxResults="5" queryDelay="500" size="32" style="width:305px;">
+							<p:column>
+								<div style="text-align: left;">
+									cod:#{p.id} - name:#{p.name}<br />deadline:#{p.lastDate}
+								</div>
+							</p:column>
+							<p:ajax event="itemSelect" listener="#{sprintMB.selectProject}" update="@form :growl" process="@this project" />
+						</p:autoComplete>													
 					</h:panelGrid>
 					<h:panelGrid cellpadding="0" cellspacing="0">
 						<h:outputLabel value="&nbsp;Start Date" />
@@ -40,7 +52,7 @@
 					</h:panelGrid>
 				</h:panelGrid>
 
-				<p:commandButton id="saveBtn" value="Save" action="#{sprintMB.saveOrUpdate}" update=":growl" ajax="false" style="margin-left:80px;font-family:Ubuntu;font-size:16px;" />
+				<p:commandButton id="saveBtn" value="Save" action="#{sprintMB.saveOrUpdate}" update="form :growl" style="margin-left:80px;font-family:Ubuntu;font-size:16px;" />
 				<p:commandButton value="Cancel" action="#{sprintMB.cancel}"  style="margin-right:50px; font-family:Ubuntu;font-size:16px;"  />
 									
 			</h:form>

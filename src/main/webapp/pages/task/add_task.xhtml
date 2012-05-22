@@ -16,6 +16,18 @@
 						<h:outputLabel value="&nbsp;User Story" />
 						<p:inputText value="#{taskMb.task.story}" size="25" style="width:305px;" />
 					</h:panelGrid>
+					<h:panelGrid cellpadding="0" cellspacing="0">
+						<h:outputLabel value="&nbsp;Sprint" />
+						<p:autoComplete id="sprint" value="#{taskMb.task.sprint}" converter="#{sprintConverter}" forceSelection="true"
+							completeMethod="#{taskMb.completeSprint}" var="s" itemValue="#{s}" itemLabel="#{s.name}" minQueryLength="3"
+							maxResults="5" queryDelay="500" size="32" style="width:305px;">
+							<p:column>
+								<div style="text-align: left;">
+									cod:#{s.id} - name:#{s.name}<br />deadline:#{s.endDate}
+								</div>
+							</p:column>							
+						</p:autoComplete>													
+					</h:panelGrid>
 					<h:panelGrid columns="3" cellpadding="0" cellspacing="0" >
 					<h:panelGrid cellpadding="0" cellspacing="0" style="width: 90px;">
 						<h:outputLabel value="&nbsp;Priority" />
@@ -35,7 +47,7 @@
 					</h:panelGrid>
 				</h:panelGrid>
 				<p:commandButton value="Save" action="#{taskMb.saveOrUpdate}"
-					update=":growl" ajax="false" style="margin-left:80px;font-family:Ubuntu;font-size:16px;" />
+					update="form :growl" style="margin-left:80px;font-family:Ubuntu;font-size:16px;" />
 				<p:commandButton value="Cancel" action="#{projectMb.cancelProject}" 
 				                 style="margin-right:50px; font-family:Ubuntu;font-size:16px;" />						
 		</h:form>

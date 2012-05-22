@@ -1,6 +1,7 @@
 package br.com.scrum.presentation.mb;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
@@ -8,26 +9,34 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.hibernate.exception.ConstraintViolationException;
+import org.primefaces.event.SelectEvent;
 
+import br.com.scrum.domain.entity.Project;
 import br.com.scrum.domain.entity.Sprint;
-import br.com.scrum.domain.repository.SprintRepository;
+import br.com.scrum.domain.service.ProjectService;
+import br.com.scrum.domain.service.SprintService;
+import br.com.scrum.infrastructure.dao.exception.BusinessException;
 
 @Named
 @RequestScoped
 public class SprintMB extends BaseBean implements Serializable {
 			
-	@Inject private SprintRepository sprintRepository;	
-	private Sprint sprint = new Sprint();
+	@Inject private SprintService sprintService;	
+	@Inject private ProjectService projectService;
+	
+	private Sprint sprint = new Sprint();	
+	
 	private List<Sprint> sprints;
+	private List<Project> projects;
 	
 	public void saveOrUpdate () {
 		try {
-			if ( sprint.getId() == 0 ) {					
-				sprintRepository.save(sprint);
+			if ( sprint.getId() == null ) {					
+				sprintService.save(sprint);
 				sprint = new Sprint();
 				addInfoMessage("sprint successfully created");
 			} else {
-				sprintRepository.update(sprint);
+				sprintService.update(sprint);
 				sprint = new Sprint();
 				addInfoMessage("sprint successfully updated");
 			}
@@ -44,8 +53,28 @@ public class SprintMB extends BaseBean implements Serializable {
 		sprint = new Sprint();
 	}	
 	
+	public void selectProject (SelectEvent e) {
+		sprint.setProject((Project) e.getObject());
+	}
+	
+	public List<Project> completeProject (String query) {
+		try {
+			if ( projects == null ) 
+				projects = new ArrayList<Project>();
+
+			return projectService.searchBy(query);			
+		} catch (BusinessException be) {
+			be.getCause().getMessage();
+			addInfoMessage(be.getMessage());
+		} catch (Exception e) {
+			addErrorMessage(e.getMessage());
+			e.printStackTrace();
+		}
+		return projects = new ArrayList<Project>();
+	}
+	
 	public List<Sprint> getSprints () {
-		return ( sprints == null ? sprintRepository.findAll() : sprints );
+		return ( sprints == null ? sprintService.findAll() : sprints );
 	}
 
 	public Sprint getSprint() {
@@ -58,8 +87,8 @@ public class SprintMB extends BaseBean implements Serializable {
 
 	public void setSprints(List<Sprint> sprints) {
 		this.sprints = sprints;
-	}		
-	
+	}	
+
 	private static final long serialVersionUID = 6429842878070655145L;
 
 }

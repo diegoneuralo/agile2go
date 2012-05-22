@@ -10,24 +10,24 @@ import javax.inject.Named;
 import org.hibernate.exception.ConstraintViolationException;
 
 import br.com.scrum.domain.entity.Project;
-import br.com.scrum.domain.repository.ProjectRepository;
+import br.com.scrum.domain.service.ProjectService;
 
 @Named
 @RequestScoped
 public class ProjectMb extends BaseBean implements Serializable {		
 
-	@Inject private ProjectRepository projectRepository;	
+	@Inject ProjectService projectService;
 	private Project project = new Project();
 	private List<Project> projects;	
 
 	public void saveOrUpdate () {
 		try {			
-			if ( project.getId() == 0 ) {
-				projectRepository.save(project);
+			if ( project.getId() == null ) {
+				projectService.save(project);
 				project = new Project();
 				addInfoMessage("project successfully created");
 			} else {
-				projectRepository.update(project);
+				projectService.update(project);
 				project = new Project();
 				addInfoMessage("project successfully updated");
 			}
@@ -53,7 +53,7 @@ public class ProjectMb extends BaseBean implements Serializable {
 	}
 
 	public List<Project> getProjects() {
-		return projects == null ? projectRepository.findAll() : projects;
+		return projects == null ? projectService.findAll() : projects;
 	}
 
 	public void setProjects(List<Project> projects) {

@@ -1,56 +1,59 @@
 package br.com.scrum.domain.service;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
 
 import org.hibernate.exception.ConstraintViolationException;
 
 import br.com.scrum.domain.entity.Task;
-import br.com.scrum.domain.qualifiers.TaskDI;
-import br.com.scrum.domain.repository.TaskRepository;
 import br.com.scrum.infrastructure.dao.GenericRepository;
 import br.com.scrum.infrastructure.dao.exception.BusinessException;
 
-public class TaskService implements TaskRepository {
+public class TaskService implements Serializable {
 	
-	@Inject @TaskDI private GenericRepository<Task, Integer> taskRepository;
-
-	@Override
+	@Inject private EntityManager em;
+	@Inject private GenericRepository<Task, Integer> repository;
+	
+	/**
+	 * this method set a external EntityManager, just for tests 
+	 */
+	public TaskService setEm (EntityManager em) {
+		this.em = em;
+		repository = new GenericRepository<Task, Integer>(Task.class, em);
+		return this;		
+	}
+	
 	public Task save (Task task) {
 		try {
-			return taskRepository.persist(task);				
+			return repository.persist(task);				
 		} catch ( ConstraintViolationException cve ) {
 			throw cve;	
 		}
 	}
-
-	@Override
+	
 	public Task update (Task task) {
 		try {
-			return taskRepository.merge(task);				
+			return repository.merge(task);				
 		} catch ( ConstraintViolationException cve ) {
 			throw cve;	
 		}
 	}
 
-	@Override
-	public Task withId (int id) {
-		return taskRepository.find(id);
+	public Task withId (Integer id) {
+		return repository.find(id);
 	}
 
-	@Override
 	public List<Task> findAll () {
-		return taskRepository.list();
+		return repository.list();
 	}
 
-	@Override
-	public void remove(Task task) throws BusinessException {
-		try {
-			taskRepository.remove(task);					
-		} catch (Exception e) {
-			throw new BusinessException("error removing the task");
-		}
+	public void remove(Task task) throws BusinessException {		
+		repository.remove(task);					
 	}	
+	
+	private static final long serialVersionUID = 9002969380414395854L;
 	
 }

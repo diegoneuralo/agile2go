@@ -11,13 +11,13 @@ import org.junit.Test;
 
 import br.com.scrum.domain.entity.User;
 import br.com.scrum.domain.entity.enums.UserRole;
-import br.com.scrum.domain.repository.UserRepository;
+import br.com.scrum.domain.service.UserService;
 import br.com.scrum.infrastructure.factory.JPAUtil;
 
 public class UserTestRepository {
 
 	private static EntityManager em;	
-	private static UserRepository userRepository;
+	private static UserService userRepository;
 
 	@BeforeClass					
 	public static void before() throws Exception {

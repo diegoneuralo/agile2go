@@ -23,17 +23,20 @@ import br.com.scrum.domain.entity.enums.Const;
 
 @Entity
 @Table(name = "SPRINT", schema = Const.SCHEMA, uniqueConstraints =
-						@UniqueConstraint(columnNames = {"NAME", "PROJECT_ID"}))
-@NamedQueries(
-		@NamedQuery(name="Sprint.getLastId", query="SELECT s FROM Sprint as s where s.id = (select MAX(s.id) FROM Sprint s)"))
+						@UniqueConstraint(columnNames = {"PROJECT_ID"}))
+@NamedQueries({
+		@NamedQuery(name="Sprint.getLastId", query="SELECT s FROM Sprint s where s.id = (select MAX(s.id) FROM Sprint s)"),
+		@NamedQuery(name="Sprint.getByName", query="SELECT s FROM Sprint s WHERE upper(s.name) like :name")
+		})
 public class Sprint implements Serializable {	
 
 	public static final String ID = "id";
+	public static final String NAME = "name";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "SPRINT_ID")
-	private int id;
+	private Integer id;
 
 	@NotBlank(message = "name is a required field")
 	@Column(name = "NAME", nullable = false, length = 60)
@@ -59,13 +62,15 @@ public class Sprint implements Serializable {
 	@JoinColumn(name = "PROJECT_ID", referencedColumnName = "PROJECT_ID")	
 	private Project project;	
 
-	public Sprint() { }		
+	public Sprint() {
+		project = new Project();
+	}		
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -116,12 +121,12 @@ public class Sprint implements Serializable {
 	public void setProject(Project project) {
 		this.project = project;
 	}		
-
+		
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -131,15 +136,23 @@ public class Sprint implements Serializable {
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof Sprint))
+		if (getClass() != obj.getClass())
 			return false;
 		Sprint other = (Sprint) obj;
-		if (id != other.id)
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}		
+
+	@Override
+	public String toString() {
+		return name ;
 	}
 
-	private static final long serialVersionUID = 4897729582058383675L;
+	private static final long serialVersionUID = 4897729582058383675L;	
 
 }
 

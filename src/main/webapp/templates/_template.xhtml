@@ -10,7 +10,7 @@
 	<h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />	
 </h:head>
 <h:body>
-	<h:form id="form"><!-- background:#DEEDF7" styleClass="ui-widget ui-widget-header" -->
+	<h:form id="formMenu"><!-- background:#DEEDF7" styleClass="ui-widget ui-widget-header" -->
 		<p:menubar style="border:0px; margin-top:-9px;" styleClass="ui-widget ui-widget-header" >
 			<p:menuitem value="Home" url="/principal/principal.jsf" style="margin-left: 50px; font-family: Ubuntu;" />
 			<p:submenu label="Projects" style="margin-left: 50px;font-family: Ubuntu;">
@@ -27,11 +27,11 @@
 			</p:submenu>
 			 <p:menuitem value="Logout" url="http://localhost:8080/jboss-as-scrum/login.jsf" style="margin-left: 50px; font-family: Ubuntu;" icon="ui-icon-close" /> 
 		</p:menubar>
+	</h:form>
 		<div id="body">
 			<p:growl id="growl" showDetail="true" showSummary="false" />
 			<ui:insert name="body"></ui:insert>
 		</div>
-	</h:form>
 	
 </h:body>
 </html>

@@ -6,25 +6,23 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
 
 import org.hibernate.exception.ConstraintViolationException;
 
 import br.com.scrum.domain.entity.User;
-import br.com.scrum.domain.qualifiers.UserDI;
-import br.com.scrum.domain.repository.UserRepository;
 import br.com.scrum.infrastructure.dao.GenericRepository;
 
-public class UserService implements UserRepository, Serializable {	
+public class UserService implements Serializable {	
 
-    @Inject @UserDI private GenericRepository<User, Integer> dao;
-    
-//    @Inject private EntityManager em;
-        
-//    public UserService setEm (EntityManager em) {
-//        this.em = em;    
-//        dao = new GenericRepository<User, Integer>(User.class, em);
-//        return this;
-//    }
+	@Inject private EntityManager em;
+    @Inject private GenericRepository<User, Integer> dao;
+            
+    public UserService setEm (EntityManager em) {
+        this.em = em;    
+        dao = new GenericRepository<User, Integer>(User.class, em);
+        return this;
+    }
 
 	public User save (User user) throws ConstraintViolationException, Exception {
 		try {

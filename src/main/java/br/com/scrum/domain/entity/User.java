@@ -25,7 +25,7 @@ import br.com.scrum.domain.entity.enums.UserRole;
 @Table(name = "USER", schema = Const.SCHEMA, uniqueConstraints = {
 		@UniqueConstraint(columnNames = "NAME")})
 @NamedQueries({
-	@NamedQuery(name = "User.getByLogin", query = "SELECT u FROM User as u WHERE u.login = :login and u.password = :password")})
+	@NamedQuery(name = "User.getByLogin", query = "SELECT u FROM User u WHERE u.login = :login and u.password = :password")})
 public class User implements Serializable {	
 	
 	public static final String LOGIN = "login";
