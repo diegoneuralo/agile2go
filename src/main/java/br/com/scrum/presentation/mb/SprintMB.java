@@ -34,7 +34,7 @@ public class SprintMB extends BaseBean implements Serializable {
 			if ( sprint.getId() == null ) {					
 				sprintService.save(sprint);
 				sprint = new Sprint();
-				addInfoMessage("sprint successfully created");
+				addInfoMessage("sprint successfully created");				
 			} else {
 				sprintService.update(sprint);
 				sprint = new Sprint();
@@ -54,7 +54,7 @@ public class SprintMB extends BaseBean implements Serializable {
 	}	
 	
 	public void selectProject (SelectEvent e) {
-		sprint.setProject((Project) e.getObject());
+		sprint.setProject( (Project) e.getObject() );
 	}
 	
 	public List<Project> completeProject (String query) {

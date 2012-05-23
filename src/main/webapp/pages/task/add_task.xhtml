@@ -18,7 +18,7 @@
 					</h:panelGrid>
 					<h:panelGrid cellpadding="0" cellspacing="0">
 						<h:outputLabel value="&nbsp;Sprint" />
-						<p:autoComplete id="sprint" value="#{taskMb.task.sprint}" converter="#{sprintConverter}" forceSelection="true"
+						<p:autoComplete id="sprint" value="#{taskMb.task.sprint}" converter="#{sprintConverter}"
 							completeMethod="#{taskMb.completeSprint}" var="s" itemValue="#{s}" itemLabel="#{s.name}" minQueryLength="3"
 							maxResults="5" queryDelay="500" size="32" style="width:305px;">
 							<p:column>

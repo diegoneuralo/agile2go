@@ -16,7 +16,7 @@ public class Address implements Serializable {
 	@Column(name = "STREET", length = 60)
 	private String street;
 	
-	@Column(name = "UF", length = 2)
+	@Column(name = "UF", length = 4)
 	private String uf;
 
 	public String getCity() {

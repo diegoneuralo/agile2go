@@ -15,15 +15,13 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
 
 import org.hibernate.validator.constraints.NotBlank;
 
 import br.com.scrum.domain.entity.enums.Const;
 
 @Entity
-@Table(name = "SPRINT", schema = Const.SCHEMA, uniqueConstraints =
-						@UniqueConstraint(columnNames = {"PROJECT_ID"}))
+@Table(name = "SPRINT", schema = Const.SCHEMA)
 @NamedQueries({
 		@NamedQuery(name="Sprint.getLastId", query="SELECT s FROM Sprint s where s.id = (select MAX(s.id) FROM Sprint s)"),
 		@NamedQuery(name="Sprint.getByName", query="SELECT s FROM Sprint s WHERE upper(s.name) like :name")

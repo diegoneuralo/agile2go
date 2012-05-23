@@ -12,8 +12,8 @@
 		
 		<h:form id="form">
 			<p:dataTable id="dataTable" var="task" editable="true" paginatorPosition="bottom" 
-				value="#{taskMb.tasks}" paginator="true" rows="5" 
-				rowsPerPageTemplate="5,10,15"  cellpadding="3" cellspacing="3"
+				value="#{taskMb.tasks}" paginator="true" rows="5" selection="#{taskMb.selectTasks}"
+				rowsPerPageTemplate="5,10,15"  cellpadding="3" cellspacing="3" 
 				styleClass="dataTable">
 				
 				<f:facet name="header">Tasks</f:facet>
@@ -46,6 +46,14 @@
 							<h:inputText value="#{task.hours}" style="width: 100%" />
 						</f:facet>
 					</p:cellEditor>
+					<!--  <f:facet name="input">  
+                    <h:selectOneMenu value="#{car.manufacturer}" >  
+                        <f:selectItems value="#{tableBean.manufacturers}"  
+                            var="man"   
+                            itemLabel="#{man}"  
+                            itemValue="#{man}" />  
+                    </h:selectOneMenu>  
+                </f:facet>   -->
 				</p:column>
 				<p:column headerText="Sprint" style="width:125px">
 					<p:cellEditor>

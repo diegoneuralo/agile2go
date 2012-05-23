@@ -19,15 +19,14 @@
 					</h:panelGrid>
 					<h:panelGrid cellpadding="0" cellspacing="0">
 						<h:outputLabel value="&nbsp;Project" />
-						<p:autoComplete id="project" value="#{sprintMB.sprint.project}" converter="#{projectConverter}" forceSelection="true"
+						<p:autoComplete id="project" value="#{sprintMB.sprint.project}" converter="#{projectConverter}"
 							completeMethod="#{sprintMB.completeProject}" var="p" itemValue="#{p}" itemLabel="#{p.name}" minQueryLength="3"
 							maxResults="5" queryDelay="500" size="32" style="width:305px;">
 							<p:column>
 								<div style="text-align: left;">
 									cod:#{p.id} - name:#{p.name}<br />deadline:#{p.lastDate}
 								</div>
-							</p:column>
-							<p:ajax event="itemSelect" listener="#{sprintMB.selectProject}" update="@form :growl" process="@this project" />
+							</p:column>							
 						</p:autoComplete>													
 					</h:panelGrid>
 					<h:panelGrid cellpadding="0" cellspacing="0">

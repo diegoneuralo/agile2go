@@ -22,7 +22,7 @@ public class BaseBean implements Serializable{
 
 	protected void addInfoMessage(String infoMessage){
 		addInfoMessage(null, infoMessage);
-	}
+	}		
 	
 	private void addMessage(String componentId, String errorMessage, Severity severity){
 		FacesMessage message =  new FacesMessage(errorMessage);

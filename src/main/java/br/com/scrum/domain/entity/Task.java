@@ -14,7 +14,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -23,8 +22,7 @@ import br.com.scrum.domain.entity.enums.Const;
 import br.com.scrum.domain.entity.enums.Status;
 
 @Entity
-@Table(name = "TASK", schema = Const.SCHEMA, uniqueConstraints =
-	@UniqueConstraint(columnNames = {"SPRINT_ID"}))
+@Table(name = "TASK", schema = Const.SCHEMA)
 @NamedQueries(
 		@NamedQuery(name="Task.getLastId", query = "SELECT t FROM Task t WHERE t.id = (select MAX( t.id ) FROM Task t)"))
 public class Task implements Serializable {	
