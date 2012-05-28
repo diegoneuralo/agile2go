@@ -11,67 +11,89 @@
 	<ui:define name="body">
 		
 		<h:form id="form">
-			<p:dataTable id="dataTable" var="task" editable="true" paginatorPosition="bottom" 
-				value="#{taskMb.tasks}" paginator="true" rows="5" selection="#{taskMb.selectTasks}"
-				rowsPerPageTemplate="5,10,15"  cellpadding="3" cellspacing="3" 
-				styleClass="dataTable">
-				
-				<f:facet name="header">Tasks</f:facet>
-				<p:column headerText="User Story" style="width:125px">
+		<h:panelGrid>
+				<p:commandButton value="Save" title="save" action="#{taskMb.saveOrUpdate}" update="form :growl" style="margin-left:175px;margin-top:90px;font-family:Ubuntu;font-size:16px;" />
+			</h:panelGrid>
+			<p:dataTable id="dataTable" var="task" editable="true"
+				paginatorPosition="bottom" value="#{taskMb.tasks}" paginator="true"
+				rows="5" rowsPerPageTemplate="5,10,15" cellpadding="3"
+				cellspacing="3" styleClass="dataTable">
+				<f:facet name="header">
+					<h:outputText value="Tasks" styleClass="inputDataTable" />
+				</f:facet>
+				<p:column headerText="User Story" styleClass="inputDataTable">
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{task.story}" />
 						</f:facet>
 						<f:facet name="input">
-							<h:inputText value="#{task.story}" style="width: 100%" />
+							<p:inputText value="#{task.story}" style="width: 100%" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
-				<p:column headerText="Priority" style="width:125px">
+				<p:column headerText="Priority" styleClass="inputDataTable">
 					<p:cellEditor>
-						<f:facet name="output"> 
+						<f:facet name="output">
 							<h:outputText value="#{task.priority}" />
 						</f:facet>
 						<f:facet name="input">
-							<h:inputText value="#{task.priority}" style="width: 100%" />
+							<p:inputText value="#{task.priority}" style="width: 100%" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
-				<p:column headerText="Deadline" style="width:125px">
+				<p:column headerText="Status" styleClass="inputDataTable">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{task.status}" />
+						</f:facet>
+						<f:facet name="input">
+							<h:selectOneMenu value="#{taskMb.task.status}">
+								<f:selectItem itemValue=" " itemLabel=" " />
+								<f:selectItem itemLabel="TODO" itemValue="TODO" />
+								<f:selectItem itemLabel="ONGOING" itemValue="ONGOING" />
+								<f:selectItem itemLabel="DONE" itemValue="DONE" />
+								<f:selectItem itemLabel="WAITTING" itemValue="WAITTING" />
+							</h:selectOneMenu>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Deadline" styleClass="inputDataTable">
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{task.hours}" />
 						</f:facet>
 						<f:facet name="input">
-							<h:inputText value="#{task.hours}" style="width: 100%" />
+							<p:inputText value="#{task.hours}" style="width: 100%" />
 						</f:facet>
 					</p:cellEditor>
-					<!--  <f:facet name="input">  
-                    <h:selectOneMenu value="#{car.manufacturer}" >  
-                        <f:selectItems value="#{tableBean.manufacturers}"  
-                            var="man"   
-                            itemLabel="#{man}"  
-                            itemValue="#{man}" />  
-                    </h:selectOneMenu>  
-                </f:facet>   -->
 				</p:column>
-				<p:column headerText="Sprint" style="width:125px">
+				<p:column headerText="Sprint" styleClass="inputDataTable">
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{task.sprint.name}" />
 						</f:facet>
 						<f:facet name="input">
-							<h:inputText value="#{task.sprint.name}" style="width: 100%" />
+							<p:inputText value="#{task.sprint.name}" style="width: 100%" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
-				<p:column headerText="Options" style="width: 50px;">
+				<p:column headerText="Options" styleClass="inputDataTable">
 					<p:rowEditor />
+					<p:spacer width="15px;" />
+					<h:commandLink onclick="confirmation.show()">
+						<f:ajax execute="@form" />
+						<h:graphicImage value="/resources/img/excluir16.png" title="remove" />
+						<f:setPropertyActionListener target="#{taskMb.task}" value="#{task}" />
+					</h:commandLink>
 				</p:column>
 			</p:dataTable>
-				<p:blockUI block="dataTable" trigger="dataTable">LOADING<br />
-					<p:graphicImage value="/resources/img/loading.gif" />
-				</p:blockUI>				
+			<p:blockUI block="dataTable" trigger="dataTable">LOADING<br />
+				<p:graphicImage value="/resources/img/loading.gif" />
+			</p:blockUI>
+			<p:confirmDialog message="Are you sure do you want remove?" header="remove" severity="alert" widgetVar="confirmation" style="font-family:Ubuntu;font-size:16px;">
+				<p:commandButton value="Yes" update="@form :growl" actionListener="#{taskMb.remove}" oncomplete="confirmation.hide()" style="margin-left:84px;font-family:Ubuntu;font-size:16px;" />
+				<p:commandButton value="No" onclick="confirmation.hide()" type="button" style="font-family:Ubuntu;font-size:16px;" />
+			</p:confirmDialog>
 		</h:form>
 
 	</ui:define>

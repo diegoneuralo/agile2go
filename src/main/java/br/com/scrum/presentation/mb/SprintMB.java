@@ -9,7 +9,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.hibernate.exception.ConstraintViolationException;
-import org.primefaces.event.SelectEvent;
 
 import br.com.scrum.domain.entity.Project;
 import br.com.scrum.domain.entity.Sprint;
@@ -27,7 +26,7 @@ public class SprintMB extends BaseBean implements Serializable {
 	private Sprint sprint = new Sprint();	
 	
 	private List<Sprint> sprints;
-	private List<Project> projects;
+	private List<Project> projects;		
 	
 	public void saveOrUpdate () {
 		try {
@@ -49,19 +48,20 @@ public class SprintMB extends BaseBean implements Serializable {
 		}
 	}
 	
-	public void cancel () {
-		sprint = new Sprint();
-	}	
-	
-	public void selectProject (SelectEvent e) {
-		sprint.setProject( (Project) e.getObject() );
+	public void remove () {		
+		try {
+			sprintService.remove(sprint);
+		} catch (Exception e) {
+			e.getCause().getMessage();
+			addErrorMessage(e.getMessage());
+		}		
 	}
-	
+
 	public List<Project> completeProject (String query) {
 		try {
-			if ( projects == null ) 
+			if ( projects == null ) {
 				projects = new ArrayList<Project>();
-
+			}
 			return projectService.searchBy(query);			
 		} catch (BusinessException be) {
 			be.getCause().getMessage();
@@ -73,8 +73,8 @@ public class SprintMB extends BaseBean implements Serializable {
 		return projects = new ArrayList<Project>();
 	}
 	
-	public List<Sprint> getSprints () {
-		return ( sprints == null ? sprintService.findAll() : sprints );
+	public List<Sprint> getSprints() {
+		return sprints == null ? sprints = sprintService.findAll() : sprints;		 
 	}
 
 	public Sprint getSprint() {

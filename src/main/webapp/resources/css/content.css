@@ -80,9 +80,19 @@ label {
 
 .dataTable {	
 	margin-left: 174px;
-	margin-right: 200px;
-	margin-top: 90px;
+	margin-right: 200px;	
 }
+
+.inputDataTable {
+	style="width:50px;
+	font-family:ubuntu;
+	font-size:16px;"
+}
+
+.dialog {
+	
+}
+
 
 .formulario {
 	margin-left:56px;

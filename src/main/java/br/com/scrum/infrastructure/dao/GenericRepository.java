@@ -11,15 +11,15 @@ import javax.persistence.Query;
 import org.hibernate.exception.ConstraintViolationException;
 
 public class GenericRepository<T, IDType extends Serializable> {
-				
+
 	private Class<T> clazz;
 	private EntityManager em;
-	
+
 	public GenericRepository (Class<T> clazz, EntityManager em) {		
 		this.clazz = clazz;
 		this.em = em;
 	}
-	
+
 	public T merge (T obj) throws PersistenceException, ConstraintViolationException {		
 		try {
 			begin();
@@ -90,20 +90,20 @@ public class GenericRepository<T, IDType extends Serializable> {
 				query.setParameter(key, params.get(key));					
 		return (T) query.getSingleResult();		
 	}		
-	
+
 	private void begin () {
-        if ( !em.getTransaction().isActive() )
-        	em.getTransaction().begin();        
-    }
-    
-    private void commit () {
-        if ( em.getTransaction().isActive() ) 
-        	em.getTransaction().commit();        
-    }
-    
-    private void rollback () {
-        if ( em.getTransaction().isActive() )
-        	em.getTransaction().rollback();        
-    }		
+		if ( !em.getTransaction().isActive() )
+			em.getTransaction().begin();        
+	}
+
+	private void commit () {
+		if ( em.getTransaction().isActive() ) 
+			em.getTransaction().commit();        
+	}
+
+	private void rollback () {
+		if ( em.getTransaction().isActive() )
+			em.getTransaction().rollback();        
+	}		
 
 }

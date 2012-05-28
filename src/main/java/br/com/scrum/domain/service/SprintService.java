@@ -56,7 +56,7 @@ public class SprintService implements Serializable {
 	}
 
 	public List<Sprint> findAll () {
-		return repository.list();
+		return (List<Sprint>) repository.list();
 	}
 
 	public List<Sprint> searchBy (String query) throws BusinessException,  Exception {

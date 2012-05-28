@@ -11,59 +11,75 @@
 	<ui:define name="body">
 		
 		<h:form id="form">
+			<h:panelGrid>
+				<p:commandButton value="Save" title="save" action="#{projectMb.saveOrUpdate}" update="form :growl" style="margin-left:175px;margin-top:90px;font-family:Ubuntu;font-size:16px;" />
+			</h:panelGrid>
 			<p:dataTable id="dataTable" var="project" editable="true" paginatorPosition="bottom" 
 				value="#{projectMb.projects}" paginator="true" rows="5" 
 				rowsPerPageTemplate="5,10,15"  cellpadding="3" cellspacing="3"
-				styleClass="dataTable" >
-				
-				<f:facet name="header">Projects</f:facet>
-				<p:column headerText="Name" style="width:125px">
+				styleClass="dataTable">								
+				<f:facet name="header">
+					<h:outputText value="Projects" styleClass="inputDataTable" />
+				</f:facet>
+				<p:column headerText="Name" styleClass="inputDataTable">
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{project.name}" />
 						</f:facet>
 						<f:facet name="input">
-							<h:inputText value="#{project.name}" style="width: 100%" />
+							<p:inputText value="#{project.name}" style="width: 100%" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
-				<p:column headerText="Description" style="width:125px">
+				<p:column headerText="Description" styleClass="inputDataTable">
 					<p:cellEditor>
 						<f:facet name="output"> 
 							<h:outputText value="#{project.description}" />
 						</f:facet>
 						<f:facet name="input">
-							<h:inputText value="#{project.description}" style="width: 100%" />
+							<p:inputText value="#{project.description}" style="width: 100%" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
-				<p:column headerText="Deadline" style="width:125px">
+				<p:column headerText="Deadline" styleClass="inputDataTable">
 					<p:cellEditor>
 						<f:facet name="output">
-							<h:outputText value="#{project.lastDate}" />
+							<h:outputText value="#{project.lastDate}">
+								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03:00" />
+							</h:outputText>
 						</f:facet>
 						<f:facet name="input">
-							<h:inputText value="#{project.lastDate}" style="width: 100%" />
+							<p:calendar value="#{project.lastDate}" style="width: 100%" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
-				<p:column headerText="Company" style="width:125px">
+				<p:column headerText="Company" styleClass="inputDataTable">
 					<p:cellEditor>
 						<f:facet name="output">
 							<h:outputText value="#{project.company}" />
 						</f:facet>
 						<f:facet name="input">
-							<h:inputText value="#{project.company}" style="width: 100%" />
+							<p:inputText value="#{project.company}" style="width: 100%" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
-				<p:column headerText="Options" style="width: 50px;">
+				<p:column headerText="Options" styleClass="inputDataTable">					
 					<p:rowEditor />
+					<p:spacer width="15px;" />
+					<h:commandLink onclick="confirmation.show()">
+						<f:ajax execute="@form" />
+						<h:graphicImage value="/resources/img/excluir16.png" title="remove" />
+						<f:setPropertyActionListener target="#{projectMb.project}" value="#{project}" />
+					</h:commandLink>
 				</p:column>
 			</p:dataTable>
-				<p:blockUI block="dataTable" trigger="dataTable">LOADING<br />
-					<p:graphicImage value="/resources/img/loading.gif" />
-				</p:blockUI>				
+			<p:blockUI block="dataTable" trigger="dataTable">LOADING<br />
+				<p:graphicImage value="/resources/img/loading.gif" />
+			</p:blockUI>						
+			<p:confirmDialog message="Are you sure do you want remove?" header="remove" severity="alert" widgetVar="confirmation" style="font-family:Ubuntu;font-size:16px;" >
+				<p:commandButton value="Yes" update="@form :growl" actionListener="#{projectMb.remove}" oncomplete="confirmation.hide()" style="margin-left:84px;font-family:Ubuntu;font-size:16px;" />
+				<p:commandButton value="No" onclick="confirmation.hide()" type="button" style="font-family:Ubuntu;font-size:16px;" />
+			</p:confirmDialog>
 		</h:form>
 
 	</ui:define>

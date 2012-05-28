@@ -9,7 +9,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.hibernate.exception.ConstraintViolationException;
-import org.primefaces.event.SelectEvent;
 
 import br.com.scrum.domain.entity.Sprint;
 import br.com.scrum.domain.entity.Task;
@@ -49,12 +48,13 @@ public class TaskMb extends BaseBean implements Serializable {
 		}			
 	}
 	
-	public void cancelTask () {
-		task = new Task();
-	} 
-	
-	public void selectSprint (SelectEvent e) {
-		task.setSprint((Sprint) e.getObject());
+	public void remove () {		
+		try {
+			taskService.remove(task);
+		} catch (Exception e) {
+			e.getCause().getMessage();
+			addErrorMessage(e.getMessage());
+		}		
 	}
 	
 	public List<Sprint> completeSprint (String query) {
@@ -71,7 +71,7 @@ public class TaskMb extends BaseBean implements Serializable {
 			addErrorMessage(e.getMessage());
 		}
 		return sprints = new ArrayList<Sprint>();
-	}
+	}				
 
 	public Task getTask() {
 		return task;
@@ -82,7 +82,7 @@ public class TaskMb extends BaseBean implements Serializable {
 	}
 
 	public List<Task> getTasks() {
-		return tasks == null ? taskService.findAll() : tasks;
+		return tasks == null ? tasks = taskService.findAll() : tasks;
 	}
 
 	public void setTasks(List<Task> tasks) {

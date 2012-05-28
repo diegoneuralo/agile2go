@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,7 +17,6 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import br.com.scrum.domain.entity.enums.Const;
-import br.com.scrum.domain.entity.enums.Status;
 
 @Entity
 @Table(name = "TASK", schema = Const.SCHEMA)
@@ -43,9 +40,8 @@ public class Task implements Serializable {
 	@Column(name = "HOURS", nullable = false, length = 5)
 	private String hours;
 	
-	@Enumerated(value = EnumType.STRING)
 	@Column(name = "STATUS", length = 15)
-	private Status status;
+	private String status;
 		
 	@ManyToOne
 	@JoinColumn(name = "SPRINT_ID", referencedColumnName = "SPRINT_ID")
@@ -85,16 +81,16 @@ public class Task implements Serializable {
 
 	public void setHours(String hours) {
 		this.hours = hours;
-	}
+	}		
 
-	public Status getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(Status status) {
+	public void setStatus(String status) {
 		this.status = status;
-	}		
-	
+	}
+
 	public Sprint getSprint() {
 		return sprint;
 	}

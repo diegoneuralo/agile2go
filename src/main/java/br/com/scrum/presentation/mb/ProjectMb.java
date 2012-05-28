@@ -40,8 +40,13 @@ public class ProjectMb extends BaseBean implements Serializable {
 		}
 	}
 	
-	public void cancelProject () {		
-		project = new Project();		
+	public void remove () {		
+		try {
+			projectService.remove(project);
+		} catch (Exception e) {
+			e.getCause().getMessage();
+			addErrorMessage(e.getMessage());
+		}		
 	}
 
 	public Project getProject() {
@@ -53,7 +58,7 @@ public class ProjectMb extends BaseBean implements Serializable {
 	}
 
 	public List<Project> getProjects() {
-		return projects == null ? projectService.findAll() : projects;
+		return projects == null ? projects = projectService.findAll() : projects;
 	}
 
 	public void setProjects(List<Project> projects) {
