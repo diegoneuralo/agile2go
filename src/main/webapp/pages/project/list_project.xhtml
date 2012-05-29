@@ -66,7 +66,7 @@
 				<p:column headerText="Options" styleClass="inputDataTable">					
 					<p:rowEditor />
 					<p:spacer width="15px;" />
-					<p:commandLink onclick="confirmation.show()" process="@this :form:tableGroup">										
+					<p:commandLink onclick="confirmation.show()" process="@this project">										
 						<h:graphicImage value="/resources/img/excluir16.png" title="remove" />
 						<f:setPropertyActionListener target="#{projectMb.project}" value="#{project}" />
 					</p:commandLink>
