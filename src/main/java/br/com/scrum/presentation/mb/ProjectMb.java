@@ -3,7 +3,8 @@ package br.com.scrum.presentation.mb;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -13,12 +14,18 @@ import br.com.scrum.domain.entity.Project;
 import br.com.scrum.domain.service.ProjectService;
 
 @Named
-@RequestScoped
+@SessionScoped
 public class ProjectMb extends BaseBean implements Serializable {		
 
 	@Inject ProjectService projectService;
-	private Project project = new Project();
-	private List<Project> projects;	
+	private Project project;
+	private List<Project> projects;
+	
+	@PostConstruct
+	public void init () {
+		projects = projectService.findAll();
+		project = new Project();
+	}
 
 	public void saveOrUpdate () {
 		try {			
@@ -42,7 +49,7 @@ public class ProjectMb extends BaseBean implements Serializable {
 	
 	public void remove () {		
 		try {
-			projectService.remove(project);
+			projectService.remove(project);			
 		} catch (Exception e) {
 			e.getCause().getMessage();
 			addErrorMessage(e.getMessage());
@@ -58,7 +65,7 @@ public class ProjectMb extends BaseBean implements Serializable {
 	}
 
 	public List<Project> getProjects() {
-		return projects == null ? projects = projectService.findAll() : projects;
+		return projects;
 	}
 
 	public void setProjects(List<Project> projects) {

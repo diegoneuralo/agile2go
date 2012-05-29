@@ -13,11 +13,11 @@
 		<h:form id="form">
 			<h:panelGrid>
 				<p:commandButton value="Save" title="save" action="#{projectMb.saveOrUpdate}" update="form :growl" style="margin-left:175px;margin-top:90px;font-family:Ubuntu;font-size:16px;" />
-			</h:panelGrid>
+			</h:panelGrid>	
+			<h:panelGroup id="tableGroup">		
 			<p:dataTable id="dataTable" var="project" editable="true" paginatorPosition="bottom" 
 				value="#{projectMb.projects}" paginator="true" rows="5" 
-				rowsPerPageTemplate="5,10,15"  cellpadding="3" cellspacing="3"
-				styleClass="dataTable">								
+				rowsPerPageTemplate="5,10,15"  cellpadding="3" cellspacing="3" styleClass="dataTable">								
 				<f:facet name="header">
 					<h:outputText value="Projects" styleClass="inputDataTable" />
 				</f:facet>
@@ -66,19 +66,21 @@
 				<p:column headerText="Options" styleClass="inputDataTable">					
 					<p:rowEditor />
 					<p:spacer width="15px;" />
-					<h:commandLink onclick="confirmation.show()" process="@this dataTable">						
+					<p:commandLink onclick="confirmation.show()" process="@this :form:tableGroup">										
 						<h:graphicImage value="/resources/img/excluir16.png" title="remove" />
 						<f:setPropertyActionListener target="#{projectMb.project}" value="#{project}" />
-					</h:commandLink>
+					</p:commandLink>
 				</p:column>
 			</p:dataTable>
+			</h:panelGroup>
 			<p:blockUI block="dataTable" trigger="dataTable">LOADING<br />
 				<p:graphicImage value="/resources/img/loading.gif" />
 			</p:blockUI>									
 		</h:form>
-		<h:form>
+		
+		<h:form id="confirmDialog">
 			<p:confirmDialog message="Are you sure do you want remove?" header="remove" severity="alert" widgetVar="confirmation" style="font-family:Ubuntu;font-size:16px;" >
-				<p:commandButton value="Yes" update=":form:dataTable :growl" actionListener="#{projectMb.remove}" oncomplete="confirmation.hide()" style="margin-left:84px;font-family:Ubuntu;font-size:16px;" />
+				<p:commandButton value="Yes" update="@form :growl" actionListener="#{projectMb.remove}" oncomplete="confirmation.hide()" style="margin-left:84px;font-family:Ubuntu;font-size:16px;" />
 				<p:commandButton value="No" onclick="confirmation.hide()" type="button" style="font-family:Ubuntu;font-size:16px;" />
 			</p:confirmDialog>
 		</h:form>
