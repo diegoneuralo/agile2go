@@ -80,7 +80,8 @@ label {
 
 .dataTable {	
 	margin-left: 174px;
-	margin-right: 200px;	
+	margin-right: 200px;
+	margin-top: 40px;	
 }
 
 .inputDataTable {
@@ -89,9 +90,17 @@ label {
 	font-size:16px;"
 }
 
+.dataTableOptions {
+	width:1px;
+	font-family:ubuntu;
+	font-size:0px;
+	text-align:center;
+}
+
+
 .formulario {
 	margin-left:56px;
-	margin-top:55px;
+	margin-top:0px;
 }
 
 /* .details {

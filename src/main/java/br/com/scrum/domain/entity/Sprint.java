@@ -2,7 +2,9 @@ package br.com.scrum.domain.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -59,6 +62,9 @@ public class Sprint implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "PROJECT_ID", referencedColumnName = "PROJECT_ID")	
 	private Project project;	
+	
+	@OneToMany(mappedBy = "sprint", cascade = CascadeType.ALL)
+	private List<Task> tasks;
 
 	public Sprint() {
 		project = new Project();
@@ -118,8 +124,16 @@ public class Sprint implements Serializable {
 
 	public void setProject(Project project) {
 		this.project = project;
-	}		
+	}				
 		
+	public List<Task> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(List<Task> tasks) {
+		this.tasks = tasks;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

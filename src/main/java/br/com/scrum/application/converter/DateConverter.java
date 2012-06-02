@@ -1,4 +1,4 @@
-package br.com.scrum.presentation.converter;
+package br.com.scrum.application.converter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

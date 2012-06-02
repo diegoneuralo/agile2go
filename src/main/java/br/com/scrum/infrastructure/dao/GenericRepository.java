@@ -16,7 +16,7 @@ public class GenericRepository<T, IDType extends Serializable> {
 	private EntityManager em;
 
 	public GenericRepository (Class<T> clazz, EntityManager em) {		
-		this.clazz = clazz;
+		this.clazz = clazz;		
 		this.em = em;
 	}
 
@@ -35,15 +35,11 @@ public class GenericRepository<T, IDType extends Serializable> {
 		return obj;
 	}
 
-	public T persist (T obj) throws PersistenceException, ConstraintViolationException {		
+	public T persist (T obj) throws ConstraintViolationException {		
 		try {
 			begin();
 			em.persist(obj);
-			commit();
-			em.refresh(obj);
-		} catch (PersistenceException pe) {
-			rollback();
-			throw pe;
+			commit();					
 		} catch ( ConstraintViolationException pe ) {
 			rollback();
 			throw pe;			

@@ -10,10 +10,8 @@
 <ui:composition template="/templates/_template.xhtml">
 	<ui:define name="body">
 
-		<h:form id="form">
-			<h:panelGrid>
-				<p:commandButton value="Save" title="save" action="#{sprintMB.saveOrUpdate}" update="form :growl" style="margin-left:175px;margin-top:90px;font-family:Ubuntu;font-size:16px;" />
-			</h:panelGrid>
+		<h:form id="form">	
+		<h:panelGroup id="tableGroup">		
 			<p:dataTable id="dataTable" var="sprint" editable="true" paginatorPosition="bottom"
 				value="#{sprintMB.sprints}" paginator="true" rows="5" rowKey="#{sprintMB.sprint.id}"
 				rowsPerPageTemplate="5,10,15" cellpadding="3" cellspacing="3" 
@@ -71,29 +69,52 @@
 							<h:outputText value="#{sprint.project.name}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{sprint.project.name}" style="width:100%" />
+							<p:inputText value="#{sprint.project.name}" style="width:100%" disabled="true"/>
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
-				<p:column headerText="Options" styleClass="inputDataTable">
-					<p:rowEditor />
-					<p:spacer width="15px;" />
-					<h:commandLink onclick="confirmation.show()">
-						<f:ajax execute="@form" />
-						<h:graphicImage value="/resources/img/excluir16.png" title="remove" />
+				<p:column styleClass="dataTableOptions">	
+					<p:rowEditor>
+						<h:outputText title="edit" />
+					</p:rowEditor>
+				</p:column>				
+				<p:column styleClass="dataTableOptions">				
+					<p:commandLink onclick="confirmation2.show()">
+						<h:graphicImage value="/resources/img/editar16.png" title="update" />
 						<f:setPropertyActionListener target="#{sprintMB.sprint}" value="#{sprint}" />
-					</h:commandLink>
+					</p:commandLink>
+				</p:column>
+				<p:column styleClass="dataTableOptions">
+					<p:commandLink onclick="confirmation.show()">										
+						<h:graphicImage value="/resources/img/excluir16.png" title="remove" />
+						<f:setPropertyActionListener target="#{sprintMB.sprint}" value="#{sprint}" />												
+					</p:commandLink>
 				</p:column>
 			</p:dataTable>
 			<p:blockUI block="dataTable" trigger="dataTable">LOADING<br />
 				<p:graphicImage value="/resources/img/loading.gif" />
-			</p:blockUI>
-			<p:confirmDialog message="Are you sure do you want remove?" header="remove" severity="alert" widgetVar="confirmation" style="font-family:Ubuntu;font-size:16px;" >
-				<p:commandButton value="Yes" update="@form :growl" actionListener="#{sprintMB.remove}" oncomplete="confirmation.hide()" style="margin-left:84px;font-family:Ubuntu;font-size:16px;" />
-				<p:commandButton value="No" onclick="confirmation.hide()" type="button" style="font-family:Ubuntu;font-size:16px;" />
-			</p:confirmDialog>
-
+			</p:blockUI>			
+		</h:panelGroup>
 		</h:form>
+			<p:confirmDialog message="Are you sure do you want remove the sprint?"
+			header="remove" severity="alert" widgetVar="confirmation"
+			style="font-family:Ubuntu;font-size:16px;">
+			<h:form id="confirmDialogSave">
+				<p:commandButton value="Yes" update=":form:tableGroup :growl" actionListener="#{sprintMB.remove}" oncomplete="confirmation.hide()"
+					style="margin-left:84px;font-family:Ubuntu;font-size:16px;" />
+				<p:commandButton value="No" onclick="confirmation.hide()" type="button" style="font-family:Ubuntu;font-size:16px;" />
+			</h:form>
+		</p:confirmDialog>
+		
+		<p:confirmDialog message="Are you sure do you want update?"
+			header="edit" severity="alert" widgetVar="confirmation2"
+			style="font-family:Ubuntu;font-size:16px;">
+			<h:form id="confirmDialogEdit">
+				<p:commandButton value="Yes" update=":form:tableGroup :growl" actionListener="#{sprintMB.saveOrUpdate}" oncomplete="confirmation2.hide()"
+					style="margin-left:84px;font-family:Ubuntu;font-size:16px;" />
+				<p:commandButton value="No" onclick="confirmation2.hide()" type="button" style="font-family:Ubuntu;font-size:16px;" />
+			</h:form>
+		</p:confirmDialog>
 
 	</ui:define>
 </ui:composition>

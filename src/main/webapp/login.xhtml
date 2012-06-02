@@ -5,7 +5,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-	<title><ui:insert name="titulo">Agile2Go</ui:insert></title>	
+	<title><ui:insert name="titulo">agile2go</ui:insert></title>	
 	<h:outputStylesheet name="content.css" library="css" />
 </h:head>
 <h:body>
@@ -13,19 +13,16 @@
 		<div class="login">
 			
 			<h:form id="form">
-			<p:growl id="growl" life="5000" showSummary="true" showDetail="false"  />			
-			
+			<p:growl id="growl" life="5000" showSummary="true" showDetail="false"  />						
 				<div class="inputs">
 					<h:panelGrid columns="1" style="margin-left: 80px;">
 						<h:outputLabel value="Sign In" style="margin-left: 68px;"/>
-						<p:inputText value="#{userMb.login}" required="true" requiredMessage="sign in is a required type" style="width:190px;
-	height:30px;"/>						
+						<p:inputText value="#{userMB.login}" required="true" requiredMessage="sign in is a required type" style="width:190px;height:30px;"/>						
 						
 						<h:outputLabel value="Password" style="margin-left: 68px;" />
-						<p:password value="#{userMb.password}" required="true" requiredMessage="password is a required type" style="width:190px;
-	height:30px;"  />
+						<p:password value="#{userMB.password}" required="true" requiredMessage="password is a required type" style="width:190px;height:30px;"  />
 
-						<p:commandButton action="#{userMb.userLogin}" value="Login" update="growl" 
+						<p:commandButton action="#{userMB.userLogin}" ajax="false" value="Login" update="growl" 
 						                 style="margin-left:61px; font-family:Ubuntu;font-size:16px;" />
 					</h:panelGrid>
 				</div>

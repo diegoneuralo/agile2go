@@ -18,11 +18,11 @@ public class UserService implements Serializable {
 	@Inject private EntityManager em;
     @Inject private GenericRepository<User, Integer> dao;
             
-    public UserService setEm (EntityManager em) {
-        this.em = em;    
-        dao = new GenericRepository<User, Integer>(User.class, em);
-        return this;
-    }
+//    public UserService setEm (EntityManager em) {
+//        this.em = em;    
+//        dao = new GenericRepository<User, Integer>(User.class, em);
+//        return this;
+//    }
 
 	public User save (User user) throws ConstraintViolationException, Exception {
 		try {

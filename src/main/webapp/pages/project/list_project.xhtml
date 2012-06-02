@@ -10,13 +10,10 @@
 <ui:composition template="/templates/_template.xhtml">
 	<ui:define name="body">
 		
-		<h:form id="form">
-			<h:panelGrid>
-				<p:commandButton value="Save" title="save" action="#{projectMb.saveOrUpdate}" update="form :growl" style="margin-left:175px;margin-top:90px;font-family:Ubuntu;font-size:16px;" />
-			</h:panelGrid>	
-			<h:panelGroup id="tableGroup">		
+		<h:form id="form">		
+			<h:panelGroup id="tableGroup">								
 			<p:dataTable id="dataTable" var="project" editable="true" paginatorPosition="bottom" 
-				value="#{projectMb.projects}" paginator="true" rows="5" 
+				value="#{projectMB.projects}" paginator="true" rows="5" 
 				rowsPerPageTemplate="5,10,15"  cellpadding="3" cellspacing="3" styleClass="dataTable">								
 				<f:facet name="header">
 					<h:outputText value="Projects" styleClass="inputDataTable" />
@@ -59,31 +56,54 @@
 							<h:outputText value="#{project.company}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{project.company}" style="width: 100%" />
+							<p:inputText value="#{project.company}" style="width:100%" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
-				<p:column headerText="Options" styleClass="inputDataTable">					
-					<p:rowEditor />
-					<p:spacer width="15px;" />
-					<p:commandLink onclick="confirmation.show()" process="@this project">										
+				<p:column headerText="Edit" styleClass="dataTableOptions">	
+					<p:rowEditor>
+						<h:outputText title="edit" />
+					</p:rowEditor>
+				</p:column>				
+				<p:column headerText="Update" styleClass="dataTableOptions">				
+					<p:commandLink onclick="confirmation2.show()">
+						<h:graphicImage value="/resources/img/editar16.png" title="update" />
+						<f:setPropertyActionListener target="#{projectMB.project}" value="#{project}" />
+					</p:commandLink>
+				</p:column>
+				<p:column headerText="Remove" styleClass="dataTableOptions">
+					<p:commandLink onclick="confirmation.show()">										
 						<h:graphicImage value="/resources/img/excluir16.png" title="remove" />
-						<f:setPropertyActionListener target="#{projectMb.project}" value="#{project}" />
+						<f:setPropertyActionListener target="#{projectMB.project}" value="#{project}" />												
 					</p:commandLink>
 				</p:column>
 			</p:dataTable>
 			</h:panelGroup>
 			<p:blockUI block="dataTable" trigger="dataTable">LOADING<br />
 				<p:graphicImage value="/resources/img/loading.gif" />
-			</p:blockUI>									
+			</p:blockUI>	
+										
 		</h:form>
-		
-		<h:form id="confirmDialog">
-			<p:confirmDialog message="Are you sure do you want remove?" header="remove" severity="alert" widgetVar="confirmation" style="font-family:Ubuntu;font-size:16px;" >
-				<p:commandButton value="Yes" update="@form :growl" actionListener="#{projectMb.remove}" oncomplete="confirmation.hide()" style="margin-left:84px;font-family:Ubuntu;font-size:16px;" />
+
+		<p:confirmDialog message="Are you sure do you want remove?"
+			header="remove" severity="alert" widgetVar="confirmation"
+			style="font-family:Ubuntu;font-size:16px;">
+			<h:form id="confirmDialogSave">
+				<p:commandButton value="Yes" update=":form:tableGroup :growl" actionListener="#{projectMB.remove}" oncomplete="confirmation.hide()"
+					style="margin-left:84px;font-family:Ubuntu;font-size:16px;" />
 				<p:commandButton value="No" onclick="confirmation.hide()" type="button" style="font-family:Ubuntu;font-size:16px;" />
-			</p:confirmDialog>
-		</h:form>
+			</h:form>
+		</p:confirmDialog>
+		
+		<p:confirmDialog message="Are you sure do you want update?"
+			header="edit" severity="alert" widgetVar="confirmation2"
+			style="font-family:Ubuntu;font-size:16px;">
+			<h:form id="confirmDialogEdit">
+				<p:commandButton value="Yes" update=":form:tableGroup :growl" actionListener="#{projectMB.saveOrUpdate}" oncomplete="confirmation2.hide()"
+					style="margin-left:84px;font-family:Ubuntu;font-size:16px;" />
+				<p:commandButton value="No" onclick="confirmation2.hide()" type="button" style="font-family:Ubuntu;font-size:16px;" />
+			</h:form>
+		</p:confirmDialog>
 
 	</ui:define>
 </ui:composition>

@@ -18,17 +18,17 @@ import br.com.scrum.infrastructure.dao.exception.BusinessException;
 
 public class ProjectService implements Serializable {			
 	
-	@Inject private EntityManager em;
+//	@Inject private EntityManager em;
 	@Inject private GenericRepository<Project, Integer> repository;
 	
-	/**
-	 * this method set a external EntityManager, just for tests 
-	 */
-	public ProjectService setEm (EntityManager em) {
-		this.em = em;
-		repository = new GenericRepository<Project, Integer>(Project.class, em);
-		return this;		
-	}
+//	/**
+//	 * this method set a external EntityManager, just for tests 
+//	 */
+//	public ProjectService setEm (EntityManager em) {
+//		this.em = em;
+//		repository = new GenericRepository<Project, Integer>(Project.class, em);
+//		return this;		
+//	}
 
 	public Project save (Project project) throws ConstraintViolationException {
 		try {

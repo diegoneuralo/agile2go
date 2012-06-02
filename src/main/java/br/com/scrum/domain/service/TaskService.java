@@ -17,14 +17,14 @@ public class TaskService implements Serializable {
 	@Inject private EntityManager em;
 	@Inject private GenericRepository<Task, Integer> repository;
 	
-	/**
-	 * this method set a external EntityManager, just for tests 
-	 */
-	public TaskService setEm (EntityManager em) {
-		this.em = em;
-		repository = new GenericRepository<Task, Integer>(Task.class, em);
-		return this;		
-	}
+//	/**
+//	 * this method set a external EntityManager, just for tests 
+//	 */
+//	public TaskService setEm (EntityManager em) {
+//		this.em = em;
+//		repository = new GenericRepository<Task, Integer>(Task.class, em);
+//		return this;		
+//	}
 	
 	public Task save (Task task) {
 		try {

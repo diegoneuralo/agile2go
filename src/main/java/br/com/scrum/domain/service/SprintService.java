@@ -20,14 +20,14 @@ public class SprintService implements Serializable {
 	@Inject private EntityManager em;
 	@Inject private GenericRepository<Sprint, Integer> repository;
 	
-	/**
-	 * this method set a external EntityManager, just for tests 
-	 */
-	public SprintService setEm (EntityManager em) {
-		this.em = em;
-		repository = new GenericRepository<Sprint, Integer>(Sprint.class, em);
-		return this;		
-	}
+//	/**
+//	 * this method set a external EntityManager, just for tests 
+//	 */
+//	public SprintService setEm (EntityManager em) {
+//		this.em = em;
+//		repository = new GenericRepository<Sprint, Integer>(Sprint.class, em);
+//		return this;		
+//	}
 	
 	public Sprint save (Sprint sprint) {
 		try {
@@ -48,7 +48,11 @@ public class SprintService implements Serializable {
 	}
 
 	public void remove (Sprint sprint) {
-		repository.remove(sprint);
+		try {
+			repository.remove(sprint);			
+		} catch ( Exception e ) {
+			e.printStackTrace();
+		}
 	}
 
 	public Sprint withId (Integer id) {
