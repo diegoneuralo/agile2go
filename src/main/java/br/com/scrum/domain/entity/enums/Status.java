@@ -2,22 +2,28 @@ package br.com.scrum.domain.entity.enums;
 
 public enum Status {
 	
-	TODO("TODO"),
+	TODO("1", "TODO"),
 	
-	ONGOING("ONGOING"),
+	INPROGRESS("2", "IN PROGRESS"),
 	
-	DONE("DONE"),
+	DONE("3", "DONE"),
 	
-	WAITTING("WAITTING");
+	WAITTING("4", "WAITTING");
 	
-	private String status;
+	private String code;
+	private String description;
 	
-	private Status (final String status) {
-		this.status = status;
+	private Status (final String code, final String description) {
+		this.code = code;
+		this.description = description;
 	}
 
-	public String getStatus() {
-		return status;
+	public String getCode() {
+		return code;
 	}
-		
+
+	public String getDescription() {
+		return description;
+	}
+
 }

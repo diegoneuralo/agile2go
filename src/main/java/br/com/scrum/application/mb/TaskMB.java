@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ViewScoped;
+import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.PersistenceException;
 
 import br.com.scrum.domain.entity.Sprint;
 import br.com.scrum.domain.entity.Task;
+import br.com.scrum.domain.entity.enums.Status;
 import br.com.scrum.domain.service.SprintService;
 import br.com.scrum.domain.service.TaskService;
 import br.com.scrum.infrastructure.dao.exception.BusinessException;
@@ -18,14 +20,15 @@ import br.com.scrum.infrastructure.dao.exception.BusinessException;
 @Named
 @ViewScoped
 public class TaskMB extends BaseBean implements Serializable {
-	
+
 	@Inject private TaskService taskService;
 	@Inject private SprintService sprintService;
-	
+
 	private Task task = new Task();	
 	private List<Task> tasks;
 	private List<Sprint> sprints;
-	
+	private List<SelectItem> taskItems;
+
 	public void saveOrUpdate () {
 		try {
 			if ( task.getId() == null ) {
@@ -46,18 +49,18 @@ public class TaskMB extends BaseBean implements Serializable {
 			e.printStackTrace();
 		}			
 	}
-	
+
 	public void remove () {		
 		try {
 			taskService.remove(task);
 			tasks = taskService.findAll();
 			addInfoMessage("task romoved");
 		} catch ( Exception e ) {
-			addErrorMessage(e.getMessage());
 			e.printStackTrace();
+			addErrorMessage(e.getMessage());
 		}		
 	}
-	
+
 	public List<Sprint> completeSprint (String query) {
 		try {
 			if ( sprints == null ) {
@@ -72,8 +75,19 @@ public class TaskMB extends BaseBean implements Serializable {
 			e.printStackTrace();
 		}
 		return sprints = new ArrayList<Sprint>();
-	}				
-
+	}
+	
+	public List<SelectItem> getTaskItems() {
+		if (taskItems == null) {
+			taskItems = new ArrayList<SelectItem>();
+			taskItems.add(new SelectItem(null, ""));
+			for (Status s : Status.values()) {
+				taskItems.add(new SelectItem(s, s.getDescription()));
+			}
+		}
+		return taskItems;
+	}
+	
 	public Task getTask() {
 		return task;
 	}
@@ -89,7 +103,7 @@ public class TaskMB extends BaseBean implements Serializable {
 	public void setTasks(List<Task> tasks) {
 		this.tasks = tasks;
 	}
-	
+
 	private static final long serialVersionUID = 8297152244005721364L;
-	
+
 }

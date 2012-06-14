@@ -12,34 +12,37 @@
 		<h:form id="form">
 
 			<h:panelGrid cellpadding="3" cellspacing="3" styleClass="formulario">
-			<h:panelGrid cellpadding="0" cellspacing="0">
-					<h:outputLabel value="&nbsp;Project" />
-					<p:inputText value="#{taskMB.task.sprint.project.name}" size="25" readonly="true"
-						style="width:305px;" />
-				</h:panelGrid>
 				<h:panelGrid cellpadding="0" cellspacing="0">
-					<h:outputLabel value="&nbsp;User Story" />
-					<p:inputText value="#{taskMB.task.story}" size="25"
-						style="width:305px;" />
+					<h:outputText  id="projectName" value="#{taskMB.task.sprint.project.name}" />
 				</h:panelGrid>
 				<h:panelGrid cellpadding="0" cellspacing="0">
 					<h:outputLabel value="&nbsp;Sprint" />
 					<p:autoComplete id="sprint" value="#{taskMB.task.sprint}"
-						converter="#{sprintConverter}"
+						converter="#{sprintConverter}" forceSelection="true"
 						completeMethod="#{taskMB.completeSprint}" var="s" itemValue="#{s}"
-						itemLabel="#{s.name}" minQueryLength="3" maxResults="5"
-						queryDelay="500" size="32" style="width:305px;">
+						itemLabel="#{s.name}" minQueryLength="3" maxResults="5" process=":form:projectName"
+						queryDelay="500" required="true" requiredMessage="sprint is a required field"
+						size="35" style="width:305px;">
 						<p:column>
 							<div style="text-align: left;">
-								cod:#{s.id} - name:#{s.name}<br />deadline:#{s.endDate}
+								name:#{s.name} -
+								deadline:<h:outputText value="#{s.endDate}">
+									      	<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT-03:00" />
+								          </h:outputText>
+								project:#{s.project.name}
 							</div>
 						</p:column>
+						<p:ajax  update=":form:projectName" process="projectName" />
 					</p:autoComplete>
+				</h:panelGrid>
+				<h:panelGrid cellpadding="0" cellspacing="0">
+					<h:outputLabel value="&nbsp;User Storie" />
+					<p:inputTextarea value="#{taskMB.task.storie}" style="width:334px; height:42px;" />
 				</h:panelGrid>
 				<h:panelGrid columns="3" cellpadding="0" cellspacing="0">
 					<h:panelGrid cellpadding="0" cellspacing="0" style="width:100px;">
 						<h:outputLabel value="&nbsp;Priority" />
-						<p:selectOneMenu value="#{taskMB.task.priority}" style="width:70px;">
+						<p:selectOneMenu value="#{taskMB.task.priority}" required="true" requiredMessage="priority is a required field" style="width:70px;">
 							<f:selectItem itemLabel=" " itemValue=" " />
 							<f:selectItem itemLabel="1" itemValue="1" />
 							<f:selectItem itemLabel="2" itemValue="2" />
@@ -50,12 +53,9 @@
 					</h:panelGrid>
 					<h:panelGrid cellpadding="0" cellspacing="0" style="width:160px;">
 						<h:outputLabel value="&nbsp;Status" />
-						<p:selectOneMenu value="#{taskMB.task.status}" style="width:120px;">
-							<f:selectItem itemValue=" " itemLabel=" " />
-							<f:selectItem itemLabel="TODO" itemValue="TODO" />
-							<f:selectItem itemLabel="ONGOING" itemValue="ONGOING" />
-							<f:selectItem itemLabel="DONE" itemValue="DONE" />
-							<f:selectItem itemLabel="WAITTING" itemValue="WAITTING" />
+						<p:selectOneMenu value="#{taskMB.task.status}" required="true" requiredMessage="status is a required field"
+						                 converter="#{statusConverter}" style="width:120px;">
+							<f:selectItems value="#{taskMB.taskItems}" />
 						</p:selectOneMenu>
 					</h:panelGrid>
 					<h:panelGrid cellpadding="0" cellspacing="0" style="width:100px;">
@@ -64,9 +64,8 @@
 					</h:panelGrid>
 				</h:panelGrid>
 			</h:panelGrid>
-			<p:commandButton value="Save" action="#{taskMB.saveOrUpdate}"
-				update="form :growl"
-				style="margin-left:80px;font-family:Ubuntu;font-size:16px;" />
+			<p:commandButton value="Save" action="#{taskMB.saveOrUpdate}" ajax="false"
+				update="form :growl" style="margin-left:80px;font-family:Ubuntu;font-size:16px;" />
 		</h:form>
 	</ui:define>
 </ui:composition>

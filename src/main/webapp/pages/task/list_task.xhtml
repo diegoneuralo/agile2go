@@ -22,10 +22,10 @@
 					<p:column headerText="User Story" styleClass="inputDataTable">
 						<p:cellEditor>
 							<f:facet name="output">
-								<h:outputText value="#{task.story}" />
+								<h:outputText value="#{task.storie}" />
 							</f:facet>
 							<f:facet name="input">
-								<p:inputText value="#{task.story}" style="width: 100%" />
+								<p:inputText value="#{task.storie}" style="width: 100%" />
 							</f:facet>
 						</p:cellEditor>
 					</p:column>
@@ -42,15 +42,11 @@
 					<p:column headerText="Status" styleClass="inputDataTable">
 						<p:cellEditor>
 							<f:facet name="output">
-								<h:outputText value="#{task.status}" />
+								<h:outputText value="#{task.status}" style="width:120px;" />
 							</f:facet>
 							<f:facet name="input">
-								<p:selectOneMenu value="#{taskMB.task.status}">
-									<f:selectItem itemValue=" " itemLabel=" " />
-									<f:selectItem itemLabel="TODO" itemValue="TODO" />
-									<f:selectItem itemLabel="ONGOING" itemValue="ONGOING" />
-									<f:selectItem itemLabel="DONE" itemValue="DONE" />
-									<f:selectItem itemLabel="WAITTING" itemValue="WAITTING" />
+								<p:selectOneMenu value="#{taskMB.task.status}" converter="#{statusConverter}">
+									<f:selectItems value="#{taskMB.taskItems}" />
 								</p:selectOneMenu>
 							</f:facet>
 						</p:cellEditor>
@@ -90,10 +86,8 @@
 					</p:column>
 					<p:column styleClass="dataTableOptions">
 						<p:commandLink onclick="confirmation.show()">
-							<h:graphicImage value="/resources/img/excluir16.png"
-								title="remove" />
-							<f:setPropertyActionListener target="#{taskMB.task}"
-								value="#{task}" />
+							<h:graphicImage value="/resources/img/excluir16.png" title="remove" />
+							<f:setPropertyActionListener target="#{taskMB.task}" value="#{task}" />
 						</p:commandLink>
 					</p:column>
 				</p:dataTable>

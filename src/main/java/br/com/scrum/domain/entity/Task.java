@@ -2,6 +2,7 @@ package br.com.scrum.domain.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,17 +13,22 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import br.com.scrum.domain.entity.enums.Const;
+import br.com.scrum.domain.entity.enums.Status;
 
 @Entity
 @Table(name = "TASK", schema = Const.SCHEMA)
-@NamedQueries(
-		@NamedQuery(name="Task.getLastId", query = "SELECT t FROM Task t WHERE t.id = (select MAX( t.id ) FROM Task t)"))
+@NamedQueries({
+		@NamedQuery(name="Task.getLastId", query = "SELECT t FROM Task t WHERE t.id = (select MAX( t.id ) FROM Task t)")
+		})
 public class Task implements Serializable {	
+	
+	public static final String STATUS = "status";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,20 +36,23 @@ public class Task implements Serializable {
 	private Integer id;
 
 	@NotEmpty(message = "story is a required field") 
-	@Column(name = "STORY", nullable = false, length = 60)
-	private String story;
+	@Column(name = "STORIE", nullable = false)
+	private String storie;
 		
-	@Column(name = "PRIORITY", nullable = false, length = 60)
+	@Column(name = "PRIORITY", nullable = false, length = 6)
 	private Integer priority;
 	
 	@NotBlank(message = "hours of the task is a required field")
 	@Column(name = "HOURS", nullable = false, length = 5)
 	private String hours;
 	
+	@Transient
+	private Status status;
+	
 	@Column(name = "STATUS", length = 15)
-	private String status;
+	private String status_;
 		
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
 	@JoinColumn(name = "SPRINT_ID", referencedColumnName = "SPRINT_ID")
 	private Sprint sprint;		
 
@@ -59,12 +68,12 @@ public class Task implements Serializable {
 		this.id = id;
 	}		
 
-	public String getStory() {
-		return story;
+	public String getStorie() {
+		return storie;
 	}
 
-	public void setStory(String story) {
-		this.story = story;
+	public void setStorie(String storie) {
+		this.storie = storie;
 	}
 
 	public Integer getPriority() {
@@ -83,14 +92,18 @@ public class Task implements Serializable {
 		this.hours = hours;
 	}		
 
-	public String getStatus() {
+	public Status getStatus() {
+		for (Status s : Status.values()) 
+			if (s.getCode().equals(status_))
+				return status = s;
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(Status status) {
+		this.status_ = status.getCode();
 		this.status = status;
 	}
-
+	
 	public Sprint getSprint() {
 		return sprint;
 	}

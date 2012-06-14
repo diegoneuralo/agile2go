@@ -59,7 +59,7 @@ public class Sprint implements Serializable {
 	@Column(name = "GOAL", nullable = false, length = 60)
 	private String goal;
 
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
 	@JoinColumn(name = "PROJECT_ID", referencedColumnName = "PROJECT_ID")	
 	private Project project;	
 	
@@ -158,11 +158,6 @@ public class Sprint implements Serializable {
 			return false;
 		return true;
 	}		
-
-	@Override
-	public String toString() {
-		return name ;
-	}
 
 	private static final long serialVersionUID = 4897729582058383675L;	
 

@@ -64,9 +64,6 @@ public class SprintService implements Serializable {
 	}
 
 	public List<Sprint> searchBy (String query) throws BusinessException,  Exception {
-		if ( query.isEmpty() )
-			throw new Exception("the sprint name can not be empty!");
-				
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put(Sprint.NAME, "%" +query.toUpperCase()+ "%");
 		try {

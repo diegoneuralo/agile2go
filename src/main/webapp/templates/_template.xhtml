@@ -11,10 +11,11 @@
 </h:head>
 <h:body>
 	<h:form id="formMenu">
+		<div style="box-shadow: 2px 8px 48px #000;">
 		<p:menubar style="border:0px; margin-top:-9px;" styleClass="ui-widget ui-widget-header" >
 			<p:menuitem value="Home" url="/principal/principal.jsf" style="margin-left: 50px; font-family: Ubuntu;" />
 			<p:submenu label="Projects" style="margin-left: 50px;font-family: Ubuntu;">
-				<p:menuitem value="create" url="/pages/project/add_project.jsf" icon="ui-icon-contact"/><!--  -->
+				<p:menuitem value="create" url="/pages/project/add_project.jsf" icon="ui-icon-contact"/>
 				<p:menuitem value="search" url="/pages/project/list_project.jsf" icon="ui-icon-search"/>
 			</p:submenu>
 			<p:submenu label="Sprints" style="margin-left: 50px;font-family: Ubuntu;">
@@ -27,9 +28,10 @@
 			</p:submenu>			
 			 <p:menuitem value="Logout" url="http://localhost:8080/jboss-as-scrum/login.jsf" style="margin-left: 50px; font-family: Ubuntu;" icon="ui-icon-close" /> 						
 		</p:menubar>
-	    <h:panelGrid cellpadding="2" cellspacing="2" style="margin-top:27px;margin-left:1000px;">	    	    
+		</div>
+	    <h:panelGrid cellpadding="2" cellspacing="2" style="margin-top:29px;margin-left:1029px;">	    	    
 	    <h:panelGrid>
-	    	<h:graphicImage value="/resources/img/ROLE_USUARIO_VIP_true.png" style="margin-left:120px; margin-top:2px;" />
+	    	<h:graphicImage value="/resources/img/ROLE_USUARIO_VIP_true.png" style="margin-left:120px; margin-top:-10px;" />
 	    	<h:outputText value="#{userMB.user.name} - #{userMB.user.role}" style="font-family:Ubuntu;font-size:15px;" />
 	    </h:panelGrid>	    	    	
 	    </h:panelGrid>			

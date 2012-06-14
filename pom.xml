@@ -15,8 +15,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.build.timestamp.format>yyyyMMdd'T'HHmmss</maven.build.timestamp.format>
 		<jboss.bom.version>1.0.0.M6</jboss.bom.version>
-		<seam.version>3.0.0.Final</seam.version>
 		<jsf.version>2.1.8</jsf.version>
+		<seam.version>3.0.0.Final</seam.version>
 	</properties>
 
 	<dependencyManagement>
@@ -145,14 +145,14 @@
 
 		<dependency>
 			<groupId>com.sun.faces</groupId>
-			<artifactId>jsf-impl</artifactId>
+			<artifactId>jsf-api</artifactId>
 			<version>${jsf.version}</version>
 			<scope>provided</scope>
 		</dependency>
-
+		
 		<dependency>
 			<groupId>com.sun.faces</groupId>
-			<artifactId>jsf-api</artifactId>
+			<artifactId>jsf-impl</artifactId>
 			<version>${jsf.version}</version>
 			<scope>provided</scope>
 		</dependency>
