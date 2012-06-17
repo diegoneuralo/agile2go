@@ -29,16 +29,12 @@ public class ProjectMB extends BaseBean implements Serializable {
 				addInfoMessage("project successfully created");
 			} else {
 				projectService.update(project);
-				project = new Project();
 				addInfoMessage("project successfully updated");
 			}
-			projects = projectService.findAll();
 		} catch ( ConstraintViolationException cve ) {
-			addErrorMessage(null, "project already exist");			
-			cve.printStackTrace();		
+			addErrorMessage(null, "project already exist");	
 		} catch ( Exception e ) {
 			addErrorMessage("unexcepted error has ocurred");
-			e.printStackTrace();
 		}
 	}
 
@@ -50,7 +46,6 @@ public class ProjectMB extends BaseBean implements Serializable {
 			addInfoMessage("project removed");
 		} catch ( Exception e ) {
 			addErrorMessage(e.getMessage());
-			e.printStackTrace();
 		}		
 	}
 

@@ -20,20 +20,10 @@ public class SprintService implements Serializable {
 	@Inject private EntityManager em;
 	@Inject private GenericRepository<Sprint, Integer> repository;
 	
-//	/**
-//	 * this method set a external EntityManager, just for tests 
-//	 */
-//	public SprintService setEm (EntityManager em) {
-//		this.em = em;
-//		repository = new GenericRepository<Sprint, Integer>(Sprint.class, em);
-//		return this;		
-//	}
-	
 	public Sprint save (Sprint sprint) {
 		try {
 			return repository.persist(sprint);			
 		} catch ( ConstraintViolationException cve ) {
-			cve.getCause().getMessage();
 			throw cve;
 		}
 	}
@@ -42,16 +32,15 @@ public class SprintService implements Serializable {
 		try {
 			return repository.merge(sprint);			
 		} catch ( ConstraintViolationException cve) {
-			cve.getCause().getMessage();
 			throw cve;
 		}
 	}
 
-	public void remove (Sprint sprint) {
+	public void remove (Sprint sprint) throws Exception {
 		try {
 			repository.remove(sprint);			
 		} catch ( Exception e ) {
-			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -69,9 +58,17 @@ public class SprintService implements Serializable {
 		try {
 			return repository.listByNamedQuery("Sprint.getByName", params);
 		} catch ( NoResultException nre ) {
-			nre.getCause().getMessage();
 			throw new BusinessException("sprint not found");
 		}
+	}
+	
+	/**
+	 * this method set a external EntityManager, just for tests 
+	 */
+	public SprintService setEm (EntityManager em) {
+		this.em = em;
+		repository = new GenericRepository<Sprint, Integer>(Sprint.class, em);
+		return this;		
 	}
 	
 	private static final long serialVersionUID = 7484077875891258960L;

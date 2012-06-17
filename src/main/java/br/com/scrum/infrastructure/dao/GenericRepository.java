@@ -8,8 +8,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
-import org.hibernate.exception.ConstraintViolationException;
-
 public class GenericRepository<T, IDType extends Serializable> {
 
 	private Class<T> clazz;
@@ -20,27 +18,24 @@ public class GenericRepository<T, IDType extends Serializable> {
 		this.em = em;
 	}
 
-	public T merge (T obj) throws PersistenceException, ConstraintViolationException {		
+	public T merge (T obj) throws PersistenceException {		
 		try {
 			begin();
 			obj = em.merge(obj);
 			commit();
 		} catch ( PersistenceException pe ) {
 			rollback();
-			throw pe;			
-		} catch ( ConstraintViolationException cve ) {
-			rollback();
-			throw cve;
+			throw pe;	
 		}
 		return obj;
 	}
 
-	public T persist (T obj) throws ConstraintViolationException {		
+	public T persist (T obj) throws PersistenceException {		
 		try {
 			begin();
 			em.persist(obj);
 			commit();					
-		} catch ( ConstraintViolationException pe ) {
+		} catch ( PersistenceException pe ) {
 			rollback();
 			throw pe;			
 		}
@@ -48,15 +43,10 @@ public class GenericRepository<T, IDType extends Serializable> {
 	}
 
 	public void remove (T obj) {		
-		try {
 			begin();
 			obj = em.merge(obj);
 			em.remove(obj);
 			commit();
-		} catch ( RuntimeException re ) {
-			rollback();
-			re.printStackTrace();
-		}
 	}
 
 	public T find (IDType id) {		

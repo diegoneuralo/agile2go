@@ -14,7 +14,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -37,16 +36,15 @@ public class User implements Serializable {
 	private int id;
 	
 	@NotEmpty(message = "name is required field")
-	@Size(min = 3, max = 25)	
-	@Column(name = "NAME", nullable = false, length = 100)
+	@Column(name = "NAME", nullable = false, length = 60)
 	private String name;
 	
 	@NotEmpty(message = "login do not match")
-	@Column(name = "LOGIN", nullable = false, unique = true, length = 20)
+	@Column(name = "LOGIN", nullable = false, length = 20)
 	private String login;
 	
 	@NotEmpty(message = "password do not match")
-	@Column(name = "PASSWORD", nullable = false, length = 15)
+	@Column(name = "PASSWORD", nullable = false, length = 20)
 	private String password;
 
 	@Embedded

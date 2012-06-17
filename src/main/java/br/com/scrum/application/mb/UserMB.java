@@ -26,7 +26,6 @@ public class UserMB extends BaseBean implements Serializable {
 			user = userService.withLogin(login, password);				
 			return Const.PRINCIPAL;
 		} catch ( NoResultException nre ) {
-			nre.printStackTrace();
 			addErrorMessage("user not found");
 			return "";
 		} catch ( Exception e ) {

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 
 import org.hibernate.exception.ConstraintViolationException;
 
@@ -16,33 +17,34 @@ import br.com.scrum.infrastructure.dao.GenericRepository;
 public class UserService implements Serializable {	
 
 	@Inject private EntityManager em;
-    @Inject private GenericRepository<User, Integer> dao;
-            
-//    public UserService setEm (EntityManager em) {
-//        this.em = em;    
-//        dao = new GenericRepository<User, Integer>(User.class, em);
-//        return this;
-//    }
+	@Inject private GenericRepository<User, Integer> repository;
 
-	public User save (User user) throws ConstraintViolationException, Exception {
+	public User save (User user) {
 		try {
-			return ( user.getId() != 0 ? dao.merge(user) : dao.persist(user) );
-		} catch ( Exception e ) {
-			throw e;
+			return repository.persist(user);
+		} catch ( ConstraintViolationException cve ) {
+			throw cve;
+		}		
+	}
+	
+	public User update (User user) {
+		try {
+			return repository.persist(user);
+		} catch ( ConstraintViolationException cve ) {
+			throw cve;
 		}		
 	}
 
-	public void remove (User user) throws Exception {
-		try {
-			user = dao.find(user.getId());
-			dao.remove(user);			
-		} catch ( Exception e ) {
-			throw e;
-		}
+	public void remove (User user) {
+		repository.remove(user);			
 	}
 
 	public User withId (int id) {
-		return dao.find(id);
+		return repository.find(id);
+	}
+	
+	public List<User> findAll () throws Exception {
+		return repository.list();
 	}
 
 	public User withLogin (String login, String password) throws Exception {
@@ -50,20 +52,21 @@ public class UserService implements Serializable {
 		params.put(User.LOGIN, login);
 		params.put(User.PASSWORD, password);		
 		try {
-			return dao.getByNamedQuery("User.getByLogin", params);
-		} catch ( Exception e ) {
-			throw e;
+			return repository.getByNamedQuery("User.getByLogin", params);
+		} catch ( NoResultException nre ) {
+			throw nre;
 		}
 	}
 
-	public List<User> findAll () throws Exception {
-		try {
-			return dao.list();
-		} catch ( Exception e ) {
-			throw e;
-		}		
+	/**
+	 * this method set a external EntityManager, just for tests 
+	 */
+	public UserService setEm (EntityManager em) {
+		this.em = em;    
+		repository = new GenericRepository<User, Integer>(User.class, em);
+		return this;
 	}
-	
+
 	private static final long serialVersionUID = 7103375420674460345L;
 
 }

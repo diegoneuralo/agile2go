@@ -42,10 +42,10 @@
 					<p:column headerText="Status" styleClass="inputDataTable">
 						<p:cellEditor>
 							<f:facet name="output">
-								<h:outputText value="#{task.status}" style="width:120px;" />
+								<h:outputText value="#{task.status.description}" style="width:120px;" />
 							</f:facet>
 							<f:facet name="input">
-								<p:selectOneMenu value="#{taskMB.task.status}" converter="#{statusConverter}">
+								<p:selectOneMenu value="#{taskMB.task.status}" converter="#{statusConverter}" disabled="true">
 									<f:selectItems value="#{taskMB.taskItems}" />
 								</p:selectOneMenu>
 							</f:facet>

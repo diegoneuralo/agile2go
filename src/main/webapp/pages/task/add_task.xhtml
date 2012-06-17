@@ -13,14 +13,11 @@
 
 			<h:panelGrid cellpadding="3" cellspacing="3" styleClass="formulario">
 				<h:panelGrid cellpadding="0" cellspacing="0">
-					<h:outputText  id="projectName" value="#{taskMB.task.sprint.project.name}" />
-				</h:panelGrid>
-				<h:panelGrid cellpadding="0" cellspacing="0">
 					<h:outputLabel value="&nbsp;Sprint" />
 					<p:autoComplete id="sprint" value="#{taskMB.task.sprint}"
 						converter="#{sprintConverter}" forceSelection="true"
 						completeMethod="#{taskMB.completeSprint}" var="s" itemValue="#{s}"
-						itemLabel="#{s.name}" minQueryLength="3" maxResults="5" process=":form:projectName"
+						itemLabel="#{s.name}" minQueryLength="3" maxResults="5" 
 						queryDelay="500" required="true" requiredMessage="sprint is a required field"
 						size="35" style="width:305px;">
 						<p:column>
@@ -32,7 +29,6 @@
 								project:#{s.project.name}
 							</div>
 						</p:column>
-						<p:ajax  update=":form:projectName" process="projectName" />
 					</p:autoComplete>
 				</h:panelGrid>
 				<h:panelGrid cellpadding="0" cellspacing="0">
@@ -49,13 +45,6 @@
 							<f:selectItem itemLabel="3" itemValue="3" />
 							<f:selectItem itemLabel="4" itemValue="4" />
 							<f:selectItem itemLabel="5" itemValue="5" />
-						</p:selectOneMenu>
-					</h:panelGrid>
-					<h:panelGrid cellpadding="0" cellspacing="0" style="width:160px;">
-						<h:outputLabel value="&nbsp;Status" />
-						<p:selectOneMenu value="#{taskMB.task.status}" required="true" requiredMessage="status is a required field"
-						                 converter="#{statusConverter}" style="width:120px;">
-							<f:selectItems value="#{taskMB.taskItems}" />
 						</p:selectOneMenu>
 					</h:panelGrid>
 					<h:panelGrid cellpadding="0" cellspacing="0" style="width:100px;">

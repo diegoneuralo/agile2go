@@ -1,6 +1,5 @@
 package br.com.scrum.application.converter;
 
-import javax.enterprise.context.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -11,7 +10,6 @@ import br.com.scrum.domain.entity.Project;
 import br.com.scrum.domain.service.ProjectService;
 
 @Named
-@RequestScoped
 public class ProjectConverter implements Converter {
 	
 	@Inject private ProjectService service;

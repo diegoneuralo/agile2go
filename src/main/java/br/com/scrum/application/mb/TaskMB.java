@@ -32,6 +32,7 @@ public class TaskMB extends BaseBean implements Serializable {
 	public void saveOrUpdate () {
 		try {
 			if ( task.getId() == null ) {
+				task.setStatus(Status.INPROGRESS);
 				taskService.save(task);
 				task = new Task();
 				addInfoMessage("task successfully created");
