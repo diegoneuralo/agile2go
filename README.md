@@ -17,6 +17,6 @@ Building and deploying
 
 From the root directory of Agile2Go, run a complete maven build:
 
-cd jboss-as-scrum/
+cd agile2go/
 
 mvn clean install
