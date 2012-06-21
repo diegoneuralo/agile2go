@@ -34,6 +34,20 @@ public class UserMB extends BaseBean implements Serializable {
 			return "";		
 		}
 	}
+	
+	public String authenticate () {
+		boolean isLoggedIn = userService.isLogged(login, password);
+		if (isLoggedIn) {
+		   return "principal?faces-redirect=true";
+		} else {
+			user = new User();
+			return "login";
+		}
+	}
+	
+	public boolean isLogged() {
+		return user.getLogin != null;
+	}
 
 	public User getUser() {
 		return user;
