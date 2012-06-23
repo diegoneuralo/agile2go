@@ -10,16 +10,19 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
 import org.hibernate.exception.ConstraintViolationException;
+import org.jboss.seam.transaction.TransactionPropagation;
+import org.jboss.seam.transaction.Transactional;
 
 import br.com.scrum.domain.entity.Project;
-import br.com.scrum.infrastructure.dao.GenericRepository;
+import br.com.scrum.infrastructure.dao.PersistenceUtil;
 import br.com.scrum.infrastructure.dao.exception.BusinessException;
 
 public class ProjectService implements Serializable {			
 	
 	@Inject private EntityManager em;
-	@Inject private GenericRepository<Project, Integer> repository;
+	@Inject private PersistenceUtil<Project, Integer> repository;
 	
+	@Transactional(TransactionPropagation.MANDATORY)
 	public Project save (Project project) {
 		try {
 			return repository.persist(project) ;			
@@ -28,6 +31,7 @@ public class ProjectService implements Serializable {
 		}
 	}
 	
+	@Transactional(TransactionPropagation.MANDATORY)
 	public Project update (Project project) {
 		try {
 			return repository.merge(project) ;				
@@ -35,7 +39,8 @@ public class ProjectService implements Serializable {
 			throw cve;	
 		}
 	}
-
+	
+	@Transactional(TransactionPropagation.MANDATORY)
 	public void remove (Project project) throws Exception {
 		try {
 			repository.remove(project);			
@@ -67,7 +72,7 @@ public class ProjectService implements Serializable {
 	 */
 	public ProjectService setEm (EntityManager em) {
 		this.em = em;
-		repository = new GenericRepository<Project, Integer>(Project.class, em);
+		repository = new PersistenceUtil<Project, Integer>(Project.class, em);
 		return this;		
 	}
 	

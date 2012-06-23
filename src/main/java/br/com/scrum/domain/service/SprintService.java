@@ -12,13 +12,13 @@ import javax.persistence.NoResultException;
 import org.hibernate.exception.ConstraintViolationException;
 
 import br.com.scrum.domain.entity.Sprint;
-import br.com.scrum.infrastructure.dao.GenericRepository;
+import br.com.scrum.infrastructure.dao.PersistenceUtil;
 import br.com.scrum.infrastructure.dao.exception.BusinessException;
 
 public class SprintService implements Serializable {
 	
 	@Inject private EntityManager em;
-	@Inject private GenericRepository<Sprint, Integer> repository;
+	@Inject private PersistenceUtil<Sprint, Integer> repository;
 	
 	public Sprint save (Sprint sprint) {
 		try {
@@ -67,7 +67,7 @@ public class SprintService implements Serializable {
 	 */
 	public SprintService setEm (EntityManager em) {
 		this.em = em;
-		repository = new GenericRepository<Sprint, Integer>(Sprint.class, em);
+		repository = new PersistenceUtil<Sprint, Integer>(Sprint.class, em);
 		return this;		
 	}
 	

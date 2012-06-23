@@ -6,17 +6,17 @@ import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.persistence.EntityManager;
 
-import br.com.scrum.infrastructure.dao.GenericRepository;
+import br.com.scrum.infrastructure.dao.PersistenceUtil;
 
 @SuppressWarnings("rawtypes")
 public class RepositoryFactory {
 
 	@Produces
 	@SuppressWarnings("unchecked")
-	public GenericRepository createGenericRepository (InjectionPoint injection, EntityManager em) {
+	public PersistenceUtil createGenericRepository (InjectionPoint injection, EntityManager em) {
 		ParameterizedType type = (ParameterizedType) injection.getType();
 		Class clazz = (Class) type.getActualTypeArguments()[0];
-		return new GenericRepository(clazz, em);
+		return new PersistenceUtil(clazz, em);
 	}
 
 }

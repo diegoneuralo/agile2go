@@ -9,12 +9,12 @@ import javax.persistence.EntityManager;
 import org.hibernate.exception.ConstraintViolationException;
 
 import br.com.scrum.domain.entity.Task;
-import br.com.scrum.infrastructure.dao.GenericRepository;
+import br.com.scrum.infrastructure.dao.PersistenceUtil;
 
 public class TaskService implements Serializable {
 	
 	@Inject private EntityManager em;
-	@Inject private GenericRepository<Task, Integer> repository;
+	@Inject private PersistenceUtil<Task, Integer> repository;
 	
 	public Task save (Task task) {
 		try {
@@ -53,7 +53,7 @@ public class TaskService implements Serializable {
 	 */
 	public TaskService setEm (EntityManager em) {
 		this.em = em;
-		repository = new GenericRepository<Task, Integer>(Task.class, em);
+		repository = new PersistenceUtil<Task, Integer>(Task.class, em);
 		return this;		
 	}
 	

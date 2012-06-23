@@ -12,12 +12,12 @@ import javax.persistence.NoResultException;
 import org.hibernate.exception.ConstraintViolationException;
 
 import br.com.scrum.domain.entity.User;
-import br.com.scrum.infrastructure.dao.GenericRepository;
+import br.com.scrum.infrastructure.dao.PersistenceUtil;
 
 public class UserService implements Serializable {	
 
 	@Inject private EntityManager em;
-	@Inject private GenericRepository<User, Integer> repository;
+	@Inject private PersistenceUtil<User, Integer> repository;
 
 	public User save (User user) {
 		try {
@@ -63,7 +63,7 @@ public class UserService implements Serializable {
 	 */
 	public UserService setEm (EntityManager em) {
 		this.em = em;    
-		repository = new GenericRepository<User, Integer>(User.class, em);
+		repository = new PersistenceUtil<User, Integer>(User.class, em);
 		return this;
 	}
 
