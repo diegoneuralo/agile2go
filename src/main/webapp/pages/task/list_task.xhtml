@@ -88,6 +88,7 @@
 						<p:commandLink onclick="confirmation.show()">
 							<h:graphicImage value="/resources/img/excluir16.png" title="remove" />
 							<f:setPropertyActionListener target="#{taskMB.task}" value="#{task}" />
+							<f:ajax render="@form" />
 						</p:commandLink>
 					</p:column>
 				</p:dataTable>
@@ -102,7 +103,7 @@
 			style="font-family:Ubuntu;font-size:16px;">
 			<h:form id="confirmDialogSave">
 				<p:commandButton value="Yes" update=":form:tableGroup :growl"
-					actionListener="#{taskMB.remove}" oncomplete="confirmation.hide()"
+					actionListener="#{taskMB.delete}" oncomplete="confirmation.hide()"
 					style="margin-left:84px;font-family:Ubuntu;font-size:16px;" />
 				<p:commandButton value="No" onclick="confirmation.hide()"
 					type="button" style="font-family:Ubuntu;font-size:16px;" />
@@ -114,7 +115,7 @@
 			style="font-family:Ubuntu;font-size:16px;">
 			<h:form id="confirmDialogEdit">
 				<p:commandButton value="Yes" update=":form:tableGroup :growl"
-					actionListener="#{taskMB.saveOrUpdate}"
+					actionListener="#{taskMB.createOrSave}"
 					oncomplete="confirmation2.hide()"
 					style="margin-left:84px;font-family:Ubuntu;font-size:16px;" />
 				<p:commandButton value="No" onclick="confirmation2.hide()"

@@ -142,18 +142,18 @@
 			<artifactId>seam-security-api</artifactId>
 			<version>${seam.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.jboss.seam.transaction</groupId>
-			<artifactId>seam-transaction</artifactId>
+		<!-- <dependency> <groupId>org.jboss.seam.transaction</groupId> <artifactId>seam-transaction</artifactId> 
+			<version>${seam.version}}</version> </dependency> -->
+		<!-- <dependency>
+			<groupId>org.jboss.seam.persistence</groupId>
+			<artifactId>seam-persistence-api</artifactId>
 			<version>${seam.version}</version>
 		</dependency>
-		
 		<dependency>
-			<groupId>org.jboss.solder</groupId>
-			<artifactId>solder-impl</artifactId>
+			<groupId>org.jboss.seam.persistence</groupId>
+			<artifactId>seam-persistence</artifactId>
 			<version>${seam.version}</version>
-		</dependency>
-
+		</dependency> -->
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
@@ -161,7 +161,7 @@
 		</dependency>
 
 	</dependencies>
-	
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -178,25 +178,21 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			<!-- <dependency>
-				<groupId>org.jboss.seam</groupId>
-				<artifactId>seam-bom</artifactId>
-				<version>${seam.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency> -->
+			<!-- <dependency> <groupId>org.jboss.seam</groupId> <artifactId>seam-bom</artifactId> 
+				<version>${seam.version}</version> <type>pom</type> <scope>import</scope> 
+				</dependency> -->
 		</dependencies>
 	</dependencyManagement>
 
 	<repositories>
-	 <repository>
-         <id>jboss-public-repository</id>
-         <url>https://repository.jboss.org/nexus/content/groups/public/</url>
-      </repository>
-      <repository>
-         <id>sonatype-snapshots</id>
-         <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-      </repository>
+		<repository>
+			<id>jboss-public-repository</id>
+			<url>https://repository.jboss.org/nexus/content/groups/public/</url>
+		</repository>
+		<repository>
+			<id>sonatype-snapshots</id>
+			<url>https://repository.jboss.sonatype.org/content/repositories/snapshots/</url>
+		</repository>
 		<repository>
 			<id>prime-repo</id>
 			<name>PrimeFaces Maven Repository</name>

@@ -24,7 +24,7 @@ import br.com.scrum.domain.entity.enums.Status;
 @Entity
 @Table(name = "TASK", schema = Const.SCHEMA)
 @NamedQueries({
-		@NamedQuery(name="Task.getLastId", query = "SELECT t FROM Task t WHERE t.id = (select MAX( t.id ) FROM Task t)")
+		@NamedQuery(name="Task.getLastId", query = "FROM Task t WHERE t.id = (select MAX( t.id ) FROM Task t)")
 		})
 public class Task implements Serializable {	
 	

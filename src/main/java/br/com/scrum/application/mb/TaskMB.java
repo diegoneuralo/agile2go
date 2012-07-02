@@ -8,14 +8,14 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.PersistenceException;
+
+import org.hibernate.exception.ConstraintViolationException;
 
 import br.com.scrum.domain.entity.Sprint;
 import br.com.scrum.domain.entity.Task;
 import br.com.scrum.domain.entity.enums.Status;
 import br.com.scrum.domain.service.SprintService;
 import br.com.scrum.domain.service.TaskService;
-import br.com.scrum.infrastructure.dao.exception.BusinessException;
 
 @Named
 @ViewScoped
@@ -29,7 +29,7 @@ public class TaskMB extends BaseBean implements Serializable {
 	private List<Sprint> sprints;
 	private List<SelectItem> taskItems;
 
-	public void saveOrUpdate () {
+	public void createOrSave() {
 		try {
 			if ( task.getId() == null ) {
 				task.setStatus(Status.INPROGRESS);
@@ -37,43 +37,34 @@ public class TaskMB extends BaseBean implements Serializable {
 				task = new Task();
 				addInfoMessage("task successfully created");
 			} else {
-				taskService.update(task);
-				task = new Task();
+				taskService.save(task);
 				addInfoMessage("task successfully updated");
 			}
-			tasks = taskService.findAll();
-		} catch ( PersistenceException pe ) {
+		} catch ( ConstraintViolationException pe ) {
 			addInfoMessage("task already exists");			
-			pe.printStackTrace();		
 		} catch ( Exception e ) {
 			addErrorMessage("unexcepted error has ocurred");
-			e.printStackTrace();
 		}			
 	}
 
-	public void remove () {		
+	public void delete() {		
 		try {
-			taskService.remove(task);
+			taskService.delete(task);
 			tasks = taskService.findAll();
 			addInfoMessage("task romoved");
 		} catch ( Exception e ) {
-			e.printStackTrace();
 			addErrorMessage(e.getMessage());
 		}		
 	}
 
-	public List<Sprint> completeSprint (String query) {
+	public List<Sprint> completeSprint(String query) {
 		try {
 			if ( sprints == null ) {
 				sprints = new ArrayList<Sprint>();
 			}
 			return sprintService.searchBy(query);			
-		} catch ( BusinessException be ) {
-			addInfoMessage(be.getMessage());
-			be.printStackTrace();
 		} catch ( Exception e ) {
 			addErrorMessage(e.getMessage());
-			e.printStackTrace();
 		}
 		return sprints = new ArrayList<Sprint>();
 	}

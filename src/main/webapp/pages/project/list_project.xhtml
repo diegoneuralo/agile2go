@@ -74,7 +74,8 @@
 				<p:column headerText="Remove" styleClass="dataTableOptions">
 					<p:commandLink onclick="confirmation.show()">										
 						<h:graphicImage value="/resources/img/excluir16.png" title="remove" />
-						<f:setPropertyActionListener target="#{projectMB.project}" value="#{project}" />												
+						<f:setPropertyActionListener target="#{projectMB.project}" value="#{project}" />
+						<f:ajax execute="@this" render=":tableGroup"/>
 					</p:commandLink>
 				</p:column>
 			</p:dataTable>
@@ -89,7 +90,7 @@
 			header="remove" severity="alert" widgetVar="confirmation"
 			style="font-family:Ubuntu;font-size:16px;">
 			<h:form id="confirmDialogSave">
-				<p:commandButton value="Yes" update=":form:tableGroup :growl" actionListener="#{projectMB.remove}" oncomplete="confirmation.hide()"
+				<p:commandButton value="Yes" update=":form:tableGroup :growl" actionListener="#{projectMB.delete}" oncomplete="confirmation.hide()"
 					style="margin-left:84px;font-family:Ubuntu;font-size:16px;" />
 				<p:commandButton value="No" onclick="confirmation.hide()" type="button" style="font-family:Ubuntu;font-size:16px;" />
 			</h:form>
@@ -99,7 +100,7 @@
 			header="edit" severity="alert" widgetVar="confirmation2"
 			style="font-family:Ubuntu;font-size:16px;">
 			<h:form id="confirmDialogEdit">
-				<p:commandButton value="Yes" update=":form:tableGroup :growl" actionListener="#{projectMB.saveOrUpdate}" oncomplete="confirmation2.hide()"
+				<p:commandButton value="Yes" update=":form:tableGroup :growl" actionListener="#{projectMB.createOrSave}" oncomplete="confirmation2.hide()"
 					style="margin-left:84px;font-family:Ubuntu;font-size:16px;" />
 				<p:commandButton value="No" onclick="confirmation2.hide()" type="button" style="font-family:Ubuntu;font-size:16px;" />
 			</h:form>

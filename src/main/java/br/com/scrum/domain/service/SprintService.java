@@ -1,76 +1,78 @@
 package br.com.scrum.domain.service;
 
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 
 import org.hibernate.exception.ConstraintViolationException;
+import org.jboss.seam.transaction.TransactionPropagation;
+import org.jboss.seam.transaction.Transactional;
+import org.jboss.solder.logging.Logger;
 
+import br.com.scrum.application.util.Assert;
 import br.com.scrum.domain.entity.Sprint;
 import br.com.scrum.infrastructure.dao.PersistenceUtil;
-import br.com.scrum.infrastructure.dao.exception.BusinessException;
 
-public class SprintService implements Serializable {
+@Transactional(TransactionPropagation.REQUIRED)
+public class SprintService extends PersistenceUtil implements Serializable {
 	
-	@Inject private EntityManager em;
-	@Inject private PersistenceUtil<Sprint, Integer> repository;
+	private final Logger logger = Logger.getLogger(getClass());
 	
-	public Sprint save (Sprint sprint) {
+	@PersistenceContext(type = PersistenceContextType.EXTENDED)
+	private EntityManager entityManager;
+	
+	public void create(Sprint sprint) {
 		try {
-			return repository.persist(sprint);			
+			super.create(sprint);			
 		} catch ( ConstraintViolationException cve ) {
+			logger.error(cve.getCause().getLocalizedMessage());
 			throw cve;
 		}
 	}
 	
-	public Sprint update (Sprint sprint) {
+	public void save(Sprint sprint) {
 		try {
-			return repository.merge(sprint);			
+			super.save(sprint);			
 		} catch ( ConstraintViolationException cve) {
+			logger.error(cve.getCause().getLocalizedMessage());
 			throw cve;
 		}
 	}
+	
+	public void delete(Sprint sprint) {
+		super.delete(getEntityManager().getReference(Sprint.class, sprint.getId()));			
+	}
 
-	public void remove (Sprint sprint) throws Exception {
+	public Sprint withId(Integer id) {
+		return super.findById(Sprint.class, id);
+	}
+
+	public List<Sprint> findAll() {
+		return super.findAll(Sprint.class);
+	}
+
+	public List<Sprint> searchBy(String query) {
+		Assert.notNull(query, "query was null");
+		
 		try {
-			repository.remove(sprint);			
-		} catch ( Exception e ) {
-			throw e;
+			return super.findByNamedQuery("Sprint.getByName", query);
+		} catch (NoResultException nre) {
+			logger.error("No sprint found with paramters [" + query + "]", nre);
+		} catch (Exception e) {
+			logger.error("Error fetching a sprint " + e.getCause().getLocalizedMessage());
 		}
-	}
-
-	public Sprint withId (Integer id) {
-		return repository.find(id);
-	}
-
-	public List<Sprint> findAll () {
-		return (List<Sprint>) repository.list();
-	}
-
-	public List<Sprint> searchBy (String query) throws BusinessException,  Exception {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put(Sprint.NAME, "%" +query.toUpperCase()+ "%");
-		try {
-			return repository.listByNamedQuery("Sprint.getByName", params);
-		} catch ( NoResultException nre ) {
-			throw new BusinessException("sprint not found");
-		}
+		return null;
 	}
 	
-	/**
-	 * this method set a external EntityManager, just for tests 
-	 */
-	public SprintService setEm (EntityManager em) {
-		this.em = em;
-		repository = new PersistenceUtil<Sprint, Integer>(Sprint.class, em);
-		return this;		
+	@Override
+	public EntityManager getEntityManager() {
+		return entityManager;
 	}
-	
+
 	private static final long serialVersionUID = 7484077875891258960L;
 
 }

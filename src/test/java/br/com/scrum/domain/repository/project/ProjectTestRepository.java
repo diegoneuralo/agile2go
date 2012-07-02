@@ -27,9 +27,9 @@
 //import br.com.scrum.domain.service.ProjectService;
 //import br.com.scrum.domain.service.SprintService;
 //import br.com.scrum.domain.service.TaskService;
-//import br.com.scrum.domain.service.UserService;
+//import br.com.scrum.domain.service.AuthenticationService;
 //import br.com.scrum.infrastructure.dao.exception.BusinessException;
-//import br.com.scrum.infrastructure.factory.JPAUtil;
+//import br.com.scrum.infrastructure.factory.EntityManagerFactoryProducer;
 //
 //public class ProjectTestRepository {
 //	
@@ -41,8 +41,8 @@
 //
 //	@BeforeClass
 //	public static void before() throws Exception {
-//        em = new JPAUtil().getEntityManager();
-//		userRepository = new UserService().setEm(em);
+//        em = new EntityManagerFactoryProducer().getEntityManager();
+//		userRepository = new AuthenticationService().setEm(em);
 //		projectRepository = new ProjectService().setEm(em);
 //		sprintRepository = new SprintService().setEm(em);		
 //		taskRepository = new TaskService().setEm(em);

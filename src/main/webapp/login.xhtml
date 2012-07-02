@@ -12,17 +12,17 @@
 	<div class="conteudo">
 		<div class="login">
 			
-			<h:form id="form">
+			<h:form id="form" rendered="#{not identity.loggedIn}">
 			<p:growl id="growl" life="5000" showSummary="true" showDetail="false"  />						
 				<div class="inputs">
 					<h:panelGrid columns="1" style="margin-left: 80px;">
 						<h:outputLabel value="Sign In" style="margin-left: 68px;"/>
-						<p:inputText value="#{userMB.login}" required="true" requiredMessage="sign in is a required type" style="width:190px;height:30px;"/>						
+						<p:inputText value="#{credentials.username}" required="true" requiredMessage="sign in is a required type" style="width:190px;height:30px;"/>						
 						
 						<h:outputLabel value="Password" style="margin-left: 68px;" />
-						<p:password value="#{userMB.password}" required="true" requiredMessage="password is a required type" style="width:190px;height:30px;"  />
+						<p:password value="#{credentials.password}" required="true" requiredMessage="password is a required type" style="width:190px;height:30px;"  />
 
-						<p:commandButton action="#{userMB.userLogin}" value="Login" update="growl" 
+						<p:commandButton action="#{identity.login}" value="Login" update="growl" 
 						                 style="margin-left:61px; font-family:Ubuntu;font-size:16px;"/>
 					</h:panelGrid>
 				</div>

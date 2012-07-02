@@ -15,19 +15,19 @@ import org.junit.Test;
 
 import br.com.scrum.domain.entity.User;
 import br.com.scrum.domain.entity.enums.UserRole;
-import br.com.scrum.domain.service.UserService;
-import br.com.scrum.infrastructure.factory.JPAUtil;
+import br.com.scrum.domain.service.AuthenticationService;
+import br.com.scrum.infrastructure.factory.EntityManagerFactoryProducer;
 
 public class UserTest {
 
 	private static EntityManager em;	
-	private static UserService service;
+	private static AuthenticationService service;
 	private static Integer ID; 
 
 	@BeforeClass					
 	public static void before() throws Exception {
-		em = new JPAUtil().getEntityManager();
-		service = new UserService().setEm(em);		
+		em = new EntityManagerFactoryProducer().getEntityManager();
+		service = new AuthenticationService().setEm(em);		
 	}
 
 	@AfterClass

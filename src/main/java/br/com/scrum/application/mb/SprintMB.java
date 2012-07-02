@@ -7,13 +7,13 @@ import java.util.List;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.PersistenceException;
+
+import org.hibernate.exception.ConstraintViolationException;
 
 import br.com.scrum.domain.entity.Project;
 import br.com.scrum.domain.entity.Sprint;
 import br.com.scrum.domain.service.ProjectService;
 import br.com.scrum.domain.service.SprintService;
-import br.com.scrum.infrastructure.dao.exception.BusinessException;
 
 @Named
 @ViewScoped
@@ -26,49 +26,40 @@ public class SprintMB extends BaseBean implements Serializable {
 	private List<Sprint> sprints;
 	private List<Project> projects;		
 	
-	public void saveOrUpdate () {
+	public void createOrSave() {
 		try {
 			if ( sprint.getId() == null ) {					
-				sprintService.save(sprint);
+				sprintService.create(sprint);
 				sprint = new Sprint();
 				addInfoMessage("sprint successfully created");				
 			} else {
-				sprintService.update(sprint);
-				sprint = new Sprint();
-				addInfoMessage("sprint successfully updated");
+				sprintService.save(sprint);
+				addInfoMessage("sprint successfully saved");
 			}
-			sprints = sprintService.findAll();
-		} catch ( PersistenceException pe ) {
+		} catch ( ConstraintViolationException cve ) {
 			addErrorMessage("sprint already exsists");
-			pe.printStackTrace();
 		} catch ( Exception e ) {
-			e.printStackTrace();
-			addErrorMessage("a excepted has ocurred");
+			addErrorMessage("a excepted has ocurred!");
 		}
 	}
 	
-	public void remove () {		
+	public void delete() {		
 		try {
-			sprintService.remove(sprint);
+			sprintService.delete(sprint);
 			sprints = sprintService.findAll();
 			addInfoMessage("sprint removed");
 		} catch ( Exception e ) {
-			e.printStackTrace();
 			addErrorMessage(e.getMessage());
 		}		
 	}
 
-	public List<Project> completeProject (String query) {
+	public List<Project> completeProject(String query) {
 		try {
 			if ( projects == null ) {
 				projects = new ArrayList<Project>();
 			}
 			return projectService.searchBy(query);			
-		} catch ( BusinessException be ) {
-			be.printStackTrace();
-			addInfoMessage(be.getMessage());
 		} catch ( Exception e ) {
-			e.printStackTrace();
 			addErrorMessage(e.getMessage());
 		}
 		return projects = new ArrayList<Project>();

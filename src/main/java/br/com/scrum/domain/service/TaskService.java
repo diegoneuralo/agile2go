@@ -3,60 +3,61 @@ package br.com.scrum.domain.service;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 
 import org.hibernate.exception.ConstraintViolationException;
+import org.jboss.seam.transaction.TransactionPropagation;
+import org.jboss.seam.transaction.Transactional;
+import org.jboss.solder.logging.Logger;
 
 import br.com.scrum.domain.entity.Task;
 import br.com.scrum.infrastructure.dao.PersistenceUtil;
 
-public class TaskService implements Serializable {
+@Transactional(TransactionPropagation.REQUIRED)
+public class TaskService extends PersistenceUtil implements Serializable {
 	
-	@Inject private EntityManager em;
-	@Inject private PersistenceUtil<Task, Integer> repository;
+	private final Logger logger = Logger.getLogger(getClass());
 	
-	public Task save (Task task) {
+	@PersistenceContext(type = PersistenceContextType.EXTENDED)
+	private EntityManager entityManager;
+	
+	public void create(Task task) {
 		try {
-			return repository.persist(task);				
+			super.create(task);				
 		} catch ( ConstraintViolationException cve ) {
+			logger.error(cve.getCause().getLocalizedMessage());
 			throw cve;	
 		}
 	}
 	
-	public Task update (Task task) {
+	public void save(Task task) {
 		try {
-			return repository.merge(task);				
+			super.save(task);				
 		} catch ( ConstraintViolationException cve ) {
+			logger.error(cve.getCause().getLocalizedMessage());
 			throw cve;	
 		}
 	}
-
-	public Task withId (Integer id) {
-		return repository.find(id);
+	
+	public void delete(Task task) {
+		super.delete(getEntityManager().getReference(Task.class, task.getId()));					
 	}
 
-	public List<Task> findAll () {
-		return repository.list();
+	public Task withId(Integer id) {
+		return super.findById(Task.class, id);
 	}
 
-	public void remove(Task task) throws Exception {
-		try {
-			repository.remove(task);					
-		} catch (Exception e) {
-			throw e;
-		}
+	public List<Task> findAll() {
+		return super.findAll(Task.class);
 	}
 	
-	/**
-	 * this method set a external EntityManager, just for tests 
-	 */
-	public TaskService setEm (EntityManager em) {
-		this.em = em;
-		repository = new PersistenceUtil<Task, Integer>(Task.class, em);
-		return this;		
+	@Override
+	public EntityManager getEntityManager() {
+		return entityManager;
 	}
-	
+
 	private static final long serialVersionUID = 9002969380414395854L;
 	
 }

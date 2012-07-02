@@ -87,7 +87,8 @@
 				<p:column styleClass="dataTableOptions">
 					<p:commandLink onclick="confirmation.show()">										
 						<h:graphicImage value="/resources/img/excluir16.png" title="remove" />
-						<f:setPropertyActionListener target="#{sprintMB.sprint}" value="#{sprint}" />												
+						<f:setPropertyActionListener target="#{sprintMB.sprint}" value="#{sprint}" />
+						<f:ajax render="@form" />												
 					</p:commandLink>
 				</p:column>
 			</p:dataTable>
@@ -100,7 +101,7 @@
 			header="remove" severity="alert" widgetVar="confirmation"
 			style="font-family:Ubuntu;font-size:16px;">
 			<h:form id="confirmDialogSave">
-				<p:commandButton value="Yes" update=":form:tableGroup :growl" actionListener="#{sprintMB.remove}" oncomplete="confirmation.hide()"
+				<p:commandButton value="Yes" update=":form:tableGroup :growl" actionListener="#{sprintMB.delete}" oncomplete="confirmation.hide()"
 					style="margin-left:84px;font-family:Ubuntu;font-size:16px;" />
 				<p:commandButton value="No" onclick="confirmation.hide()" type="button" style="font-family:Ubuntu;font-size:16px;" />
 			</h:form>
@@ -110,7 +111,7 @@
 			header="edit" severity="alert" widgetVar="confirmation2"
 			style="font-family:Ubuntu;font-size:16px;">
 			<h:form id="confirmDialogEdit">
-				<p:commandButton value="Yes" update=":form:tableGroup :growl" actionListener="#{sprintMB.saveOrUpdate}" oncomplete="confirmation2.hide()"
+				<p:commandButton value="Yes" update=":form:tableGroup :growl" actionListener="#{sprintMB.createOrSave}" oncomplete="confirmation2.hide()"
 					style="margin-left:84px;font-family:Ubuntu;font-size:16px;" />
 				<p:commandButton value="No" onclick="confirmation2.hide()" type="button" style="font-family:Ubuntu;font-size:16px;" />
 			</h:form>

@@ -1,12 +1,17 @@
 package br.com.scrum.domain.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,9 +29,10 @@ import br.com.scrum.domain.entity.enums.UserRole;
 @Table(name = "USER", schema = Const.SCHEMA, uniqueConstraints = {
 		@UniqueConstraint(columnNames = "NAME")})
 @NamedQueries({
-	@NamedQuery(name = "User.getByLogin", query = "SELECT u FROM User u WHERE u.login = :login and u.password = :password")})
+	@NamedQuery(name = "User.getByLogin", query = "FROM User u WHERE u.login = ? and u.password = ?")
+})
 public class User implements Serializable {	
-	
+
 	public static final String LOGIN = "login";
 	public static final String PASSWORD = "password";
 
@@ -34,15 +40,15 @@ public class User implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "USER_ID")
 	private int id;
-	
+
 	@NotEmpty(message = "name is required field")
 	@Column(name = "NAME", nullable = false, length = 60)
 	private String name;
-	
+
 	@NotEmpty(message = "login do not match")
 	@Column(name = "LOGIN", nullable = false, length = 20)
 	private String login;
-	
+
 	@NotEmpty(message = "password do not match")
 	@Column(name = "PASSWORD", nullable = false, length = 20)
 	private String password;
@@ -52,10 +58,14 @@ public class User implements Serializable {
 
 	@Enumerated(EnumType.STRING)
 	@Column(length = 10)
-	private UserRole role;	
+	private UserRole role;
+
+//	@ElementCollection(fetch = FetchType.EAGER)
+//	@CollectionTable(name = "user_profiles_keys")
+//	private Set<String> identityKeys = new HashSet<String>();
 
 	public User() { }
-	
+
 	public int getId() {
 		return id;
 	}
@@ -103,6 +113,14 @@ public class User implements Serializable {
 	public void setRole(UserRole role) {
 		this.role = role;
 	}
+	
+//	public Set<String> getIdentityKeys() {
+//		return identityKeys;
+//	}
+//
+//	public void setIdentityKeys(Set<String> identityKeys) {
+//		this.identityKeys = identityKeys;
+//	}
 
 	@Override
 	public int hashCode() {
@@ -125,7 +143,7 @@ public class User implements Serializable {
 			return false;
 		return true;
 	}	
-	
+
 	private static final long serialVersionUID = -2854296962122780992L;
 
 }

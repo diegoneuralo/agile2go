@@ -1,80 +1,77 @@
 package br.com.scrum.domain.service;
 
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.jboss.seam.transaction.TransactionPropagation;
 import org.jboss.seam.transaction.Transactional;
+import org.jboss.solder.logging.Logger;
 
+import br.com.scrum.application.util.Assert;
 import br.com.scrum.domain.entity.Project;
 import br.com.scrum.infrastructure.dao.PersistenceUtil;
-import br.com.scrum.infrastructure.dao.exception.BusinessException;
 
-public class ProjectService implements Serializable {			
+@Transactional(TransactionPropagation.REQUIRED)
+public class ProjectService extends PersistenceUtil implements Serializable {			
 	
-	@Inject private EntityManager em;
-	@Inject private PersistenceUtil<Project, Integer> repository;
+	private final Logger logger = Logger.getLogger(getClass());
 	
-	@Transactional(TransactionPropagation.MANDATORY)
-	public Project save (Project project) {
+	@PersistenceContext(type = PersistenceContextType.EXTENDED)
+	protected EntityManager em;
+
+	public void create(Project project) {
 		try {
-			return repository.persist(project) ;			
+			super.create(project);			
 		} catch ( ConstraintViolationException cve ) {
+			logger.error(cve.getCause().getLocalizedMessage());
 			throw cve;	
 		}
 	}
 	
-	@Transactional(TransactionPropagation.MANDATORY)
-	public Project update (Project project) {
+	public void save(Project project) {
 		try {
-			return repository.merge(project) ;				
+			super.save(project);				
 		} catch ( ConstraintViolationException cve ) {
+			logger.error(cve.getCause().getLocalizedMessage());
 			throw cve;	
 		}
 	}
 	
-	@Transactional(TransactionPropagation.MANDATORY)
-	public void remove (Project project) throws Exception {
-		try {
-			repository.remove(project);			
-		} catch (Exception e) {
-			throw e;
-		}
+	public void delete(Project project) {
+		super.delete(getEntityManager().getReference(Project.class, project.getId()));				
 	}
-
-	public Project withId (Integer id) {
-		return repository.find(id);
+	
+	public Project withId(Integer id) {
+		return super.findById(Project.class, id);
 	}
-
-	public List<Project> findAll () {
-		return repository.list();
+	
+	public List<Project> findAll() {
+		return super.findAll(Project.class);
 	}		
-
-	public List<Project> searchBy (String query) throws BusinessException {
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put(Project.NAME, "%" +query.toUpperCase()+ "%");
+	
+	public List<Project> searchBy(String query) {
+		Assert.notNull(query, "query was null");
+		
 		try {
-			return repository.listByNamedQuery("Project.getByName", params);
-		} catch ( NoResultException nre ) {
-			throw new BusinessException("project not found");
-		}	
+			return super.findByNamedQuery("Project.getByName", query);
+		} catch (NoResultException nre) {
+			logger.error("No project found with paramters [" + query + "]", nre);
+		} catch (Exception e) {
+			logger.error("Error fetching the project " + e.getCause().getLocalizedMessage());
+		}
+		return null;
 	}
-	
-	/**
-	 * this method set a external EntityManager, just for tests 
-	 */
-	public ProjectService setEm (EntityManager em) {
-		this.em = em;
-		repository = new PersistenceUtil<Project, Integer>(Project.class, em);
-		return this;		
+
+	@Override
+	public EntityManager getEntityManager() {
+		return em;
 	}
-	
+
 	private static final long serialVersionUID = 973523347646521301L;
 }

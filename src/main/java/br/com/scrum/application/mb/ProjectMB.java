@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.hibernate.exception.ConstraintViolationException;
+import org.jboss.solder.logging.Logger;
 
 import br.com.scrum.domain.entity.Project;
 import br.com.scrum.domain.service.ProjectService;
@@ -15,36 +16,39 @@ import br.com.scrum.domain.service.ProjectService;
 @Named
 @ViewScoped
 public class ProjectMB extends BaseBean implements Serializable {		
-
+	
+	private final Logger logger = Logger.getLogger(ProjectMB.class);
 	@Inject private ProjectService projectService;
 	
 	private Project project = new Project();
 	private List<Project> projects;
 	
-	public void saveOrUpdate () {
+	public void createOrSave() {
 		try {			
 			if ( project.getId() == null ) {
-				projectService.save(project);
+				projectService.create(project);
 				project = new Project();
 				addInfoMessage("project successfully created");
 			} else {
-				projectService.update(project);
+				projectService.save(project);
 				addInfoMessage("project successfully updated");
 			}
 		} catch ( ConstraintViolationException cve ) {
+			logger.error(cve);
 			addErrorMessage(null, "project already exist");	
 		} catch ( Exception e ) {
+			logger.error(e);
 			addErrorMessage("unexcepted error has ocurred");
 		}
 	}
 
-	public void remove () {		
+	public void delete() {		
 		try {
-			projectService.remove(project);	
-			project = new Project();
-			projects = projectService.findAll();
+			projectService.delete(project);	
+//			projects = projectService.findAll();
 			addInfoMessage("project removed");
 		} catch ( Exception e ) {
+			logger.error(e);
 			addErrorMessage(e.getMessage());
 		}		
 	}
