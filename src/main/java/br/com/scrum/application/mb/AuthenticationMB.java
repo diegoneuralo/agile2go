@@ -75,7 +75,7 @@ public class AuthenticationMB extends BaseAuthenticator implements Authenticator
 	private void redirectToViewId(String viewId) {
 		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 		try {
-			externalContext.redirect(externalContext.getRequestContextPath() + viewId + "?faces-redirect=true");
+			externalContext.redirect(externalContext.getRequestContextPath() + viewId);
 		} catch (IOException e) {
 			logger.error(e.getCause().getMessage());
 		}
