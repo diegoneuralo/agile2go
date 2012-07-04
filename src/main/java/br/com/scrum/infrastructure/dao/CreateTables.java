@@ -8,8 +8,7 @@ import br.com.scrum.domain.entity.enums.Const;
 
 public class CreateTables {	
 
-	@Inject
-	private static EntityManager em;
+	@Inject private static EntityManager em;
 	
 	public static void main(String[] args) {
 		em = Persistence.createEntityManagerFactory(Const.SCHEMA).createEntityManager();

@@ -27,7 +27,7 @@
 //import br.com.scrum.domain.service.ProjectService;
 //import br.com.scrum.domain.service.SprintService;
 //import br.com.scrum.domain.service.TaskService;
-//import br.com.scrum.domain.service.AuthenticationService;
+//import br.com.scrum.domain.service.AuthenticationMB;
 //import br.com.scrum.infrastructure.dao.exception.BusinessException;
 //import br.com.scrum.infrastructure.factory.EntityManagerFactoryProducer;
 //
@@ -42,7 +42,7 @@
 //	@BeforeClass
 //	public static void before() throws Exception {
 //        em = new EntityManagerFactoryProducer().getEntityManager();
-//		userRepository = new AuthenticationService().setEm(em);
+//		userRepository = new AuthenticationMB().setEm(em);
 //		projectRepository = new ProjectService().setEm(em);
 //		sprintRepository = new SprintService().setEm(em);		
 //		taskRepository = new TaskService().setEm(em);

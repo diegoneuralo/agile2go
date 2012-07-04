@@ -1,17 +1,12 @@
 package br.com.scrum.domain.entity;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,9 +27,6 @@ import br.com.scrum.domain.entity.enums.UserRole;
 	@NamedQuery(name = "User.getByLogin", query = "FROM User u WHERE u.login = ? and u.password = ?")
 })
 public class User implements Serializable {	
-
-	public static final String LOGIN = "login";
-	public static final String PASSWORD = "password";
 
 	@Id	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

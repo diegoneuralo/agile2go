@@ -142,9 +142,7 @@
 			<artifactId>seam-security-api</artifactId>
 			<version>${seam.version}</version>
 		</dependency>
-		<!-- <dependency> <groupId>org.jboss.seam.transaction</groupId> <artifactId>seam-transaction</artifactId> 
-			<version>${seam.version}}</version> </dependency> -->
-		<!-- <dependency>
+		<dependency>
 			<groupId>org.jboss.seam.persistence</groupId>
 			<artifactId>seam-persistence-api</artifactId>
 			<version>${seam.version}</version>
@@ -153,7 +151,12 @@
 			<groupId>org.jboss.seam.persistence</groupId>
 			<artifactId>seam-persistence</artifactId>
 			<version>${seam.version}</version>
-		</dependency> -->
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.seam.transaction</groupId>
+			<artifactId>seam-transaction</artifactId>
+			<version>${seam.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>

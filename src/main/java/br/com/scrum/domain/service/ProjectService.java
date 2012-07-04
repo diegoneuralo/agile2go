@@ -9,15 +9,12 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 
 import org.hibernate.exception.ConstraintViolationException;
-import org.jboss.seam.transaction.TransactionPropagation;
-import org.jboss.seam.transaction.Transactional;
 import org.jboss.solder.logging.Logger;
 
 import br.com.scrum.application.util.Assert;
 import br.com.scrum.domain.entity.Project;
 import br.com.scrum.infrastructure.dao.PersistenceUtil;
 
-@Transactional(TransactionPropagation.REQUIRED)
 public class ProjectService extends PersistenceUtil implements Serializable {			
 	
 	private final Logger logger = Logger.getLogger(getClass());

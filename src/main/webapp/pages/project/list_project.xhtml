@@ -75,7 +75,6 @@
 					<p:commandLink onclick="confirmation.show()">										
 						<h:graphicImage value="/resources/img/excluir16.png" title="remove" />
 						<f:setPropertyActionListener target="#{projectMB.project}" value="#{project}" />
-						<f:ajax execute="@this" render=":tableGroup"/>
 					</p:commandLink>
 				</p:column>
 			</p:dataTable>

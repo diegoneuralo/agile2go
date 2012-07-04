@@ -3,22 +3,20 @@ package br.com.scrum.domain.service;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 
 import org.hibernate.exception.ConstraintViolationException;
-import org.jboss.seam.transaction.TransactionPropagation;
-import org.jboss.seam.transaction.Transactional;
 import org.jboss.solder.logging.Logger;
 
 import br.com.scrum.domain.entity.Task;
 import br.com.scrum.infrastructure.dao.PersistenceUtil;
 
-@Transactional(TransactionPropagation.REQUIRED)
 public class TaskService extends PersistenceUtil implements Serializable {
 	
-	private final Logger logger = Logger.getLogger(getClass());
+	@Inject private Logger logger;
 	
 	@PersistenceContext(type = PersistenceContextType.EXTENDED)
 	private EntityManager entityManager;

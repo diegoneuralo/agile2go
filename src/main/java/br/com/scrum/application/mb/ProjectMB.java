@@ -1,6 +1,7 @@
 package br.com.scrum.application.mb;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ViewScoped;
@@ -17,7 +18,7 @@ import br.com.scrum.domain.service.ProjectService;
 @ViewScoped
 public class ProjectMB extends BaseBean implements Serializable {		
 	
-	private final Logger logger = Logger.getLogger(ProjectMB.class);
+	@Inject private Logger logger;
 	@Inject private ProjectService projectService;
 	
 	private Project project = new Project();
@@ -44,8 +45,9 @@ public class ProjectMB extends BaseBean implements Serializable {
 
 	public void delete() {		
 		try {
+			logger.infof(project.getName() + " is being deleted ", new Date());
 			projectService.delete(project);	
-//			projects = projectService.findAll();
+			projects = projectService.findAll();
 			addInfoMessage("project removed");
 		} catch ( Exception e ) {
 			logger.error(e);
