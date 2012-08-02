@@ -26,15 +26,9 @@
 				<p:menuitem value="create" url="/pages/task/add_task.jsf" icon="ui-icon-contact"/>
 				<p:menuitem value="search" url="/pages/task/list_task.jsf" icon="ui-icon-search"/>
 			</p:submenu>			
-			 <p:menuitem value="Logout" url="#{facesContext.externalContext.request.contextPath}/login.jsf" style="margin-left: 50px; font-family: Ubuntu;" icon="ui-icon-close" /> 						
+			 <p:menuitem value="Logout" url="http://localhost:8080/agile2go/login.jsf" style="margin-left: 50px; font-family: Ubuntu;" icon="ui-icon-close" /> 						
 		</p:menubar>
 		</div>
-	    <h:panelGrid cellpadding="2" cellspacing="2" style="margin-top:29px;margin-left:1029px;">	    	    
-	    <h:panelGrid>
-	    	<h:graphicImage value="/resources/img/ROLE_USUARIO_VIP_true.png" style="margin-left:120px; margin-top:-10px;" />
-	    	<h:outputText value="#{identity.user.key}" style="font-family:Ubuntu;font-size:15px;" />
-	    </h:panelGrid>	    	    	
-	    </h:panelGrid>			
 	</h:form>
 		<div id="body">
 			<p:growl id="growl" showDetail="true" showSummary="false" />

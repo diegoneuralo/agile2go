@@ -28,7 +28,7 @@
 //import br.com.scrum.domain.service.SprintService;
 //import br.com.scrum.domain.service.TaskService;
 //import br.com.scrum.domain.service.AuthenticationMB;
-//import br.com.scrum.infrastructure.dao.exception.BusinessException;
+//import br.com.scrum.infrastructure.dao.exception.NoResultExceptionHandler;
 //import br.com.scrum.infrastructure.factory.EntityManagerFactoryProducer;
 //
 //public class ProjectTestRepository {
@@ -67,7 +67,7 @@
 ////		remove();
 //		searchBy();
 //	}
-//	public void searchBy () throws BusinessException {		
+//	public void searchBy () throws NoResultExceptionHandler {		
 //		List<Project> projects = projectRepository.searchBy("agile2go".toUpperCase());			
 //		assertTrue(projects != null && !projects.isEmpty());		
 //	}

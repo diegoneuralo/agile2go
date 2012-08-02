@@ -3,6 +3,7 @@
     height:91px;
     background:url(../resources/img/menu.png) repeat-x 0 center;
     z-index: 1;
+    margin-top: -18px;
 }
 
 #menu .menu {

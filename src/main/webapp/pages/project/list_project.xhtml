@@ -6,15 +6,16 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<h:outputStylesheet name="content.css" library="css" />		
+	<h:outputStylesheet name="menu.css" library="css" />	
 </h:head>
 <ui:composition template="/templates/_template.xhtml">
 	<ui:define name="body">
 		
 		<h:form id="form">		
-			<h:panelGroup id="tableGroup">								
+			<h:panelGroup id="tableGroup" styleClass="menu">								
 			<p:dataTable id="dataTable" var="project" editable="true" paginatorPosition="bottom" 
-				value="#{projectMB.projects}" paginator="true" rows="5" 
-				rowsPerPageTemplate="5,10,15"  cellpadding="3" cellspacing="3" styleClass="dataTable">								
+				value="#{projectMB.projects}" paginator="true" rows="5"
+				rowsPerPageTemplate="5,10,15"  cellpadding="3" cellspacing="3">								
 				<f:facet name="header">
 					<h:outputText value="Projects" styleClass="inputDataTable" />
 				</f:facet>

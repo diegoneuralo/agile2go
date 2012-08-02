@@ -1,5 +1,6 @@
 package br.com.scrum.application.converter;
 
+import javax.enterprise.context.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -8,6 +9,7 @@ import javax.inject.Named;
 import br.com.scrum.domain.entity.enums.Status;
 
 @Named
+@RequestScoped
 public class StatusConverter implements Converter {
 
 	@Override

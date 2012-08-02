@@ -23,7 +23,7 @@
 //import br.com.scrum.domain.repository.SprintRepository;
 //import br.com.scrum.domain.service.ProjectService;
 //import br.com.scrum.domain.service.SprintService;
-//import br.com.scrum.infrastructure.dao.exception.BusinessException;
+//import br.com.scrum.infrastructure.dao.exception.NoResultExceptionHandler;
 //
 //public class SprintTestRepository {
 //

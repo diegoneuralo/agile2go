@@ -14,14 +14,13 @@ import br.com.scrum.domain.service.SprintService;
 @RequestScoped
 public class SprintConverter implements Converter {
 	
-	@Inject SprintService service;
+	@Inject private SprintService service;
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		if ( value == null || value.trim().equals("") ) {
 			return null;
 		}
-		
 		return service.withId(Integer.parseInt(value));					
 	}
 
@@ -30,7 +29,6 @@ public class SprintConverter implements Converter {
 		if ( value == null || value.equals("") || ((Sprint) value).getId() == null ) {
 			return "";
 		}
-		
 		return ((Sprint) value).getId().toString();
 	}
 

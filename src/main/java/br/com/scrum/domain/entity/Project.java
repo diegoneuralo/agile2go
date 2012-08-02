@@ -26,12 +26,10 @@ import br.com.scrum.domain.entity.enums.Const;
 @Table(name = "PROJECT", schema = Const.SCHEMA, uniqueConstraints = {
 		@UniqueConstraint(columnNames = {"NAME"})})
 @NamedQueries({
-	@NamedQuery(name = "Project.getByName", query = "FROM Project p WHERE upper(p.name) like ?")	
+	@NamedQuery(name = "Project.getByName", query = "from Project p where upper(p.name) like ? ")	
 	})
 public class Project implements Serializable {	
 
-	public static final String NAME = "name";
-	
 	@Id	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "PROJECT_ID")
@@ -56,6 +54,10 @@ public class Project implements Serializable {
 	private List<Sprint> sprints;
 		
 	public Project() { }
+
+	public Project(String name) {
+		this.name = name;
+	}
 
 	public Integer getId() {
 		return id;

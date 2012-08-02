@@ -1,6 +1,6 @@
 package br.com.scrum.infrastructure.factory;
 
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.inject.Default;
 import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManagerFactory;
@@ -13,7 +13,7 @@ import br.com.scrum.domain.entity.enums.Const;
 public class EntityManagerFactoryProducer {
 	
 	@ExtensionManaged
-	@RequestScoped
+	@ConversationScoped
 	@Produces
 	@PersistenceUnit(unitName=Const.SCHEMA)
 	@Default

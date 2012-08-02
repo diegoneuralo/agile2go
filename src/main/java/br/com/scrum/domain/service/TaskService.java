@@ -18,8 +18,8 @@ public class TaskService extends PersistenceUtil implements Serializable {
 	
 	@Inject private Logger logger;
 	
-	@PersistenceContext(type = PersistenceContextType.EXTENDED)
-	private EntityManager entityManager;
+//	@PersistenceContext(type = PersistenceContextType.EXTENDED)
+//	private EntityManager entityManager;
 	
 	public void create(Task task) {
 		try {
@@ -40,7 +40,7 @@ public class TaskService extends PersistenceUtil implements Serializable {
 	}
 	
 	public void delete(Task task) {
-		super.delete(getEntityManager().getReference(Task.class, task.getId()));					
+		super.delete(super.getEntityManager.getReference(Task.class, task.getId()));					
 	}
 
 	public Task withId(Integer id) {
@@ -51,10 +51,10 @@ public class TaskService extends PersistenceUtil implements Serializable {
 		return super.findAll(Task.class);
 	}
 	
-	@Override
-	public EntityManager getEntityManager() {
-		return entityManager;
-	}
+//	@Override
+//	public EntityManager getEntityManager() {
+//		return entityManager;
+//	}
 
 	private static final long serialVersionUID = 9002969380414395854L;
 	

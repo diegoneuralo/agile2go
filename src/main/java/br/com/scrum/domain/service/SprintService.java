@@ -20,8 +20,8 @@ public class SprintService extends PersistenceUtil implements Serializable {
 	
 	@Inject private Logger logger;
 	
-	@PersistenceContext(type = PersistenceContextType.EXTENDED)
-	private EntityManager entityManager;
+//	@PersistenceContext(type = PersistenceContextType.EXTENDED)
+//	private EntityManager entityManager;
 	
 	public void create(Sprint sprint) {
 		try {
@@ -42,7 +42,7 @@ public class SprintService extends PersistenceUtil implements Serializable {
 	}
 	
 	public void delete(Sprint sprint) {
-		super.delete(getEntityManager().getReference(Sprint.class, sprint.getId()));			
+		super.delete(super.getEntityManager.getReference(Sprint.class, sprint.getId()));			
 	}
 
 	public Sprint withId(Integer id) {
@@ -66,10 +66,10 @@ public class SprintService extends PersistenceUtil implements Serializable {
 		return null;
 	}
 	
-	@Override
-	public EntityManager getEntityManager() {
-		return entityManager;
-	}
+//	@Override
+//	public EntityManager getEntityManager() {
+//		return entityManager;
+//	}
 
 	private static final long serialVersionUID = 7484077875891258960L;
 

@@ -3,7 +3,6 @@ package br.com.scrum.domain.entity;
 import java.io.Serializable;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -45,9 +44,6 @@ public class User implements Serializable {
 	@Column(name = "PASSWORD", nullable = false, length = 20)
 	private String password;
 
-	@Embedded
-	private Address address;
-
 	@Enumerated(EnumType.STRING)
 	@Column(length = 10)
 	private UserRole role;
@@ -88,14 +84,6 @@ public class User implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
 	}
 
 	public UserRole getRole() {

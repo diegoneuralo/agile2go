@@ -5,6 +5,8 @@ import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
 import javax.enterprise.event.Event;
+import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -37,7 +39,7 @@ public class AuthenticationMB extends BaseAuthenticator implements Authenticator
 		logger.info("Logging in " + credentials.getUsername());
 		User user = userService.getUserByCredential(credentials.getUsername(), credentials.getPassword());
 		if (user != null && credentials.getCredential() instanceof PasswordCredential && 
-				user.getPassword().equals(((PasswordCredential) credentials.getCredential()).getValue())) {
+			user.getPassword().equals(((PasswordCredential) credentials.getCredential()).getValue())) {
 			loginEventSrc.fire(user);
 			super.setStatus(AuthenticationStatus.SUCCESS);
 			identity.addRole(credentials.getUsername(), "USERS", "GROUP");
@@ -45,17 +47,17 @@ public class AuthenticationMB extends BaseAuthenticator implements Authenticator
 			redirectToViewId("/main/main.jsf");
 			return;
 		}
-
+		
 		setStatus(AuthenticationStatus.FAILURE);
 		redirectToLoginIfNotLoggedIn();
 	}
 
-	public void logout() {
-		String userKey = identity.getUser().getKey();
-		identity.setAuthenticatorClass(IdmAuthenticator.class);
-		identity.logout();
-		logger.info("User logged out " + userKey);
-	}
+//	public void logout() {
+//		String userKey = identity.getUser().getKey();
+//		identity.setAuthenticatorClass(IdmAuthenticator.class);
+//		identity.logout();
+//		logger.info("User logged out " + userKey);
+//	}
 
 	@Override
 	public AuthenticationStatus getStatus() {
@@ -68,7 +70,9 @@ public class AuthenticationMB extends BaseAuthenticator implements Authenticator
 
 	public void redirectToLoginIfNotLoggedIn() {
 		if (!isLoggedIn()) {
+			credentials.setUsername("");
 			redirectToViewId("/login.jsf");
+			addLoginErrorMessage("User not found!");
 		}
 	}
 
@@ -79,6 +83,16 @@ public class AuthenticationMB extends BaseAuthenticator implements Authenticator
 		} catch (IOException e) {
 			logger.error(e.getCause().getMessage());
 		}
+	}
+	
+	public void addLoginErrorMessage(String infoMessage) {
+		addMessage(null, infoMessage, FacesMessage.SEVERITY_ERROR);
+	}		
+	
+	private void addMessage(String componentId, String errorMessage, Severity severity){
+		FacesMessage message =  new FacesMessage(errorMessage);
+		message.setSeverity(severity);
+		FacesContext.getCurrentInstance().addMessage(componentId, message);		
 	}
 
 	private static final long serialVersionUID = 8944449513389432047L;

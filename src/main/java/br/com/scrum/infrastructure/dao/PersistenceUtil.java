@@ -3,6 +3,7 @@ package br.com.scrum.infrastructure.dao;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -10,33 +11,33 @@ import javax.persistence.criteria.CriteriaQuery;
 
 public abstract class PersistenceUtil implements Serializable {
 	
-	public abstract EntityManager getEntityManager();
+	@Inject public EntityManager getEntityManager;
 	
 	protected <T> void create(final T entity) {
-		getEntityManager().persist(entity);
+		getEntityManager.persist(entity);
 	}
 	
 	protected <T> void delete(final T entity) throws NoResultException {
-		getEntityManager().remove(entity);
+		getEntityManager.remove(entity);
 	}
 	
 	protected <T> void save(final T entity) {
-		if (getEntityManager() == null) {
+		if (getEntityManager == null) {
 			throw new IllegalStateException("Must initialize EntityManager before using Services!");
 		}
-		getEntityManager().merge(entity);
+		getEntityManager.merge(entity);
 	}
 	
 	protected <T> List<T> findAll(final Class<T> type) {
-		CriteriaQuery<T> query = getEntityManager().getCriteriaBuilder().createQuery(type);
+		CriteriaQuery<T> query = getEntityManager.getCriteriaBuilder().createQuery(type);
 		query.from(type);
-		return getEntityManager().createQuery(query).getResultList();
+		return getEntityManager.createQuery(query).getResultList();
 	}
 	
 	@SuppressWarnings("unchecked")
 	protected <T> T findById(final Class<T> type, final Integer id) throws NoResultException {
 		Class<?> clazz = getObjectClass(type);
-		T result = (T) getEntityManager().find(clazz, id);
+		T result = (T) getEntityManager.find(clazz, id);
 		if (result == null) {
 			throw new NoResultException("No object of type: " + type + " with ID: " + id);
 		}
@@ -45,12 +46,12 @@ public abstract class PersistenceUtil implements Serializable {
 	
 	@SuppressWarnings("unchecked")
 	protected <T> T findUniqueByNamedQuery(final String namedQueryName) throws NoResultException {
-		return (T) getEntityManager().createNamedQuery(namedQueryName).getSingleResult();
+		return (T) getEntityManager.createNamedQuery(namedQueryName).getSingleResult();
 	}
 	
 	@SuppressWarnings("unchecked")
 	protected <T> T findUniqueByNamedQuery(final String namedQueryName, final Object...params) throws NoResultException {
-		Query query = getEntityManager().createNamedQuery(namedQueryName);
+		Query query = getEntityManager.createNamedQuery(namedQueryName);
 		int i = 1;
 		for (Object p : params) {
 			query.setParameter(i++, p);
@@ -60,15 +61,15 @@ public abstract class PersistenceUtil implements Serializable {
 	
 	@SuppressWarnings("unchecked")
 	protected <T> List<T> findByNamedQuery(final String namedQueryName) {
-		return getEntityManager().createNamedQuery(namedQueryName).getResultList();
+		return getEntityManager.createNamedQuery(namedQueryName).getResultList();
 	}
 	
 	@SuppressWarnings("unchecked")
 	protected <T> List<T> findByNamedQuery(final String namedQueryName, final Object... params) {
-		Query query = getEntityManager().createNamedQuery(namedQueryName);
+		Query query = getEntityManager.createNamedQuery(namedQueryName);
 		int i = 1;
 		for (Object o : params) {
-			query.setParameter(i++, o);
+			query.setParameter(i++, "%" + o + "%");
 		}
 		return query.getResultList();
 	}

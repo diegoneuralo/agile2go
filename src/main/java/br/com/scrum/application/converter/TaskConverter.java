@@ -1,5 +1,6 @@
 package br.com.scrum.application.converter;
 
+import javax.enterprise.context.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -10,13 +11,14 @@ import br.com.scrum.domain.entity.Task;
 import br.com.scrum.domain.service.TaskService;
 
 @Named
+@RequestScoped
 public class TaskConverter implements Converter {
 	
 	@Inject private TaskService service;
 	
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
-		if ( value == null || value.trim().equals("") ) {
+		if ( value == null || value.trim().isEmpty() ) {
 			return null;
 		}
 		return service.withId(Integer.parseInt(value));					

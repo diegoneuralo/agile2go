@@ -4,11 +4,13 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.enterprise.event.Event;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.hibernate.exception.ConstraintViolationException;
+import org.jboss.solder.exception.control.ExceptionToCatch;
 import org.jboss.solder.logging.Logger;
 
 import br.com.scrum.domain.entity.Project;
@@ -20,6 +22,7 @@ public class ProjectMB extends BaseBean implements Serializable {
 	
 	@Inject private Logger logger;
 	@Inject private ProjectService projectService;
+	@Inject private Event<ExceptionToCatch> exception;
 	
 	private Project project = new Project();
 	private List<Project> projects;
