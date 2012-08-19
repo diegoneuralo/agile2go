@@ -15,12 +15,13 @@ import br.com.scrum.application.util.Assert;
 import br.com.scrum.domain.entity.Project;
 import br.com.scrum.infrastructure.dao.PersistenceUtil;
 
-public class ProjectService extends PersistenceUtil implements Serializable {			
-	
+public class ProjectService extends PersistenceUtil implements Serializable
+{			
 	@Inject private Event<ExceptionToCatch> exception;
 	@Inject private Logger logger;
 	
-	public void create(Project project) {
+	public void create(Project project) 
+	{
 		try {
 			super.create(project);			
 		} catch ( ConstraintViolationException cve ) {
@@ -28,7 +29,8 @@ public class ProjectService extends PersistenceUtil implements Serializable {
 		}
 	}
 	
-	public void save(Project project) {
+	public void save(Project project) 
+	{
 		try {
 			super.save(project);				
 		} catch ( ConstraintViolationException cve ) {
@@ -36,21 +38,24 @@ public class ProjectService extends PersistenceUtil implements Serializable {
 		}
 	}
 	
-	public void delete(Project project) {
+	public void delete(Project project) 
+	{
 		super.delete(super.getEntityManager.getReference(Project.class, project.getId()));				
 	}
 	
-	public Project withId(Integer id) {
+	public Project withId(Integer id) 
+	{
 		return super.findById(Project.class, id);
 	}
 	
-	public List<Project> findAll() {
+	public List<Project> findAll() 
+	{
 		return super.findAll(Project.class);
 	}		
 	
-	public List<Project> searchBy(String name) {
+	public List<Project> searchBy(String name) 
+	{
 		Assert.notNull(name, "query was null");
-		
 		try {
 			return super.findByNamedQuery("Project.getByName", name.toUpperCase());
 		} catch (NoResultException nre) {

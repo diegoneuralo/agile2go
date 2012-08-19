@@ -35,7 +35,7 @@
 
 		<dependency><!-- glass-x -->
 			<groupId>org.primefaces.themes</groupId>
-			<artifactId>glass-x</artifactId>
+			<artifactId>redmond</artifactId>
 			<version>1.0.2</version>
 		</dependency>
 
@@ -212,7 +212,7 @@
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.1</version>
+				<version>2.3.2</version>
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>

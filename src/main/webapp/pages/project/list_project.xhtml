@@ -12,9 +12,9 @@
 	<ui:define name="body">
 		
 		<h:form id="form">		
-			<h:panelGroup id="tableGroup" styleClass="menu">								
+			<h:panelGroup id="tableGroup">								
 			<p:dataTable id="dataTable" var="project" editable="true" paginatorPosition="bottom" 
-				value="#{projectMB.projects}" paginator="true" rows="5"
+				value="#{projectMB.projects}" paginator="true" rows="5" style="width:1070px; margin-top:70px; margin-left:100px;" 
 				rowsPerPageTemplate="5,10,15"  cellpadding="3" cellspacing="3">								
 				<f:facet name="header">
 					<h:outputText value="Projects" styleClass="inputDataTable" />

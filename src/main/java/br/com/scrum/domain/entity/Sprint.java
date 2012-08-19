@@ -26,10 +26,11 @@ import br.com.scrum.domain.entity.enums.Const;
 @Entity
 @Table(name = "SPRINT", schema = Const.SCHEMA)
 @NamedQueries({
-		@NamedQuery(name="Sprint.getLastId", query="SELECT s FROM Sprint s where s.id = (select MAX(s.id) FROM Sprint s)"),
-		@NamedQuery(name="Sprint.getByName", query="FROM Sprint s WHERE upper(s.name) like ?")
+		@NamedQuery(name="Sprint.getLastId", query="from Sprint s where s.id = (select max(s.id) from Sprint s)"),
+		@NamedQuery(name="Sprint.getByName", query="from Sprint s where upper(s.name) like ?")
 		})
-public class Sprint implements Serializable {	
+public class Sprint implements Serializable 
+{	
 
 	public static final String ID = "id";
 	public static final String NAME = "name";
@@ -59,83 +60,101 @@ public class Sprint implements Serializable {
 	@Column(name = "GOAL", nullable = false, length = 60)
 	private String goal;
 
-	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+	@ManyToOne
 	@JoinColumn(name = "PROJECT_ID", referencedColumnName = "PROJECT_ID")	
 	private Project project;	
 	
 	@OneToMany(mappedBy = "sprint", cascade = CascadeType.ALL)
 	private List<Task> tasks;
 
-	public Sprint() {
+	public Sprint() 
+	{
 		project = new Project();
 	}		
 
-	public Integer getId() {
+	public Integer getId() 
+	{
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Integer id) 
+	{
 		this.id = id;
 	}
 
-	public String getName() {
+	public String getName() 
+	{
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(String name) 
+	{
 		this.name = name;
 	}
 
-	public Date getStartDate() {
+	public Date getStartDate() 
+	{
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(Date startDate) 
+	{
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public Date getEndDate() 
+	{
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(Date endDate) 
+	{
 		this.endDate = endDate;
 	}			
 	
-	public String getDailyScrum() {
+	public String getDailyScrum() 
+	{
 		return dailyScrum;
 	}
 
-	public void setDailyScrum(String dailyScrum) {
+	public void setDailyScrum(String dailyScrum) 
+	{
 		this.dailyScrum = dailyScrum;
 	}
 
-	public String getGoal() {
+	public String getGoal() 
+	{
 		return goal;
 	}
 
-	public void setGoal(String goal) {
+	public void setGoal(String goal) 
+	{
 		this.goal = goal;
 	}
 
-	public Project getProject() {
+	public Project getProject() 
+	{
 		return project;
 	}
 
-	public void setProject(Project project) {
+	public void setProject(Project project) 
+	{
 		this.project = project;
 	}				
 		
-	public List<Task> getTasks() {
+	public List<Task> getTasks() 
+	{
 		return tasks;
 	}
 
-	public void setTasks(List<Task> tasks) {
+	public void setTasks(List<Task> tasks) 
+	{
 		this.tasks = tasks;
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode() 
+	{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
@@ -143,7 +162,8 @@ public class Sprint implements Serializable {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj) 
+	{
 		if (this == obj)
 			return true;
 		if (obj == null)

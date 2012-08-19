@@ -19,8 +19,8 @@ import br.com.scrum.domain.service.TaskService;
 
 @Named
 @ViewScoped
-public class TaskMB extends BaseBean implements Serializable {
-
+public class TaskMB extends BaseBean implements Serializable 
+{
 	@Inject private TaskService taskService;
 	@Inject private SprintService sprintService;
 
@@ -29,7 +29,8 @@ public class TaskMB extends BaseBean implements Serializable {
 	private List<Sprint> sprints;
 	private List<SelectItem> taskItems;
 
-	public void createOrSave() {
+	public void createOrSave() 
+	{
 		try {
 			if ( task.getId() == null ) {
 				task.setStatus(Status.INPROGRESS);
@@ -47,7 +48,8 @@ public class TaskMB extends BaseBean implements Serializable {
 		}			
 	}
 
-	public void delete() {		
+	public void delete() 
+	{		
 		try {
 			taskService.delete(task);
 			tasks = taskService.findAll();
@@ -57,9 +59,11 @@ public class TaskMB extends BaseBean implements Serializable {
 		}		
 	}
 
-	public List<Sprint> completeSprint(String query) {
+	public List<Sprint> completeSprint(String query) 
+	{
 		try {
-			if ( sprints == null ) {
+			if ( sprints == null ) 
+			{
 				sprints = new ArrayList<Sprint>();
 			}
 			return sprintService.searchBy(query);			
@@ -70,29 +74,35 @@ public class TaskMB extends BaseBean implements Serializable {
 	}
 	
 	public List<SelectItem> getTaskItems() {
-		if (taskItems == null) {
+		if (taskItems == null) 
+		{
 			taskItems = new ArrayList<SelectItem>();
 			taskItems.add(new SelectItem(null, ""));
-			for (Status s : Status.values()) {
+			for (Status s : Status.values()) 
+			{
 				taskItems.add(new SelectItem(s, s.getDescription()));
 			}
 		}
 		return taskItems;
 	}
 	
-	public Task getTask() {
+	public Task getTask() 
+	{
 		return task;
 	}
 
-	public void setTask(Task task) {
+	public void setTask(Task task) 
+	{
 		this.task = task;
 	}
 
-	public List<Task> getTasks() {
+	public List<Task> getTasks() 
+	{
 		return tasks == null ? tasks = taskService.findAll() : tasks;
 	}
 
-	public void setTasks(List<Task> tasks) {
+	public void setTasks(List<Task> tasks) 
+	{
 		this.tasks = tasks;
 	}
 

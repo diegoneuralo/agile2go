@@ -2,7 +2,6 @@ package br.com.scrum.domain.entity;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,10 +23,10 @@ import br.com.scrum.domain.entity.enums.Status;
 @Entity
 @Table(name = "TASK", schema = Const.SCHEMA)
 @NamedQueries({
-		@NamedQuery(name="Task.getLastId", query = "FROM Task t WHERE t.id = (select MAX( t.id ) FROM Task t)")
+		@NamedQuery(name="Task.getLastId", query = "from Task t where t.id = (select MAX( t.id ) from Task t)")
 		})
-public class Task implements Serializable {	
-	
+public class Task implements Serializable 
+{	
 	public static final String STATUS = "status";
 
 	@Id
@@ -52,68 +51,82 @@ public class Task implements Serializable {
 	@Column(name = "STATUS", length = 15)
 	private String status_;
 		
-	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+	@ManyToOne
 	@JoinColumn(name = "SPRINT_ID", referencedColumnName = "SPRINT_ID")
 	private Sprint sprint;		
 
-	public Task() {
+	public Task() 
+	{
 		sprint = new Sprint();		
 	}
 	
-	public Integer getId() {
+	public Integer getId() 
+	{
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Integer id) 
+	{
 		this.id = id;
 	}		
 
-	public String getStorie() {
+	public String getStorie() 
+	{
 		return storie;
 	}
 
-	public void setStorie(String storie) {
+	public void setStorie(String storie) 
+	{
 		this.storie = storie;
 	}
 
-	public Integer getPriority() {
+	public Integer getPriority() 
+	{
 		return priority;
 	}
 
-	public void setPriority(Integer priority) {
+	public void setPriority(Integer priority) 
+	{
 		this.priority = priority;
 	}		
 
-	public String getHours() {
+	public String getHours() 
+	{
 		return hours;
 	}
 
-	public void setHours(String hours) {
+	public void setHours(String hours) 
+	{
 		this.hours = hours;
 	}		
 
-	public Status getStatus() {
+	public Status getStatus() 
+	{
 		for (Status s : Status.values()) 
 			if (s.getCode().equals(status_))
 				return status = s;
 		return status;
 	}
 
-	public void setStatus(Status status) {
+	public void setStatus(Status status) 
+	{
 		this.status_ = status.getCode();
 		this.status = status;
 	}
 	
-	public Sprint getSprint() {
+	public Sprint getSprint() 
+	{
 		return sprint;
 	}
 
-	public void setSprint(Sprint sprint) {
+	public void setSprint(Sprint sprint) 
+	{
 		this.sprint = sprint;
 	}
 	
 	@Override
-	public int hashCode() {
+	public int hashCode() 
+	{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
@@ -121,7 +134,8 @@ public class Task implements Serializable {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj) 
+	{
 		if (this == obj)
 			return true;
 		if (obj == null)

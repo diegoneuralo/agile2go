@@ -28,8 +28,8 @@ import br.com.scrum.domain.entity.enums.Const;
 @NamedQueries({
 	@NamedQuery(name = "Project.getByName", query = "from Project p where upper(p.name) like ? ")	
 	})
-public class Project implements Serializable {	
-
+public class Project implements Serializable 
+{	
 	@Id	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "PROJECT_ID")
@@ -53,62 +53,77 @@ public class Project implements Serializable {
 	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
 	private List<Sprint> sprints;
 		
-	public Project() { }
+	public Project() 
+	{ }
 
-	public Project(String name) {
+	public Project(String name) 
+	{
 		this.name = name;
 	}
 
-	public Integer getId() {
+	public Integer getId() 
+	{
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Integer id) 
+	{
 		this.id = id;
 	}
 
-	public String getName() {
+	public String getName() 
+	{
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(String name) 
+	{
 		this.name = name;
 	}
 
-	public String getDescription() {
+	public String getDescription() 
+	{
 		return description;
 	}
 
-	public void setDescription(String description) {
+	public void setDescription(String description) 
+	{
 		this.description = description;
 	}
 
-	public Date getLastDate() {
+	public Date getLastDate() 
+	{
 		return lastDate;
 	}
 
-	public void setLastDate(Date lastDate) {
+	public void setLastDate(Date lastDate) 
+	{
 		this.lastDate = lastDate;
 	}
 
-	public String getCompany() {
+	public String getCompany() 
+	{
 		return company;
 	}
 
-	public void setCompany(String company) {
+	public void setCompany(String company) 
+	{
 		this.company = company;
 	}				
 	
-	public List<Sprint> getSprints() {
+	public List<Sprint> getSprints() 
+	{
 		return sprints;
 	}
 
-	public void setSprints(List<Sprint> sprints) {
+	public void setSprints(List<Sprint> sprints) 
+	{
 		this.sprints = sprints;
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode() 
+	{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
@@ -116,7 +131,8 @@ public class Project implements Serializable {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj) 
+	{
 		if (this == obj)
 			return true;
 		if (obj == null)

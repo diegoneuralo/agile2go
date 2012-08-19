@@ -7,33 +7,55 @@
 <h:head>
 	<title><ui:insert name="titulo">agile2go</ui:insert></title>	
 	<h:outputStylesheet name="content.css" library="css" />	
-	<h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />	
+	<h:outputStylesheet name="menu.css" library="css" />	
 </h:head>
 <h:body>
-	<h:form id="formMenu">
-		<div style="box-shadow: 2px 8px 48px #000;">
-		<p:menubar style="border:0px; margin-top:-9px;" styleClass="ui-widget ui-widget-header" >
-			<p:menuitem value="Home" url="/main/main.jsf" style="margin-left: 50px; font-family: Ubuntu;" />
-			<p:submenu label="Projects" style="margin-left: 50px;font-family: Ubuntu;">
-				<p:menuitem value="create" url="/pages/project/add_project.jsf" icon="ui-icon-contact"/>
-				<p:menuitem value="search" url="/pages/project/list_project.jsf" icon="ui-icon-search"/>
-			</p:submenu>
-			<p:submenu label="Sprints" style="margin-left: 50px;font-family: Ubuntu;">
-				<p:menuitem value="create" url="/pages/sprint/add_sprint.jsf" icon="ui-icon-contact"/>
-				<p:menuitem value="search" url="/pages/sprint/list_sprint.jsf" icon="ui-icon-search"/>
-			</p:submenu>			
-			<p:submenu label="Tasks" style="margin-left: 50px; font-family: Ubuntu;">
-				<p:menuitem value="create" url="/pages/task/add_task.jsf" icon="ui-icon-contact"/>
-				<p:menuitem value="search" url="/pages/task/list_task.jsf" icon="ui-icon-search"/>
-			</p:submenu>			
-			 <p:menuitem value="Logout" url="http://localhost:8080/agile2go/login.jsf" style="margin-left: 50px; font-family: Ubuntu;" icon="ui-icon-close" /> 						
-		</p:menubar>
+	<div id="menu">
+			<ul class="menu">
+			<li><a href="#{facesContext.externalContext.request.contextPath}/main/main.jsf" class="parent"><span>Home</span></a>
+			</li>
+				<li><a href="#" class="parent"><span>Projects</span></a>
+					<div>
+						<ul>
+							<li><a
+								href="#{facesContext.externalContext.request.contextPath}/pages/project/add_project.jsf"
+								class="parent"><span>Create</span></a></li>
+							<li><a
+								href="#{facesContext.externalContext.request.contextPath}/pages/project/list_project.jsf"
+								class="parent"><span>List Projects</span></a></li>
+						</ul>
+					</div></li>
+				<li><a href="#" class="parent"><span>Sprints</span></a>
+					<div>
+						<ul>
+							<li><a
+								href="#{facesContext.externalContext.request.contextPath}/pages/sprint/add_sprint.jsf"
+								class="parent"><span>Create</span></a></li>
+							<li><a 
+								href="#{facesContext.externalContext.request.contextPath}/pages/sprint/list_sprint.jsf"
+								class="parent"><span>List Sprints</span></a></li>
+						</ul>
+					</div></li>				
+				<li><a href="#" class="parent"><span>Tasks</span></a>
+					<div>
+						<ul>
+							<li><a
+								href="#{facesContext.externalContext.request.contextPath}/pages/task/add_task.jsf"
+								class="parent"><span>Create</span></a></li>
+							<li><a 
+								href="#{facesContext.externalContext.request.contextPath}/pages/task/list_task.jsf"
+								class="parent"><span>List Taks</span></a></li>
+						</ul>
+					</div></li>
+				<li><a href="http://localhost:8080/agile2go/login.jsf"><span>Log out</span></a></li>
+			</ul>
 		</div>
-	</h:form>
 		<div id="body">
-			<p:growl id="growl" showDetail="true" showSummary="false" />
+			<div>
+				<p:growl id="growl" showDetail="true" showSummary="false" />
+			</div>
 			<ui:insert name="body"></ui:insert>
 		</div>
-	
+
 </h:body>
 </html>

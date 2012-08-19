@@ -16,7 +16,6 @@ import org.jboss.seam.security.Authenticator;
 import org.jboss.seam.security.BaseAuthenticator;
 import org.jboss.seam.security.CredentialsImpl;
 import org.jboss.seam.security.Identity;
-import org.jboss.seam.security.management.IdmAuthenticator;
 import org.jboss.solder.logging.Logger;
 import org.picketlink.idm.impl.api.PasswordCredential;
 import org.picketlink.idm.impl.api.model.SimpleUser;
@@ -26,8 +25,8 @@ import br.com.scrum.domain.service.UserService;
 
 @Named
 @SessionScoped
-public class AuthenticationMB extends BaseAuthenticator implements Authenticator, Serializable {	
-
+public class AuthenticationMB extends BaseAuthenticator implements Authenticator, Serializable 
+{	
 	@Inject private UserService userService;
 	@Inject private CredentialsImpl credentials;
 	@Inject private Identity identity;
@@ -35,11 +34,13 @@ public class AuthenticationMB extends BaseAuthenticator implements Authenticator
 	@Inject private Event<User> loginEventSrc;
 
 	@Override
-	public void authenticate() {
+	public void authenticate()
+	{
 		logger.info("Logging in " + credentials.getUsername());
 		User user = userService.getUserByCredential(credentials.getUsername(), credentials.getPassword());
 		if (user != null && credentials.getCredential() instanceof PasswordCredential && 
-			user.getPassword().equals(((PasswordCredential) credentials.getCredential()).getValue())) {
+			user.getPassword().equals(((PasswordCredential) credentials.getCredential()).getValue())) 
+		{
 			loginEventSrc.fire(user);
 			super.setStatus(AuthenticationStatus.SUCCESS);
 			identity.addRole(credentials.getUsername(), "USERS", "GROUP");
@@ -49,6 +50,7 @@ public class AuthenticationMB extends BaseAuthenticator implements Authenticator
 		}
 		
 		setStatus(AuthenticationStatus.FAILURE);
+		addLoginErrorMessage("Use not found");
 		redirectToLoginIfNotLoggedIn();
 	}
 
@@ -60,23 +62,28 @@ public class AuthenticationMB extends BaseAuthenticator implements Authenticator
 //	}
 
 	@Override
-	public AuthenticationStatus getStatus() {
+	public AuthenticationStatus getStatus() 
+	{
 		return super.getStatus();
 	}
 
-	public boolean isLoggedIn() {
+	public boolean isLoggedIn() 
+	{
 		return getStatus().equals(AuthenticationStatus.SUCCESS);
 	}
 
-	public void redirectToLoginIfNotLoggedIn() {
-		if (!isLoggedIn()) {
+	public void redirectToLoginIfNotLoggedIn() 
+	{
+		if (!isLoggedIn()) 
+		{
 			credentials.setUsername("");
 			redirectToViewId("/login.jsf");
 			addLoginErrorMessage("User not found!");
 		}
 	}
 
-	private void redirectToViewId(String viewId) {
+	private void redirectToViewId(String viewId) 
+	{
 		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
 		try {
 			externalContext.redirect(externalContext.getRequestContextPath() + viewId);
@@ -85,11 +92,13 @@ public class AuthenticationMB extends BaseAuthenticator implements Authenticator
 		}
 	}
 	
-	public void addLoginErrorMessage(String infoMessage) {
+	public void addLoginErrorMessage(String infoMessage) 
+	{
 		addMessage(null, infoMessage, FacesMessage.SEVERITY_ERROR);
 	}		
 	
-	private void addMessage(String componentId, String errorMessage, Severity severity){
+	private void addMessage(String componentId, String errorMessage, Severity severity)
+	{
 		FacesMessage message =  new FacesMessage(errorMessage);
 		message.setSeverity(severity);
 		FacesContext.getCurrentInstance().addMessage(componentId, message);		

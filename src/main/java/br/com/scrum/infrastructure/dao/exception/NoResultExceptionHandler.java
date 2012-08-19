@@ -11,7 +11,7 @@ import org.jboss.solder.logging.Logger;
 public class NoResultExceptionHandler {
 
 	public void noResultExceptionMessage(@Handles CaughtException<NoResultException> event, Logger log) {
-		log.error("No entity found: " + event.getException().getCause().getMessage());
-		event.handled();
+		log.error("No entity found: " + event.getException());
+		event.getException();
 	}
 }

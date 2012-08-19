@@ -8,6 +8,7 @@ import javax.enterprise.event.Event;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.RollbackException;
 
 import org.hibernate.exception.ConstraintViolationException;
 import org.jboss.solder.exception.control.ExceptionToCatch;
@@ -18,8 +19,8 @@ import br.com.scrum.domain.service.ProjectService;
 
 @Named
 @ViewScoped
-public class ProjectMB extends BaseBean implements Serializable {		
-	
+public class ProjectMB extends BaseBean implements Serializable 
+{		
 	@Inject private Logger logger;
 	@Inject private ProjectService projectService;
 	@Inject private Event<ExceptionToCatch> exception;
@@ -27,8 +28,10 @@ public class ProjectMB extends BaseBean implements Serializable {
 	private Project project = new Project();
 	private List<Project> projects;
 	
-	public void createOrSave() {
-		try {			
+	public void createOrSave() 
+	{
+		try 
+		{			
 			if ( project.getId() == null ) {
 				projectService.create(project);
 				project = new Project();
@@ -37,7 +40,7 @@ public class ProjectMB extends BaseBean implements Serializable {
 				projectService.save(project);
 				addInfoMessage("project successfully updated");
 			}
-		} catch ( ConstraintViolationException cve ) {
+		} catch ( RollbackException cve ) {
 			logger.error(cve);
 			addErrorMessage(null, "project already exist");	
 		} catch ( Exception e ) {
@@ -46,7 +49,8 @@ public class ProjectMB extends BaseBean implements Serializable {
 		}
 	}
 
-	public void delete() {		
+	public void delete() 
+	{		
 		try {
 			logger.infof(project.getName() + " is being deleted ", new Date());
 			projectService.delete(project);	
@@ -58,19 +62,23 @@ public class ProjectMB extends BaseBean implements Serializable {
 		}		
 	}
 
-	public Project getProject() {
+	public Project getProject() 
+	{
 		return project;
 	}
 
-	public void setProject(Project project) {
+	public void setProject(Project project) 
+	{
 		this.project = project;
 	}
 
-	public List<Project> getProjects() {		              
+	public List<Project> getProjects() 
+	{		              
 		return projects == null ?  projects = projectService.findAll() : projects;
 	}
 
-	public void setProjects(List<Project> projects) {
+	public void setProjects(List<Project> projects) 
+	{
 		this.projects = projects;
 	}
 
