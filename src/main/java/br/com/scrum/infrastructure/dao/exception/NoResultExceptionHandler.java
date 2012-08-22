@@ -12,6 +12,6 @@ public class NoResultExceptionHandler {
 
 	public void noResultExceptionMessage(@Handles CaughtException<NoResultException> event, Logger log) {
 		log.error("No entity found: " + event.getException());
-		event.getException();
+		event.handled();
 	}
 }
