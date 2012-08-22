@@ -1,4 +1,5 @@
-//package br.com.scrum.domain.repository.sprint;
+package br.com.scrum.test.sprint;
+//package br.com.scrum.test.sprint;
 //
 //import static org.junit.Assert.assertNotNull;
 //import static org.junit.Assert.assertTrue;
@@ -19,8 +20,8 @@
 //import br.com.scrum.domain.entity.Project;
 //import br.com.scrum.domain.entity.Sprint;
 //import br.com.scrum.domain.entity.enums.Const;
-//import br.com.scrum.domain.repository.ProjectRepository;
-//import br.com.scrum.domain.repository.SprintRepository;
+//import br.com.scrum.test.ProjectRepository;
+//import br.com.scrum.test.SprintRepository;
 //import br.com.scrum.domain.service.ProjectService;
 //import br.com.scrum.domain.service.SprintService;
 //import br.com.scrum.infrastructure.dao.exception.NoResultExceptionHandler;

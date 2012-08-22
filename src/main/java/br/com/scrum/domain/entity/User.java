@@ -23,10 +23,10 @@ import br.com.scrum.domain.entity.enums.UserRole;
 @Table(name = "USER", schema = Const.SCHEMA, uniqueConstraints = {
 		@UniqueConstraint(columnNames = "NAME")})
 @NamedQueries({
-	@NamedQuery(name = "User.getByLogin", query = "FROM User u WHERE u.login = ? and u.password = ?")
+	@NamedQuery(name = "User.getByLogin", query = "from User u where u.login = ? and u.password = ? ")
 })
-public class User implements Serializable {	
-
+public class User implements Serializable
+{	
 	@Id	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "USER_ID")
@@ -52,58 +52,80 @@ public class User implements Serializable {
 //	@CollectionTable(name = "user_profiles_keys")
 //	private Set<String> identityKeys = new HashSet<String>();
 
-	public User() { }
+	public User() 
+	{ }
 
-	public int getId() {
+	public User(String nome, String login, String password, UserRole role)
+	{
+		this.name = nome;
+		this.login = login;
+		this.password = password;
+		this.role = role;
+	}
+
+	public int getId() 
+	{
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(int id) 
+	{
 		this.id = id;
 	}
 
-	public String getName() {
+	public String getName() 
+	{
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(String name) 
+	{
 		this.name = name;
 	}
 
-	public String getLogin() {
+	public String getLogin() 
+	{
 		return login;
 	}
 
-	public void setLogin(String login) {
+	public void setLogin(String login) 
+	{
 		this.login = login;
 	}
 
-	public String getPassword() {
+	public String getPassword() 
+	{
 		return password;
 	}
 
-	public void setPassword(String password) {
+	public void setPassword(String password) 
+	{
 		this.password = password;
 	}
 
-	public UserRole getRole() {
+	public UserRole getRole() 
+	{
 		return role;
 	}
 
-	public void setRole(UserRole role) {
+	public void setRole(UserRole role) 
+	{
 		this.role = role;
 	}
 	
-//	public Set<String> getIdentityKeys() {
+//	public Set<String> getIdentityKeys() 
+//	{
 //		return identityKeys;
 //	}
 //
-//	public void setIdentityKeys(Set<String> identityKeys) {
+//	public void setIdentityKeys(Set<String> identityKeys) 
+//	{
 //		this.identityKeys = identityKeys;
 //	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode() 
+	{
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + id;
@@ -111,7 +133,8 @@ public class User implements Serializable {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj) 
+	{
 		if (this == obj)
 			return true;
 		if (obj == null)

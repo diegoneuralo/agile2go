@@ -31,7 +31,6 @@ import br.com.scrum.domain.entity.enums.Const;
 		})
 public class Sprint implements Serializable 
 {	
-
 	public static final String ID = "id";
 	public static final String NAME = "name";
 

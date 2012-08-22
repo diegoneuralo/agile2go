@@ -11,7 +11,14 @@
 <ui:composition template="/templates/_template.xhtml">
 	<ui:define name="body">
 	
-		<h:graphicImage value="/resources/img/agile2go.jpg" style="margin-left:186px; margin-top:44px; width:850px;" />
+		<h:graphicImage value="/resources/img/agile2go.jpg" style="margin-left:186px; margin-top:44px; width:850px;">
+		<div style="font-family: 'Trebuchet MS', Tahoma, Arial; font-size: 16px; line-height: 24px; color: blue;
+			text-decoration: none; font-weight: normal; margin-top: 18px; margin-left: 913px;">
+			<h:outputText value="current user:  #{authenticationMB.user.key}" title="#{authenticationMB.user.key}"/>
+			<h:outputLink value="#{projectMB.projects}" />
+		</div>
+		</h:graphicImage>
+		
 	
 	</ui:define>
 </ui:composition>

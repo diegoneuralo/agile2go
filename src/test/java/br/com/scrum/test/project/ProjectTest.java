@@ -1,4 +1,5 @@
-//package br.com.scrum.domain.repository.project;
+package br.com.scrum.test.project;
+//package br.com.scrum.test.project;
 //
 //import static org.junit.Assert.assertEquals;
 //import static org.junit.Assert.assertNotNull;
@@ -20,10 +21,10 @@
 //import br.com.scrum.domain.entity.Task;
 //import br.com.scrum.domain.entity.User;
 //import br.com.scrum.domain.entity.enums.Status;
-//import br.com.scrum.domain.repository.ProjectRepository;
-//import br.com.scrum.domain.repository.SprintRepository;
-//import br.com.scrum.domain.repository.TaskRepository;
-//import br.com.scrum.domain.repository.UserRepository;
+//import br.com.scrum.test.ProjectRepository;
+//import br.com.scrum.test.SprintRepository;
+//import br.com.scrum.test.TaskRepository;
+//import br.com.scrum.test.UserRepository;
 //import br.com.scrum.domain.service.ProjectService;
 //import br.com.scrum.domain.service.SprintService;
 //import br.com.scrum.domain.service.TaskService;

@@ -26,146 +26,218 @@
 			<artifactId>postgresql</artifactId>
 			<version>9.1-901-1.jdbc4</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
 			<version>3.2</version>
 		</dependency>
-
 		<dependency><!-- glass-x -->
 			<groupId>org.primefaces.themes</groupId>
 			<artifactId>redmond</artifactId>
 			<version>1.0.2</version>
 		</dependency>
+		
+		 <!-- cdi  -->       
+        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>javax.enterprise</groupId>
-			<artifactId>cdi-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
+        <!-- jsf  -->
+        <dependency>
+            <groupId>org.jboss.spec.javax.faces</groupId>
+            <artifactId>jboss-jsf-api_2.0_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>org.jboss.spec.javax.annotation</groupId>
-			<artifactId>jboss-annotations-api_1.1_spec</artifactId>
-			<scope>provided</scope>
-		</dependency>
+        <!-- servlet -->
+        <dependency>
+            <groupId>org.jboss.spec.javax.servlet</groupId>
+            <artifactId>jboss-servlet-api_3.0_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>org.jboss.spec.javax.ws.rs</groupId>
-			<artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
-			<scope>provided</scope>
-		</dependency>
+        <!-- solder -->     
+        <dependency>
+            <groupId>org.jboss.solder</groupId>
+            <artifactId>solder-impl</artifactId>
+            <version>3.1.1.Final</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.hibernate.javax.persistence</groupId>
-			<artifactId>hibernate-jpa-2.0-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
+        <!-- seam-international -->       
+        <dependency>
+            <groupId>org.jboss.seam.international</groupId>
+            <artifactId>seam-international</artifactId>
+            <version>3.1.0.Final</version>
+            <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss.solder</groupId>
+                    <artifactId>solder-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>solder-impl</artifactId>
+                    <groupId>org.jboss.solder</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
-		<dependency>
-			<groupId>org.jboss.spec.javax.transaction</groupId>
-			<artifactId>jboss-transaction-api_1.1_spec</artifactId>
-			<scope>provided</scope>
-		</dependency>
+        <!-- seam international precisa do joda-time -->        
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+            <version>2.1</version>
+            <scope>compile</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>org.jboss.spec.javax.ejb</groupId>
-			<artifactId>jboss-ejb-api_3.1_spec</artifactId>
-			<scope>provided</scope>
-		</dependency>
+        <!-- seam-transaction -->     
+        <dependency>
+            <groupId>org.jboss.seam.transaction</groupId>
+            <artifactId>seam-transaction</artifactId>
+            <version>3.1.0.Final</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss.solder</groupId>
+                    <artifactId>solder-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.solder</groupId>
+                    <artifactId>solder-impl</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>jboss-servlet-api_3.0_spec</artifactId>
+                    <groupId>org.jboss.spec.javax.servlet</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-jpamodelgen</artifactId>
-			<scope>provided</scope>
-		</dependency>
+        <!-- seam-persistence -->     
+        <dependency>
+            <groupId>org.jboss.seam.persistence</groupId>
+            <artifactId>seam-persistence</artifactId>
+            <version>3.1.0.Final</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss.solder</groupId>
+                    <artifactId>solder-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.solder</groupId>
+                    <artifactId>solder-impl</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.seam.transaction</groupId>
+                    <artifactId>seam-transaction</artifactId>
+                </exclusion>                
+                <exclusion>
+                    <groupId>org.jboss.seam.transaction</groupId>
+                    <artifactId>seam-transaction-api</artifactId>
+                </exclusion>                
+            </exclusions>
+        </dependency>
 
-		<dependency>
+        <!-- hibernate -->      
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+        </dependency>
+        <dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator-annotation-processor</artifactId>
 			<scope>provided</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-		</dependency>
+        <!-- seam-security -->        
+        <dependency>
+            <groupId>org.jboss.seam.security</groupId>
+            <artifactId>seam-security</artifactId>
+            <version>3.1.0.Final</version>
+            <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss.seam.persistence</groupId>
+                    <artifactId>seam-persistence</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.seam.solder</groupId>
+                    <artifactId>seam-solder</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.solder</groupId>
+                    <artifactId>solder-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.solder</groupId>
+                    <artifactId>solder-impl</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.seam.international</groupId>
+                    <artifactId>seam-international-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.seam.international</groupId>
+                    <artifactId>seam-international</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-		</dependency>
+        <!-- prettyfaces -->
+        <dependency>
+            <groupId>com.ocpsoft</groupId>
+            <artifactId>prettyfaces-jsf2</artifactId>
+            <version>3.3.3</version>
+            <scope>compile</scope>
+        </dependency>
 
+        <!-- drools -->
+        <dependency>
+            <groupId>org.drools</groupId>
+            <artifactId>knowledge-api</artifactId>
+            <version>5.4.0.Final</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- seam faces -->
+        <dependency>
+            <groupId>org.jboss.seam.faces</groupId>
+            <artifactId>seam-faces</artifactId>
+            <version>3.1.0.Final</version>
+            <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss.solder</groupId>
+                    <artifactId>solder-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.solder</groupId>
+                    <artifactId>solder-impl</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.jboss.seam.international</groupId>
+                    <artifactId>seam-international-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        
+        <!-- arquillian -->
+        <dependency>
+			<groupId>org.jboss.arquillian.junit</groupId>
+			<artifactId>arquillian-junit-container</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.arquillian.protocol</groupId>
+			<artifactId>arquillian-protocol-servlet</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>org.jboss.arquillian.junit</groupId>
-			<artifactId>arquillian-junit-container</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.jboss.arquillian.protocol</groupId>
-			<artifactId>arquillian-protocol-servlet</artifactId>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.jboss.spec.javax.faces</groupId>
-			<artifactId>jboss-jsf-api_2.0_spec</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.spec.javax.el</groupId>
-			<artifactId>jboss-el-api_2.2_spec</artifactId>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.jboss.seam.faces</groupId>
-			<artifactId>seam-faces</artifactId>
-			<version>${seam.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.seam.security</groupId>
-			<artifactId>seam-security</artifactId>
-			<version>${seam.version}</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.seam.security</groupId>
-			<artifactId>seam-security-api</artifactId>
-			<version>${seam.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.seam.persistence</groupId>
-			<artifactId>seam-persistence-api</artifactId>
-			<version>${seam.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.seam.persistence</groupId>
-			<artifactId>seam-persistence</artifactId>
-			<version>${seam.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.seam.transaction</groupId>
-			<artifactId>seam-transaction</artifactId>
-			<version>${seam.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-			<version>1.6</version>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.spec.javax.servlet</groupId>
-			<artifactId>jboss-servlet-api_3.0_spec</artifactId>
-		</dependency>
 	</dependencies>
 
 	<dependencyManagement>
@@ -184,9 +256,6 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			<!-- <dependency> <groupId>org.jboss.seam</groupId> <artifactId>seam-bom</artifactId> 
-				<version>${seam.version}</version> <type>pom</type> <scope>import</scope> 
-				</dependency> -->
 		</dependencies>
 	</dependencyManagement>
 
