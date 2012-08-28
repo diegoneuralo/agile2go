@@ -4,11 +4,11 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
 	version="1.0">
 
-	<persistence-unit name="scrum"><!-- transaction-type="JTA" -->
+	<persistence-unit name="scrum" transaction-type="JTA"><!-- transaction-type="JTA" -->
 
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 
-		<!-- <jta-data-source>java:jboss/datasources/postgresDS</jta-data-source> -->
+		<jta-data-source>java:jboss/datasources/postgresDS</jta-data-source>
 
 		<class>br.com.scrum.domain.entity.User</class>
 		<class>br.com.scrum.domain.entity.Project</class>
@@ -18,10 +18,10 @@
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
 			<property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />
-			<property name="hibernate.connection.username" value="postgres" />
-			<property name="hibernate.connection.password" value="root" />
-			<property name="hibernate.connection.url" value="jdbc:postgresql:postgres:5432/postgres" />
-			<property name="hibernate.hbm2ddl.auto" value="create" />
+			<property name="hibernate.connection.username" value="admin" />
+			<property name="hibernate.connection.password" value="6vm8HEErAAYw" />
+			<property name="hibernate.connection.url" value="jdbc:postgresql:postgres:5432/agile2go" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.transaction.flush_before_completion" value="true" />
