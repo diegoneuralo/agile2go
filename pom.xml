@@ -317,7 +317,7 @@
 				<groupId>org.jboss.as.plugins</groupId>
 				<artifactId>jboss-as-maven-plugin</artifactId>
 				<version>7.1.1.Final</version>
-				<executions>
+				<!-- <executions>
 					<execution>
 						<id>deploy-driver</id>
 						<phase>package</phase>
@@ -354,7 +354,7 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
+ -->			</plugin>
 		</plugins>
 	</build>
 
