@@ -6,6 +6,7 @@ import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
 
 import org.jboss.solder.core.ExtensionManaged;
 
@@ -14,6 +15,7 @@ public class Resources {
 	@ExtensionManaged
 	@Produces
 	@ConversationScoped
+	@PersistenceUnit
 	EntityManagerFactory producerField;
    
    @Produces
