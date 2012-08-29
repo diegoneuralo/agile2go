@@ -1,9 +1,0 @@
-target
-deployments
-*.classpath
-*.project
-*.settings
-*bin/*
-*/bin/*
-*target/*
-*/target/*
