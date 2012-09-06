@@ -36,19 +36,18 @@ public class AuthenticationMB extends BaseAuthenticator implements Authenticator
 	@Override
 	public void authenticate()
 	{
-//		logger.info("Logging in " + credentials.getUsername());
-//		User user = userService.getUserByCredential(credentials.getUsername(), credentials.getPassword());
-//		if (user != null && credentials.getCredential() instanceof PasswordCredential && 
-//			user.getPassword().equals(((PasswordCredential) credentials.getCredential()).getValue())) 
-//		{
-//			loginEventSrc.fire(user);
-//			super.setStatus(AuthenticationStatus.SUCCESS);
-//			identity.addRole(credentials.getUsername(), "USERS", "GROUP");
-//			super.setUser(new SimpleUser(user.getLogin()));
+		logger.info("Logging in " + credentials.getUsername());
+		User user = userService.getUserByCredential(credentials.getUsername(), credentials.getPassword());
+		if (user != null && credentials.getCredential() instanceof PasswordCredential && 
+			user.getPassword().equals(((PasswordCredential) credentials.getCredential()).getValue())) 
+		{
+			loginEventSrc.fire(user);
+			super.setStatus(AuthenticationStatus.SUCCESS);
+			identity.addRole(credentials.getUsername(), "USERS", "GROUP");
+			super.setUser(new SimpleUser(user.getLogin()));
 			redirectToViewId("/main/main.jsf");
-//			return;
-//		}
-		
+			return;
+		}
 		setStatus(AuthenticationStatus.FAILURE);
 		addLoginErrorMessage("Use not found");
 		redirectToLoginIfNotLoggedIn();
